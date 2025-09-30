@@ -2,6 +2,7 @@
     padding: 1rem 2rem;
     font-size: 0.95rem;
     color: black;
+    line-height: 15px;
 }
 
 /* Ensure black text on non-homepage pages */
@@ -9,11 +10,11 @@
 .footer a {
     color: black;
     text-decoration: none;
+    font-weight: 200;
     transition: opacity 0.2s ease;
 }
 
 .footer a:hover {
-    opacity: 0.7;
     font-style: italic;
 }
 
@@ -53,7 +54,7 @@
     display: flex;
     justify-content: flex-start;
     /* align-left */
-    gap: 2rem;
+    gap: 6rem;
     width: 50vw;
     /* “end near center” */
     margin-left: 0;
@@ -87,7 +88,7 @@
         /* tighter horizontal space */
         row-gap: 0.5rem;
         /* small vertical separation between rows */
-        width: 80vw;
+        width: 85vw;
         margin: 0 auto;
         /* centered container */
         align-items: start;
@@ -96,7 +97,7 @@
         /* don't stretch tracks */
         grid-auto-rows: min-content;
         /* rows fit content only */
-        font-size: 14px;
+        font-size: 16px;
     }
 
     .contactLine {

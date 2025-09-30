@@ -1,8 +1,108 @@
+/* --- GRID LAYOUT -------------------------------------------------------- */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: 1.5rem;
+    row-gap: 1rem;
+    align-items: start;
+}
+
+/* Make the text block a little wider on desktop so it wraps less
+   → less vertical height = won't push the footer. */
+.textCol {
+    grid-column: 2 / 10;
+    /* was 3 / span 6 */
+    max-width: 80ch;
+    /* was 72ch; wider reduces total lines */
+}
+
+/* Logo sits to the right, top-aligned with first line of text */
+.logoCol {
+    grid-column: 10 / -1;
+    justify-self: end;
+    align-self: start;
+}
+
+/* --- TYPOGRAPHY --------------------------------------------------------- */
+/* Scale with viewport HEIGHT when needed so long copy shrinks a bit on
+   shorter screens. This keeps the whole section inside the viewport. */
+.copy {
+    white-space: pre-line;
+    /* min size 0.9rem; preferred uses the smaller of 1.0vw or 1.15vh; cap ~1.05rem */
+    font-size: 15px;
+    font-weight: 300;
+    line-height: 1;
+    /* tighter */
+    letter-spacing: 0.003em;
+}
+
+/* Tighter vertical rhythm */
+/* general paragraph spacing */
+.copy+.copy {
+    margin-top: 1rem;
+}
+
+/* Spanish → English bigger gap */
+.copy+.en {
+    margin-top: 4.5rem;
+}
+
+/* increase as you like */
+
+
+/* Spanish → English spacing (reduced) */
+.en {
+    margin-top: clamp(2rem, 6vh, 6rem);
+    opacity: 0.9;
+    font-style: italic;
+}
+
+/* Logo sizing: intrinsic but never overflow column */
 .logo {
-    width: auto;
-    /* let it use natural file width */
+    display: block;
     height: auto;
-    /* let it use natural file height */
+    width: auto;
     max-width: 100%;
-    /* don’t overflow container */
+}
+
+/* --- TABLET ------------------------------------------------------------- */
+@media (max-width: 1024px) {
+    .textCol {
+        grid-column: 2 / 10;
+    }
+
+    .logoCol {
+        grid-column: 10 / -1;
+    }
+}
+
+/* --- MOBILE ------------------------------------------------------------- */
+/* Mobile keeps your composition:
+   - Text block centered on the page
+   - Mini-logo below the text and right-aligned */
+@media (max-width: 780px) {
+    .grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+        row-gap: 2rem;
+    }
+
+    .textCol {
+        grid-column: 1 / -1;
+        justify-self: center;
+        max-width: 46ch;
+        /* comfortable read width on mobile */
+    }
+
+    /* Slightly larger than desktop for readability */
+    .copy {
+        font-size: clamp(1.05rem, 1.8vw + 0.9rem, 1.25rem);
+        line-height: 1.55;
+    }
+
+    .logoCol {
+        grid-column: 1 / -1;
+        justify-self: end;
+        /* right-aligned under the text */
+        margin-top: 0.75rem;
+    }
 }

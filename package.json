@@ -40,5 +40,10 @@
     "husky": "^9.1.7",
     "lint-staged": "^15.5.2",
     "prettier": "^3.6.2"
+  },
+  "overrides": {
+    "@sanity/visual-editing": {
+      "@sanity/client": "^7.11.2"
+    }
   }
 }

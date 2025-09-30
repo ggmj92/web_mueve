@@ -6,10 +6,6 @@
   background: transparent !important;
 }
 
-:global(html),
-:global(body) {
-  background: transparent !important;
-}
 
 .heroStage {
   position: fixed;

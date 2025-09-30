@@ -48,7 +48,8 @@
     flex-direction: column;
 }
 
-.home .header {
+/* Homepage header and footer positioning */
+.home :global(.header) {
     position: absolute;
     top: 0;
     left: 0;
@@ -58,7 +59,7 @@
     z-index: 2000;
 }
 
-.home .footer {
+.home :global(.footer) {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -69,9 +70,9 @@
     padding: 1rem 2rem;
 }
 
-.home .logo,
-.home .menuButton,
-.home .footerInner {
+.home :global(.logo),
+.home :global(.menuButton),
+.home :global(.footerInner) {
     color: white;
 }
 

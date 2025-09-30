@@ -18,7 +18,7 @@
 
 /* Logo sits to the right, top-aligned with first line of text */
 .logoCol {
-    grid-column: 10 / -1;
+    grid-column: 10 / -2;
     justify-self: end;
     align-self: start;
 }

@@ -26,11 +26,15 @@ async function getHomepageSlides() {
   if (slides.length === 0) {
     slides = [
       {
-        url: '/background.jpg',
+        url: '/logos/mueve_logo.png',
         durationMs: 5000,
         position: 'center',
       },
-      { url: '/vercel.svg', durationMs: 5000, position: 'center' },
+      { 
+        url: '/logos/mueve_mini-logo.png', 
+        durationMs: 5000, 
+        position: 'center' 
+      },
     ]
   }
 
@@ -39,6 +43,9 @@ async function getHomepageSlides() {
 
 export default async function Home() {
   const slides = await getHomepageSlides()
+  
+  // Debug logging
+  console.log('Homepage slides:', slides)
 
   return (
     <main className={`${styles.homeWrap} home`}>

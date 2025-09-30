@@ -8,6 +8,9 @@ export default function HeroCarousel({ slides }) {
     const [front, setFront] = useState(0)
     const timerRef = useRef(null)
 
+    // Debug logging
+    console.log('HeroCarousel slides:', slides)
+
     const durations = useMemo(
         () => (slides?.length ? slides.map((s) => s.durationMs || 5000) : [5000]),
         [slides]

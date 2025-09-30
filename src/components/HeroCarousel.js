@@ -87,9 +87,13 @@ export default function HeroCarousel({ slides }) {
         return () => clearTimeout(timerRef.current)
     }, [index, front, slides, durations])
 
-    if (!slides?.length) return null
+    if (!slides?.length) {
+        console.log('HeroCarousel: No slides, returning null')
+        return null
+    }
 
     const visibleLayer = layers[front]
+    console.log('HeroCarousel: Rendering with', slides.length, 'slides')
 
     return (
         <section

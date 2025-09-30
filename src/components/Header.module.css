@@ -6,10 +6,36 @@
     width: 100%;
 }
 
+/* Homepage positioning */
+:global(.home) .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    color: white;
+    z-index: 10;
+}
+
+/* Homepage text color */
+:global(.home) .header .link {
+    color: white;
+}
+
+/* Homepage logo - make it white */
+:global(.home) .header .logo {
+    filter: brightness(0) invert(1);
+}
+
 .logo {
     height: auto;
     max-width: 160px;
     width: 100%;
+}
+
+.logoWrap a {
+    display: block;
+    text-decoration: none;
 }
 
 .nav {
@@ -21,6 +47,11 @@
     font-size: 1.2rem;
     font-weight: 400;
     text-decoration: none;
+    color: #111;
+}
+
+/* Ensure black text on non-homepage pages */
+.header {
     color: #111;
 }
 

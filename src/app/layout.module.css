@@ -48,34 +48,6 @@
     flex-direction: column;
 }
 
-/* Homepage header and footer positioning */
-.home :global(.header) {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: transparent;
-    color: white;
-    z-index: 10;
-}
-
-.home :global(.footer) {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: transparent;
-    color: white;
-    z-index: 10;
-    padding: 1rem 2rem;
-}
-
-.home :global(.logo),
-.home :global(.menuButton),
-.home :global(.footerInner) {
-    color: white;
-}
-
 /* ----------------------------- */
 /* INNER PAGES (default layout)  */
 /* ----------------------------- */

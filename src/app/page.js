@@ -43,9 +43,6 @@ async function getHomepageSlides() {
 
 export default async function Home() {
   const slides = await getHomepageSlides()
-  
-  // Debug logging
-  console.log('Homepage slides:', slides)
 
   return (
     <main className={`${styles.homeWrap} home`}>

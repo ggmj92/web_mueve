@@ -8,9 +8,6 @@ export default function HeroCarousel({ slides }) {
     const [front, setFront] = useState(0)
     const timerRef = useRef(null)
 
-    // Debug logging
-    console.log('HeroCarousel slides:', slides)
-
     const durations = useMemo(
         () => (slides?.length ? slides.map((s) => s.durationMs || 5000) : [5000]),
         [slides]
@@ -88,12 +85,10 @@ export default function HeroCarousel({ slides }) {
     }, [index, front, slides, durations])
 
     if (!slides?.length) {
-        console.log('HeroCarousel: No slides, returning null')
         return null
     }
 
     const visibleLayer = layers[front]
-    console.log('HeroCarousel: Rendering with', slides.length, 'slides')
 
     return (
         <section

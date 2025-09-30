@@ -15,8 +15,7 @@
   overflow: hidden;
   height: 100vh;
   width: 100vw;
-  background: #f0f0f0; /* fallback background */
-  border: 3px solid red; /* debug border */
+  background: #f0f0f0;
 }
 
 .heroLayer {
@@ -30,7 +29,7 @@
   will-change: opacity;
   height: 100vh;
   width: 100vw;
-  background-color: #f0f0f0; /* fallback background */
+  background-color: #f0f0f0;
 }
 
 .visible {

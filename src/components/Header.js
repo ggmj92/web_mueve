@@ -10,8 +10,7 @@ export default function Header() {
                     <Image
                         src="/logos/mueve_logo.png"
                         alt="Mueve Logo"
-                        width={160}
-                        height={40}
+                        fill
                         className={styles.logo}
                     />
                 </Link>

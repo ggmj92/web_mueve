@@ -4,44 +4,27 @@
     align-items: center;
     padding: 1rem 2rem;
     width: 100%;
+    color: #111;
 }
 
-/* Homepage positioning */
-:global(.home) .header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: transparent;
-    color: white;
-    z-index: 10;
-}
-
-/* Homepage text color */
-:global(.home) .header .link {
-    color: white;
-    transition: opacity 0.2s ease;
-}
-
-:global(.home) .header .link:hover {
-    font-style: italic;
-    opacity: 0.7;
-}
-
-/* Homepage logo - make it white */
-:global(.home) .header .logo {
-    filter: brightness(0) invert(1);
-}
-
-.logo {
-    height: auto;
-    max-width: 160px;
-    width: 100%;
+/* 👇 Add width via aspect-ratio so the fill image has a real box */
+.logoWrap {
+    position: relative;
+    height: 5rem;
+    /* match link height on desktop */
+    aspect-ratio: var(--logo-ar, 4 / 1);
+    /* <-- adjust to your logo */
+    flex: 0 0 auto;
+    /* don't let flex shrink it to 0 */
 }
 
 .logoWrap a {
     display: block;
-    text-decoration: none;
+    height: 100%;
+}
+
+.logo {
+    object-fit: contain;
 }
 
 .nav {
@@ -50,8 +33,8 @@
 }
 
 .link {
-    font-size: 1.2rem;
-    font-weight: 400;
+    font-size: 2.2rem;
+    font-weight: 200;
     text-decoration: none;
     color: #111;
     transition: opacity 0.2s ease;
@@ -62,21 +45,42 @@
     opacity: 0.7;
 }
 
-/* Ensure black text on non-homepage pages */
-.header {
-    color: #111;
+/* Homepage overlay tweaks */
+:global(.home) .header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: transparent;
+    color: white;
+    z-index: 10;
 }
 
+:global(.home) .header .link {
+    color: white;
+}
+
+:global(.home) .header .link:hover {
+    font-style: italic;
+    opacity: 0.7;
+}
+
+:global(.home) .header .logo {
+    filter: brightness(0) invert(1);
+}
+
+/* Responsive */
 @media (max-width: 600px) {
     .header {
         padding: 0.75rem 1rem;
     }
 
-    .logo {
-        max-width: 120px;
+    .logoWrap {
+        height: 3rem;
+        aspect-ratio: var(--logo-ar, 4 / 1);
     }
 
     .link {
-        font-size: 1rem;
+        font-size: 1.5rem;
     }
 }

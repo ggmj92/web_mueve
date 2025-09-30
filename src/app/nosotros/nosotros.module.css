@@ -1,0 +1,8 @@
+.logo {
+    width: auto;
+    /* let it use natural file width */
+    height: auto;
+    /* let it use natural file height */
+    max-width: 100%;
+    /* don’t overflow container */
+}

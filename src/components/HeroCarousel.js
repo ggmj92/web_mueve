@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import styles from '@/app/page.module.css'
+import styles from '@/app/homepage.module.css'
 
 export default function HeroCarousel({ slides }) {
     const [index, setIndex] = useState(0)

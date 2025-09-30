@@ -1,0 +1,41 @@
+.footer {
+    padding: 2rem;
+    font-size: 0.95rem;
+    color: black;
+}
+
+.inner {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.col {
+    flex: 1;
+}
+
+/* Mobile Layout */
+@media (max-width: 600px) {
+    .inner {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .col:nth-child(1) {
+        order: 1;
+        /* Address */
+    }
+
+    .col:nth-child(3) {
+        order: 2;
+        /* Instagram */
+    }
+
+    .col:nth-child(2) {
+        order: 3;
+        /* Email + Phone */
+    }
+}

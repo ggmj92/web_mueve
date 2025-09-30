@@ -41,39 +41,107 @@
     opacity: 0.7;
 }
 
+/* ===== Desktop / default ===== */
+/* Default (desktop) — stack email & phone as separate lines */
+.contactLine {
+    display: block;
+    margin-bottom: 0.25rem;
+    /* tight vertical spacing */
+}
+
 .inner {
     display: flex;
     justify-content: flex-start;
+    /* align-left */
     gap: 2rem;
     width: 50vw;
+    /* “end near center” */
     margin-left: 0;
+    /* left aligned container */
     margin-right: auto;
 }
 
 .col {
     flex: 1;
+    /* three even columns */
+    text-align: left;
 }
 
-/* Mobile Layout */
+.addressLink {
+    white-space: nowrap;
+    /* no wrap for the address line */
+}
+
+.mobileInstagram {
+    display: none;
+    /* shown only on mobile */
+}
+
+/* ===== Mobile ===== */
 @media (max-width: 600px) {
     .inner {
         display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        /* allow shrinking */
+        column-gap: 1.25rem;
+        /* tighter horizontal space */
+        row-gap: 0.5rem;
+        /* small vertical separation between rows */
+        width: 80vw;
+        margin: 0 auto;
+        /* centered container */
+        align-items: start;
+        /* don't stretch items */
+        align-content: start;
+        /* don't stretch tracks */
+        grid-auto-rows: min-content;
+        /* rows fit content only */
+        font-size: 14px;
     }
 
-    .col:nth-child(1) {
-        order: 1;
-        /* Address */
+    .contactLine {
+        margin-bottom: 0.15rem;
+    }
+
+    .col:nth-child(1),
+    .col:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        gap: 0.1rem;
+        /* compact spacing inside columns */
+        align-items: flex-start;
+        justify-content: flex-start;
+        /* prevent top/bottom push */
+        min-width: 0;
+        /* prevent overflow from long text */
+        text-align: left;
+    }
+
+    .limaPeru {
+        display: none !important;
+        /* hide "Lima, Perú" */
     }
 
     .col:nth-child(3) {
-        order: 2;
-        /* Instagram */
+        display: none;
+        /* remove third column entirely */
     }
 
-    .col:nth-child(2) {
-        order: 3;
-        /* Email + Phone */
+    .mobileInstagram {
+        display: block;
+        /* shows under the address (col 1) */
+    }
+
+    /* Ensure each link in col 2 is its own line and no leftover <br> effects */
+    .col:nth-child(2) a {
+        display: block;
+    }
+
+    /* Keep address on a single line; clip rather than wrap if too narrow */
+    .addressLink {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        /* optional: avoids horizontal scrolling */
     }
 }

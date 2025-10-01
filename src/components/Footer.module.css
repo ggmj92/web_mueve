@@ -1,24 +1,26 @@
 .footer {
-    padding: 1rem 2rem;
-    font-size: 0.95rem;
-    color: black;
-    line-height: 15px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    width: 60%;
+    margin-left: 0;
+    background-color: transparent;
+    padding: 20px;
+    box-sizing: border-box;
+    line-height: 1rem;
 }
 
-/* Ensure black text on non-homepage pages */
-.footer p,
-.footer a {
+.footer p {
     color: black;
     text-decoration: none;
-    font-weight: 200;
-    transition: opacity 0.2s ease;
+    font-weight: 400;
+    transition: opacity 0.3s ease;
 }
 
 .footer a:hover {
     font-style: italic;
 }
 
-/* Homepage positioning */
 :global(.home) .footer {
     position: absolute;
     bottom: 0;
@@ -27,14 +29,11 @@
     background: transparent;
     color: white;
     z-index: 10;
-    padding: 1rem 2rem;
 }
 
-/* Homepage text color */
 :global(.home) .footer p,
 :global(.home) .footer a {
     color: white;
-    text-decoration: none;
     transition: opacity 0.2s ease;
 }
 
@@ -42,107 +41,69 @@
     opacity: 0.7;
 }
 
-/* ===== Desktop / default ===== */
-/* Default (desktop) — stack email & phone as separate lines */
-.contactLine {
-    display: block;
-    margin-bottom: 0.25rem;
-    /* tight vertical spacing */
-}
-
-.inner {
-    display: flex;
-    justify-content: flex-start;
-    /* align-left */
-    gap: 6rem;
-    width: 50vw;
-    /* “end near center” */
-    margin-left: 0;
-    /* left aligned container */
-    margin-right: auto;
-}
-
 .col {
-    flex: 1;
-    /* three even columns */
+    flex: 1 1 33.33%;
+    box-sizing: border-box;
     text-align: left;
 }
 
 .addressLink {
     white-space: nowrap;
-    /* no wrap for the address line */
 }
 
 .mobileInstagram {
     display: none;
-    /* shown only on mobile */
 }
 
-/* ===== Mobile ===== */
-@media (max-width: 600px) {
-    .inner {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        /* allow shrinking */
-        column-gap: 1.25rem;
-        /* tighter horizontal space */
-        row-gap: 0.5rem;
-        /* small vertical separation between rows */
-        width: 85vw;
-        margin: 0 auto;
-        /* centered container */
-        align-items: start;
-        /* don't stretch items */
-        align-content: start;
-        /* don't stretch tracks */
-        grid-auto-rows: min-content;
-        /* rows fit content only */
-        font-size: 16px;
+@media (max-width: 1400px) {
+    .footer {
+        width: 80%;
     }
+}
 
-    .contactLine {
-        margin-bottom: 0.15rem;
-    }
-
-    .col:nth-child(1),
-    .col:nth-child(2) {
-        display: flex;
-        flex-direction: column;
-        gap: 0.1rem;
-        /* compact spacing inside columns */
-        align-items: flex-start;
-        justify-content: flex-start;
-        /* prevent top/bottom push */
-        min-width: 0;
-        /* prevent overflow from long text */
-        text-align: left;
+@media (max-width: 900px) {
+    .footer {
+        width: 100%;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     .limaPeru {
         display: none !important;
-        /* hide "Lima, Perú" */
-    }
-
-    .col:nth-child(3) {
-        display: none;
-        /* remove third column entirely */
     }
 
     .mobileInstagram {
         display: block;
-        /* shows under the address (col 1) */
     }
 
-    /* Ensure each link in col 2 is its own line and no leftover <br> effects */
-    .col:nth-child(2) a {
+    .desktopInstagram {
+        display: none;
+    }
+}
+
+@media (max-width: 600px) {
+    .col {
+        flex: 1 1 50%;
+        display: flex;
+        flex-direction: column;
+        padding: 0 10px;
+    }
+
+    .contactCol {
+        align-items: flex-end;
+        /* Push contact block to the right */
+    }
+
+    .contactLine {
         display: block;
+        text-align: left;
+        width: auto;
+        max-width: 100%;
     }
 
-    /* Keep address on a single line; clip rather than wrap if too narrow */
-    .addressLink {
+    .contactLine p {
+        margin: 0;
         white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        /* optional: avoids horizontal scrolling */
+        text-align: right;
     }
 }

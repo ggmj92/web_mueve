@@ -62,7 +62,7 @@
     display: block;
     height: auto;
     width: auto;
-    max-width: 100%;
+    max-width: 100px;
 }
 
 /* --- TABLET ------------------------------------------------------------- */

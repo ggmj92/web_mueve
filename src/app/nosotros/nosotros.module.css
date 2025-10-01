@@ -18,7 +18,7 @@
 
 /* Logo sits to the right, top-aligned with first line of text */
 .logoCol {
-    grid-column: 10 / -2;
+    grid-column: 11 / -2;
     justify-self: end;
     align-self: start;
 }
@@ -62,7 +62,7 @@
     display: block;
     height: auto;
     width: auto;
-    max-width: 100%;
+    max-width: 130%;
 }
 
 /* --- TABLET ------------------------------------------------------------- */

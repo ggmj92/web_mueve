@@ -8,7 +8,7 @@ export default async function NosotrosPage() {
 
     return (
         <main className={layout.main}>
-            <div className={`${layout.container} ${styles.grid}`}>
+            <div className={styles.grid}>
                 {/* TEXT COLUMN */}
                 <div className={styles.textCol}>
                     <p className={styles.copy}>

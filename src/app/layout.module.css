@@ -1,3 +1,7 @@
+:global(:root) {
+    --page-horizontal-padding: clamp(1.5rem, 4vw, 2.5rem);
+}
+
 /* Overall body wrapper */
 .body {
     display: flex;
@@ -10,7 +14,8 @@
     flex: 1;
     max-width: var(--max-width, 1200px);
     margin: 0 auto;
-    padding: 2rem;
+    padding: 2rem var(--page-horizontal-padding);
+    padding-bottom: calc(2rem + var(--footer-height, 160px));
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -58,18 +63,8 @@
 }
 
 .inner .header,
-.inner .footer {
-    position: relative;
-    background: #fff;
-    color: black;
-}
-
 .inner .logo,
 .inner .menuButton,
 .inner .footerInner {
     color: black;
-}
-
-.footer {
-    font-size: 0.95rem;
 }

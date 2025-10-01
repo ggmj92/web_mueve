@@ -1,108 +1,89 @@
 /* --- GRID LAYOUT -------------------------------------------------------- */
 .grid {
     display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: 1.5rem;
-    row-gap: 1rem;
+    grid-template-columns: minmax(0, 1fr) auto;
+    column-gap: clamp(3rem, 8vw, 6rem);
+    row-gap: clamp(1.25rem, 3vh, 2rem);
     align-items: start;
+    justify-items: stretch;
 }
 
-/* Make the text block a little wider on desktop so it wraps less
-   → less vertical height = won't push the footer. */
+@media (min-width: 781px) {
+    .grid {
+        margin-left: max(
+            0px,
+            calc(
+                var(--footer-col-2-left, 0px)
+                - (
+                    max(0px, (100vw - min(100vw, var(--max-width, 1200px))) / 2)
+                    + var(--page-horizontal-padding, 0px)
+                )
+            )
+        );
+    }
+}
+
 .textCol {
-    grid-column: 2 / 10;
-    /* was 3 / span 6 */
-    max-width: 80ch;
-    /* was 72ch; wider reduces total lines */
+    max-width: clamp(54ch, 52vw, 78ch);
 }
 
-/* Logo sits to the right, top-aligned with first line of text */
 .logoCol {
-    grid-column: 10 / -2;
     justify-self: end;
     align-self: start;
 }
 
 /* --- TYPOGRAPHY --------------------------------------------------------- */
-/* Scale with viewport HEIGHT when needed so long copy shrinks a bit on
-   shorter screens. This keeps the whole section inside the viewport. */
 .copy {
     white-space: pre-line;
-    /* min size 0.9rem; preferred uses the smaller of 1.0vw or 1.15vh; cap ~1.05rem */
-    font-size: 15px;
+    font-size: clamp(0.95rem, 0.65vw + 0.9rem, 1.2rem);
     font-weight: 300;
-    line-height: 1;
-    /* tighter */
+    line-height: 1.25;
     letter-spacing: 0.003em;
 }
 
-/* Tighter vertical rhythm */
-/* general paragraph spacing */
 .copy+.copy {
-    margin-top: 1rem;
+    margin-top: 1.5rem;
 }
 
-/* Spanish → English bigger gap */
 .copy+.en {
-    margin-top: 4.5rem;
+    margin-top: clamp(3rem, 8vh, 6rem);
 }
 
-/* increase as you like */
-
-
-/* Spanish → English spacing (reduced) */
 .en {
-    margin-top: clamp(2rem, 6vh, 6rem);
     opacity: 0.9;
     font-style: italic;
 }
 
-/* Logo sizing: intrinsic but never overflow column */
 .logo {
     display: block;
     height: auto;
     width: auto;
-    max-width: 100%;
-}
-
-/* --- TABLET ------------------------------------------------------------- */
-@media (max-width: 1024px) {
-    .textCol {
-        grid-column: 2 / 10;
-    }
-
-    .logoCol {
-        grid-column: 10 / -1;
-    }
+    max-width: clamp(72px, 10vw, 128px);
 }
 
 /* --- MOBILE ------------------------------------------------------------- */
-/* Mobile keeps your composition:
-   - Text block centered on the page
-   - Mini-logo below the text and right-aligned */
 @media (max-width: 780px) {
     .grid {
-        grid-template-columns: repeat(6, minmax(0, 1fr));
+        margin-left: 0;
+        grid-template-columns: minmax(0, 1fr);
+        justify-items: center;
         row-gap: 2rem;
     }
 
     .textCol {
-        grid-column: 1 / -1;
-        justify-self: center;
         max-width: 46ch;
-        /* comfortable read width on mobile */
+        text-align: center;
     }
 
-    /* Slightly larger than desktop for readability */
     .copy {
         font-size: clamp(1.05rem, 1.8vw + 0.9rem, 1.25rem);
         line-height: 1.55;
     }
 
     .logoCol {
-        grid-column: 1 / -1;
         justify-self: end;
-        /* right-aligned under the text */
-        margin-top: 0.75rem;
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
     }
 }

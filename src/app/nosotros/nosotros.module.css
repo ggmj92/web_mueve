@@ -64,15 +64,16 @@
 /* --- MOBILE ------------------------------------------------------------- */
 @media (max-width: 780px) {
     .grid {
-        margin-left: 0;
+        margin: 0 calc(-1 * var(--page-horizontal-padding));
         grid-template-columns: minmax(0, 1fr);
         justify-items: center;
         row-gap: 2rem;
+        padding: 0 clamp(1rem, 6vw, 1.75rem);
     }
 
     .textCol {
-        max-width: 46ch;
-        text-align: center;
+        width: min(100%, 46ch);
+        text-align: left;
     }
 
     .copy {

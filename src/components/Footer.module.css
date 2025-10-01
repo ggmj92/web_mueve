@@ -84,13 +84,12 @@
         display: grid;
         grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
         /* allow shrinking */
-        column-gap: 8rem;
+        column-gap: 1.25rem;
         /* tighter horizontal space */
         row-gap: 0.5rem;
         /* small vertical separation between rows */
         width: 85vw;
         margin: 0 auto;
-        margin-left: -12px;
         /* centered container */
         align-items: start;
         /* don't stretch items */

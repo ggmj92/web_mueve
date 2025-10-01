@@ -2,19 +2,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* center for general case */
     padding: 1rem 2rem;
     width: 100%;
     color: #111;
 }
 
-/* Give the fill image a real box */
+/* 👇 Add width via aspect-ratio so the fill image has a real box */
 .logoWrap {
     position: relative;
-    height: 4.75rem;
-    /* ≈76px on desktop */
-    aspect-ratio: 4 / 1;
+    height: 4.5rem;
+    /* match link height on desktop */
+    aspect-ratio: var(--logo-ar, 4 / 1);
+    /* <-- adjust to your logo */
     flex: 0 0 auto;
+    /* don't let flex shrink it to 0 */
 }
 
 .logoWrap a {
@@ -24,25 +25,19 @@
 
 .logo {
     object-fit: contain;
-    object-position: left center;
 }
 
 .nav {
     display: flex;
-    align-items: baseline;
+    align-items: center;
 }
 
 .link {
-    font-size: 2.25rem;
-    /* desktop ≈36px */
-    line-height: 1;
-    /* keeps cap height compact like your shot */
+    font-size: 2.2rem;
     font-weight: 200;
     text-decoration: none;
     color: #111;
     transition: opacity 0.2s ease;
-    transform: translateY(1px);
-    /* tiny baseline tweak to match logo */
 }
 
 .link:hover {
@@ -74,30 +69,18 @@
     filter: brightness(0) invert(1);
 }
 
-/* ===== Mobile (iPhone 14 Pro Max width = 430px) ===== */
+/* Responsive */
 @media (max-width: 600px) {
     .header {
-        display: flex;
-        align-items: center;
-        padding: 1.25rem 1.5rem;
+        padding: 2rem 3rem;
     }
 
-    /* Controls the actual rendered size */
     .logoWrap {
-        height: 3.25rem;
-        /* bump this up/down to taste */
-        aspect-ratio: 4 / 1;
-        /* keep so fill has a width */
-    }
-
-    .logo {
-        object-fit: contain;
-        object-position: left center;
+        height: 4rem;
+        aspect-ratio: var(--logo-ar, 4 / 1);
     }
 
     .link {
-        font-size: 1.5rem;
-        line-height: 1;
-        transform: translateY(2px);
+        font-size: 2rem;
     }
 }

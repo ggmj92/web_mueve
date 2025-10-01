@@ -82,28 +82,34 @@
 }
 
 @media (max-width: 600px) {
+    .footer {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        width: 100%;
+        padding: 20px;
+        gap: 50px;
+    }
+
     .col {
         flex: 1 1 50%;
         display: flex;
         flex-direction: column;
-        padding: 0 10px;
+        justify-content: center;
+        box-sizing: border-box;
     }
 
     .contactCol {
         align-items: flex-end;
-        /* Push contact block to the right */
+        text-align: right;
     }
 
     .contactLine {
-        display: block;
-        text-align: left;
-        width: auto;
-        max-width: 100%;
+        white-space: nowrap;
     }
 
     .contactLine p {
         margin: 0;
-        white-space: nowrap;
-        text-align: right;
+        text-align: left;
     }
 }

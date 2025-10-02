@@ -1,4 +1,4 @@
-.nosotros {
+.about {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -43,7 +43,7 @@
 @media (max-width: 1400px) {}
 
 @media (max-width: 1000px) {
-    .nosotros {
+    .about {
         flex-direction: column;
     }
 

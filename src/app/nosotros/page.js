@@ -1,7 +1,7 @@
 import { client } from '@/sanity/lib/client'
 import Image from "next/image";
 import layout from "../layout.module.css";
-import styles from "./nosotros.module.css";
+import styles from "./about.module.css";
 import StructuredData from '@/components/StructuredData';
 
 export const metadata = {
@@ -28,13 +28,13 @@ export const metadata = {
   },
 };
 
-export default async function NosotrosPage() {
+export default async function AboutPage() {
   const data = await client.fetch(`*[_type == "about"][0]{ spanish, english }`);
 
   return (
     <>
       <StructuredData type="BreadcrumbList" />
-      <div className={styles.nosotros}>
+      <div className={styles.about}>
 
         {/* TEXT COLUMN */}
         <div className={styles.textCol}>

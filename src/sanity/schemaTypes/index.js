@@ -1,4 +1,4 @@
 import homepage from './homepage'
-import nosotros from './nosotros'
+import about from './about'
 
-export const schemaTypes = [homepage, nosotros]
+export const schemaTypes = [homepage, about]

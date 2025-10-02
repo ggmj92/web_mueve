@@ -3,7 +3,8 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-padding-bottom: 20rem;}
+    padding-bottom: 2rem;
+}
 
 .copy {
     white-space: pre-line;
@@ -22,10 +23,6 @@ padding-bottom: 20rem;}
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-}
-
-.copy+.copy {
-    margin-top: 6rem;
 }
 
 .miniLogo {

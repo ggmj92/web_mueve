@@ -1,4 +1,4 @@
-import { client } from '@/sanity/lib/client'
+import { sanityFetch } from '@/sanity/lib/live'
 import { urlFor } from '@/sanity/lib/image'
 import Header from '@/components/Header'
 import HeroCarousel from '@/components/HeroCarousel'
@@ -6,15 +6,14 @@ import StructuredData from '@/components/StructuredData'
 import styles from './homepage.module.css'
 
 async function getHomepageSlides() {
-  const data = await client
-    .fetch(
-      `*[_type == "homepage"][0]{
+  const data = await sanityFetch({
+    query: `*[_type == "homepage"][0]{
     slides[]{ image, durationMs, position }
-  }`
-    )
-    .catch(() => null)
+  }`,
+    revalidate: 0, // Always revalidate for live updates
+  })
 
-  let slides = (data?.slides || [])
+  let slides = (data?.data?.slides || [])
     .map((s) => ({
       url: s?.image
         ? urlFor(s.image).width(2400).quality(85).auto('format').url()

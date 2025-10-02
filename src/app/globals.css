@@ -35,7 +35,7 @@ body {
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: var(--font-mueve), sans-serif;
+  font-family: var(--font-mueve), sans-serif;  
 }
 
 /* Apply font to all elements */

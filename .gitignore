@@ -23,6 +23,9 @@
 # misc
 .DS_Store
 *.pem
+/src/components/Borrador.js
+/src/components/Borrador.css
+
 
 # debug
 npm-debug.log*

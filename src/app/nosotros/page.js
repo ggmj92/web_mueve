@@ -29,38 +29,38 @@ export const metadata = {
 };
 
 export default async function NosotrosPage() {
-    const data = await client.fetch(`*[_type == "about"][0]{ spanish, english }`);
+  const data = await client.fetch(`*[_type == "about"][0]{ spanish, english }`);
 
-    return (
-        <>
-            <StructuredData type="BreadcrumbList" />
-            <main className={layout.main}>
-                <div className={styles.grid}>
-                    {/* TEXT COLUMN */}
-                    <div className={styles.textCol}>
-                        <p className={styles.copy}>
-                            {data?.spanish || "Texto próximamente"}
-                        </p>
+  return (
+    <>
+      <StructuredData type="BreadcrumbList" />
+      <div className={styles.nosotros}>
 
-                        <p className={`${styles.copy} ${styles.en}`}>
-                            {data?.english || "Content coming soon"}
-                        </p>
-                    </div>
+        {/* TEXT COLUMN */}
+        <div className={styles.textCol}>
+          <p className={styles.copy}>
+            {data?.spanish || "Texto próximamente"}
+          </p>
 
-                    {/* MINI-LOGO COLUMN */}
-                    <div className={styles.logoCol}>
-                        <Image
-                            src="/logos/mueve_mini-logo.png"
-                            alt="Mueve Galería - Logo de la galería de arte contemporáneo"
-                            width={300}
-                            height={120}
-                            priority
-                            className={styles.logo}
-                        />
-                    </div>
-                </div>
-            </main>
-        </>
-    );
+          <p className={`${styles.copy} ${styles.en}`}>
+            {data?.english || "Content coming soon"}
+          </p>
+        </div>
+
+        {/* MINI-LOGO COLUMN */}
+        <div className={styles.logoCol}>
+          <Image
+            src="/logos/mueve_mini-logo.png"
+            alt="Mueve Galería - Logo de la galería de arte contemporáneo"
+            width={300}
+            height={120}
+            priority
+            className={styles.miniLogo}
+          />
+        </div>
+      </div>
+
+    </>
+  );
 }
 

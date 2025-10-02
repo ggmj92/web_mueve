@@ -2,7 +2,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem 2rem;
+    padding: 1rem;
     width: 100%;
     color: #111;
 }
@@ -18,14 +18,15 @@
     /* don't let flex shrink it to 0 */
 }
 
+.logo {
+    object-fit: contain;
+}
+
 .logoWrap a {
     display: block;
     height: 100%;
 }
 
-.logo {
-    object-fit: contain;
-}
 
 .nav {
     display: flex;
@@ -33,7 +34,7 @@
 }
 
 .link {
-    font-size: 2.2rem;
+    font-size: 2rem;
     font-weight: 200;
     text-decoration: none;
     color: #111;
@@ -67,20 +68,29 @@
 
 :global(.home) .header .logo {
     filter: brightness(0) invert(1);
+    
 }
+
+
+@media (max-width: 1400px) {
+ 
+}
+
+@media (max-width: 1000px) {
+    .link {
+        font-size: 1.8rem;
+    }
+}
+
 
 /* Responsive */
 @media (max-width: 600px) {
-    .header {
-        padding: 2rem 3rem;
-    }
 
     .logoWrap {
-        height: 4rem;
-        aspect-ratio: var(--logo-ar, 4 / 1);
+        height: 3.5rem;
     }
 
     .link {
-        font-size: 2rem;
+        font-size: 1.4rem;
     }
 }

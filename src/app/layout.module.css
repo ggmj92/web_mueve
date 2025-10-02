@@ -18,7 +18,7 @@
 
 /* Reusable container utility */
 .container {
-    max-width: var(--max-width, 1200px);
+    max-width: var(--max-width, 1400px);
     margin: 0 auto;
     padding: 0 2rem;
     width: 100%;
@@ -70,6 +70,13 @@
     color: black;
 }
 
-.footer {
-    font-size: 0.95rem;
+@media (max-width: 600px) {
+    .main {
+        padding: 1rem;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+    
 }

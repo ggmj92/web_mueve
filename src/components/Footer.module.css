@@ -92,7 +92,8 @@
         width: 100vw;
         padding: 20px;
         gap: 20px;
-        
+        position: fixed !important;
+        /* Ensure footer is fixed on mobile for all pages */
     }
 
     .col {

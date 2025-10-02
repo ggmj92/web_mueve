@@ -40,7 +40,11 @@
     display: flex;
 }
 
-@media (max-width: 1400px) {}
+@media (max-width: 1800px) {
+    .textCol {
+        margin-left: 7.8rem;
+    }
+}
 
 @media (max-width: 1000px) {
     .nosotros {
@@ -48,11 +52,7 @@
     }
 
     .textCol {
-        width: 100%;
-    }
-
-    .copy {
-        width: 100%;
+        margin-left: 0;
     }
 
     .logoCol {

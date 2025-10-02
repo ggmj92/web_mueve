@@ -1,0 +1,117 @@
+/* Banner container */
+.banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border-top: 1px solid #e5e5e5;
+  overflow: hidden;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  z-index: 25; /* Higher than footer z-index */
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure banner appears above footer on inner pages */
+:global(.inner) .banner {
+  z-index: 25;
+}
+
+/* Scrolling text container */
+.scrollingText {
+  display: flex;
+  animation: scroll 20s linear infinite;
+  white-space: nowrap;
+  flex: 1;
+  height: 100%;
+  align-items: center;
+}
+
+/* Individual text spans */
+.text {
+  font-family: var(--font-mueve), sans-serif;
+  font-size: 0.9rem;
+  color: #333;
+  margin-right: 4rem;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+}
+
+/* Scrolling animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Close button */
+.closeButton {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: #666;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  z-index: 21;
+  flex-shrink: 0;
+}
+
+.closeButton:hover {
+  background-color: #f5f5f5;
+  color: #333;
+}
+
+.closeButton:focus {
+  outline: 2px solid #007bff;
+  outline-offset: 2px;
+}
+
+/* Banner is now positioned at bottom for all pages */
+
+/* Mobile responsiveness */
+@media (max-width: 600px) {
+  .banner {
+    height: 2.5rem;
+  }
+  
+  .text {
+    font-size: 0.8rem;
+    margin-right: 3rem;
+  }
+  
+  .closeButton {
+    right: 0.75rem;
+    font-size: 1rem;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+  
+  /* Banner is positioned at bottom for all pages */
+}
+
+/* Very small screens */
+@media (max-width: 400px) {
+  .banner {
+    height: 2.25rem;
+  }
+  
+  .text {
+    font-size: 0.75rem;
+    margin-right: 2.5rem;
+  }
+}

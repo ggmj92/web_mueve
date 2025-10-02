@@ -8,7 +8,7 @@
     padding: 20px;
     box-sizing: border-box;
     line-height: 1rem;
-    bottom: 0;
+    bottom: 3rem; /* Account for banner height */
     position: fixed;
 }
 
@@ -26,7 +26,7 @@
 
 :global(.home) .footer {
     position: absolute;
-    bottom: 0;
+    bottom: 3rem; /* Account for banner height on homepage */
     left: 0;
     right: 0;
     background: transparent;
@@ -92,7 +92,12 @@
         width: 100vw;
         padding: 20px;
         gap: 20px;
-        
+        bottom: 2.5rem; /* Account for smaller banner height on mobile */
+    }
+    
+    /* Homepage mobile footer adjustment */
+    :global(.home) .footer {
+        bottom: 2.5rem; /* Account for smaller banner height on mobile homepage */
     }
 
     .col {

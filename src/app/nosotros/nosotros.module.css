@@ -49,6 +49,11 @@
 @media (max-width: 1000px) {
     .nosotros {
         flex-direction: column;
+
+    }
+
+    .copy {
+        width: 80%;
     }
 
     .textCol {
@@ -60,7 +65,20 @@
     }
 }
 
-@media (max-width: 900px) {}
+@media (max-width: 700px) {
+
+    .copy {
+        width: 100%;
+    }
+
+    .textCol {
+        margin-left: 0;
+    }
+
+    .logoCol {
+        justify-content: flex-end !important;
+    }
+}
 
 @media (max-width: 600px) {
     .copy {

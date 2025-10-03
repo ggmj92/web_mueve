@@ -30,13 +30,25 @@ export default function ConstructionBanner() {
     <div className={styles.banner}>
       <div className={styles.scrollingText}>
         <span className={styles.text}>
-          Web en construcción — gracias por tu paciencia. // Work in progress — thanks for your patience.
+          Web en construcción — gracias por tu paciencia.
         </span>
         <span className={styles.text}>
-          Web en construcción — gracias por tu paciencia. // Work in progress — thanks for your patience.
+          Work in progress — thanks for your patience.
+        </span>
+        <span className={styles.text}>
+          Web en construcción — gracias por tu paciencia.
+        </span>
+        <span className={styles.text}>
+          Work in progress — thanks for your patience.
+        </span>
+        <span className={styles.text}>
+          Web en construcción — gracias por tu paciencia.
+        </span>
+        <span className={styles.text}>
+          Work in progress — thanks for your patience.
         </span>
       </div>
-      <button 
+      <button
         className={styles.closeButton}
         onClick={handleClose}
         aria-label="Close banner"

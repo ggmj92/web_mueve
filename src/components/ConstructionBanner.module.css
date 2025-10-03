@@ -69,6 +69,10 @@
   transition: all 0.2s ease;
   z-index: 21;
   flex-shrink: 0;
+  line-height: 1;
+  font-weight: 300;
+  text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 .closeButton:hover {
@@ -99,6 +103,8 @@
     font-size: 1rem;
     width: 1.25rem;
     height: 1.25rem;
+    line-height: 1;
+    text-align: center;
   }
   
   /* Banner is positioned at bottom for all pages */

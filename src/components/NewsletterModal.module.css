@@ -63,6 +63,10 @@
   justify-content: center;
   border-radius: 50%;
   transition: all 0.2s ease;
+  line-height: 1;
+  font-weight: 300;
+  text-align: center;
+  font-family: Arial, sans-serif;
 }
 
 .closeButton:hover {
@@ -228,6 +232,8 @@
     font-size: 1.25rem;
     width: 1.75rem;
     height: 1.75rem;
+    line-height: 1;
+    text-align: center;
   }
   
   .content input[type="email"] {

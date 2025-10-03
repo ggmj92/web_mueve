@@ -25,6 +25,15 @@ a {
   --background: #ffffff;
   --foreground: #171717;
   --max-width: 1200px;
+  
+  /* Navigation variables */
+  --nav-width: 300px;
+  --nav-padding-inline: 2.5rem;
+  --nav-padding-block: 4.5rem;
+  --nav-gap: 1rem;
+  --nav-font-size: 1.1rem;
+  --nav-letter-spacing: 0.035em;
+  --header-h: 4.5rem;
 }
 
 html,

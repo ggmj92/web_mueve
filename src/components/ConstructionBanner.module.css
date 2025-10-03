@@ -22,7 +22,7 @@
 /* Scrolling text container */
 .scrollingText {
   display: flex;
-  animation: scroll 20s linear infinite;
+  animation: scroll 100s linear infinite;
   white-space: nowrap;
   flex: 1;
   height: 100%;
@@ -34,15 +34,15 @@
   font-family: var(--font-mueve), sans-serif;
   font-size: 0.9rem;
   color: #333;
-  margin-right: 4rem;
+  margin-right: 60rem;
   font-weight: 300;
   letter-spacing: 0.5px;
 }
 
-/* Scrolling animation */
+/* Scrolling animation - starts from right, disappears on left */
 @keyframes scroll {
   0% {
-    transform: translateX(100%);
+    transform: translateX(100vw);
   }
   100% {
     transform: translateX(-100%);

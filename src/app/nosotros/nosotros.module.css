@@ -3,6 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
+    padding-bottom: 2rem;
 }
 
 .copy {
@@ -24,43 +25,66 @@
     justify-content: space-between;
 }
 
-.copy+.copy {
-    margin-top: 6rem;
-}
-
 .miniLogo {
-    max-width: 100px;
-    max-height: 120px;
-    height: auto;
-    width: auto;
+    width: 100px;
+    height: 120px;
     object-fit: contain;
+    margin-right: 2rem;
 }
 
 .logoCol {
     display: flex;
 }
 
-@media (max-width: 1400px) {}
+@media (max-width: 1800px) {
+    .textCol {
+        margin-left: 7.8rem;
+    }
+}
 
 @media (max-width: 1000px) {
     .nosotros {
         flex-direction: column;
-    }
 
-    .textCol {
-        width: 100%;
     }
 
     .copy {
-        width: 100%;
+        width: 80%;
+    }
+
+    .textCol {
+        margin-left: 0;
     }
 
     .logoCol {
         justify-content: flex-end !important;
     }
+    
+    .miniLogo {
+        width: 100px;
+        height: 120px;
+    }
 }
 
-@media (max-width: 900px) {}
+@media (max-width: 700px) {
+
+    .copy {
+        width: 100%;
+    }
+
+    .textCol {
+        margin-left: 0;
+    }
+
+    .logoCol {
+        justify-content: flex-end !important;
+    }
+    
+    .miniLogo {
+        width: 100px;
+        height: 120px;
+    }
+}
 
 @media (max-width: 600px) {
     .copy {
@@ -69,5 +93,10 @@
 
     .logoCol {
         justify-content: flex-end !important;
+    }
+    
+    .miniLogo {
+        width: 100px;
+        height: 120px;
     }
 }

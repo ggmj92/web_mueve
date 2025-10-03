@@ -3,6 +3,7 @@ import { urlFor } from '@/sanity/lib/image'
 import Header from '@/components/Header'
 import HeroCarousel from '@/components/HeroCarousel'
 import StructuredData from '@/components/StructuredData'
+import NewsletterModal from '@/components/NewsletterModal'
 import styles from './homepage.module.css'
 
 async function getHomepageSlides() {
@@ -48,6 +49,7 @@ export default async function Home() {
     <>
       <StructuredData type="Organization" />
       <StructuredData type="WebSite" />
+      <NewsletterModal />
       <main className={`${styles.homeWrap} home`}>
         <HeroCarousel slides={slides} />
       </main>

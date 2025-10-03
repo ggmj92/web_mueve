@@ -32,16 +32,21 @@ export default function Header() {
                 <span></span>
             </button>
 
-            <nav className={`${styles.nav} ${navOpen ? styles.open : ''}`}>
-                <ul>
-                    <li>
-                        <Link href="/nosotros" className={styles.link} onClick={toggleNav}>
-                            Nosotros
-                        </Link>
-                    </li>
-                    {/* Add more navigation items here as needed */}
-                </ul>
-            </nav>
+                   <nav className={`${styles.nav} ${navOpen ? styles.open : ''}`}>
+                       <ul>
+                           <li>
+                               <Link href="/nosotros" className={styles.link} onClick={toggleNav}>
+                                   Nosotros
+                               </Link>
+                           </li>
+                           <li>
+                               <Link href="/artistas" className={styles.link} onClick={toggleNav}>
+                                   Artistas
+                               </Link>
+                           </li>
+                           {/* Add more navigation items here as needed */}
+                       </ul>
+                   </nav>
         </header>
     );
 }

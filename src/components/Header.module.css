@@ -140,7 +140,7 @@
 }
 
 :global(.home) .menuButton span {
-    background: white;
+    background: #111;
 }
 
 /* Navigation should always have black text (it has white background) */

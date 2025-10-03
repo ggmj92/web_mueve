@@ -1,6 +1,7 @@
 import "./globals.css";
 import localFont from "next/font/local";
 import HomepageClient from "@/components/HomepageClient";
+import { SanityLive } from "@/sanity/lib/live";
 
 const mueveFont = localFont({
   src: "/fonts/ABCOracleTripleVariable-Trial.ttf",
@@ -76,6 +77,7 @@ export default function RootLayout({ children }) {
       {/* pass the font class down */}
       <HomepageClient fontClass={mueveFont.className}>
         {children}
+        <SanityLive />
       </HomepageClient>
     </html>
   );

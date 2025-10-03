@@ -1,7 +1,7 @@
-import { client } from '@/sanity/lib/client'
+import { sanityFetch } from '@/sanity/lib/live'
 import Image from "next/image";
 import layout from "../layout.module.css";
-import styles from "./about.module.css";
+import styles from "./nosotros.module.css";
 import StructuredData from '@/components/StructuredData';
 
 export const metadata = {
@@ -28,8 +28,11 @@ export const metadata = {
   },
 };
 
-export default async function AboutPage() {
-  const data = await client.fetch(`*[_type == "about"][0]{ spanish, english }`);
+export default async function NosotrosPage() {
+  const data = await sanityFetch({
+    query: `*[_type == "nosotros"][0]{ spanish, english }`,
+    revalidate: 0, // Always revalidate for live updates
+  });
 
   return (
     <>
@@ -39,11 +42,11 @@ export default async function AboutPage() {
         {/* TEXT COLUMN */}
         <div className={styles.textCol}>
           <p className={styles.copy}>
-            {data?.spanish || "Texto próximamente"}
+            {data?.data?.spanish || "Texto próximamente"}
           </p>
 
           <p className={`${styles.copy} ${styles.en}`}>
-            {data?.english || "Content coming soon"}
+            {data?.data?.english || "Content coming soon"}
           </p>
         </div>
 

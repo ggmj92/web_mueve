@@ -2,14 +2,16 @@
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
+    align-items: flex-start;
     width: 60%;
     margin-left: 0;
     background-color: transparent;
     padding: 20px;
     box-sizing: border-box;
     line-height: 1rem;
-    bottom: 0;
+    bottom: 3rem; /* Account for banner height */
     position: fixed;
+    z-index: 10;
 }
 
 .footer p {
@@ -26,12 +28,23 @@
 
 :global(.home) .footer {
     position: absolute;
-    bottom: 0;
+    bottom: 3rem; /* Account for banner height on homepage */
     left: 0;
     right: 0;
     background: transparent;
     color: white;
     z-index: 10;
+    width: 60%;
+    margin-left: 0;
+}
+
+/* When banner is closed, move footer to bottom */
+.footerNoBanner {
+    bottom: 0 !important;
+}
+
+:global(.home) .footerNoBanner {
+    bottom: 0 !important;
 }
 
 :global(.home) .footer p,
@@ -54,6 +67,10 @@
     white-space: nowrap;
 }
 
+.newsletter {
+    white-space: nowrap;
+}
+
 .mobileInstagram {
     display: none;
 }
@@ -62,13 +79,21 @@
     .footer {
         width: 80%;
     }
+    
+    :global(.home) .footer {
+        width: 80%;
+    }
 }
 
 @media (max-width: 900px) {
     .footer {
         width: 100%;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-end;
+    }
+    
+    :global(.home) .footer {
+        width: 100%;
     }
 
     .limaPeru {
@@ -92,7 +117,16 @@
         width: 100vw;
         padding: 20px;
         gap: 20px;
-        
+        position: fixed !important;
+        left: 0;
+        right: 0;
+        /* Ensure footer is fixed on mobile for all pages */
+    }
+    
+    :global(.home) .footer {
+        width: 100vw;
+        left: 0;
+        right: 0;
     }
 
     .col {

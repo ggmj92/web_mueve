@@ -56,9 +56,14 @@
     background: #fff;
 }
 
-.inner .header,
-.inner .footer {
+.inner .header {
     position: relative;
+    background: #fff;
+    color: black;
+}
+
+.inner .footer {
+    position: fixed;
     background: #fff;
     color: black;
 }

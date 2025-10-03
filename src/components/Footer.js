@@ -27,14 +27,14 @@ export default function Footer() {
                 >
                     <p>info@muevegaleria.com</p>
                 </a>
-                {/* <a
-                    href="https://wa.me/51987654321"
+                <p></p>
+                <a href="https://www.instagram.com/mueve.galeria/"
                     target="_blank"
-                    rel="noreferrer"
-                    className={styles.contactLine}
+                    rel="noopener noreferrer"
+                    className={styles.newsletter}
                 >
-                    <p>+51 987 654 321</p>
-                </a> */}
+                    <p>Suscríbete a nuestra newsletter</p>
+                </a>
             </div>
 
             <div className={styles.col}>
@@ -46,6 +46,17 @@ export default function Footer() {
                     <p>INSTAGRAM</p>
                 </a>
             </div>
+
         </footer>
     );
 }
+
+
+{/* <a
+                    href="https://wa.me/51987654321"
+                    target="_blank"
+                    rel="noreferrer"
+                    className={styles.contactLine}
+                >
+                    <p>+51 987 654 321</p>
+                </a> */}

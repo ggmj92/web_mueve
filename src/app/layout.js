@@ -11,8 +11,19 @@ const mueveFont = localFont({
 
 export const metadata = {
   title: {
-    default: "Mueve - Galería de Arte Contemporáneo",
+    default: "Mueve Galería",
     template: "%s | Mueve"
+  },
+  icons: {
+    icon: [
+      { url: "/logos/favicon.ico" }, // legacy support
+      { url: "/logos/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/logos/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+    ],
+    apple: "/logos/apple-touch-icon.png",
+    other: [
+      { rel: "icon", url: "/logos/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
   },
   description: "Mueve es una galería de arte contemporáneo que presenta exposiciones innovadoras y artistas emergentes. Descubre obras únicas y experiencias artísticas excepcionales.",
   keywords: ["galería de arte", "arte contemporáneo", "exposiciones", "artistas emergentes", "arte", "galería", "Mueve"],

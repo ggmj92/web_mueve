@@ -13,5 +13,10 @@
     "email": "test@test.com",
     "subscribedAt": "2025-10-03T01:11:38.735Z",
     "source": "website"
+  },
+  {
+    "email": "dude@dude.com",
+    "subscribedAt": "2025-10-03T02:55:06.327Z",
+    "source": "website"
   }
 ]

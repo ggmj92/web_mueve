@@ -21,6 +21,19 @@ export default function NewsletterModal() {
     }
   }, []);
 
+  // Separate useEffect for event listener - always active
+  useEffect(() => {
+    const handleOpenModal = () => {
+      setIsVisible(true);
+    };
+
+    window.addEventListener('openNewsletterModal', handleOpenModal);
+    
+    return () => {
+      window.removeEventListener('openNewsletterModal', handleOpenModal);
+    };
+  }, []);
+
   const handleClose = () => {
     setIsVisible(false);
     localStorage.setItem('newsletter-modal-dismissed', 'true');

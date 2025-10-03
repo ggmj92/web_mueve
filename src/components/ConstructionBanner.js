@@ -19,6 +19,8 @@ export default function ConstructionBanner() {
   const handleClose = () => {
     setIsVisible(false);
     localStorage.setItem('construction-banner-dismissed', 'true');
+    // Dispatch event to notify footer that banner is closed
+    window.dispatchEvent(new CustomEvent('constructionBannerClosed'));
   };
 
   // Don't render until hydrated to prevent hydration mismatch

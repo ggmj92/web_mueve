@@ -38,6 +38,15 @@
     margin-left: 0;
 }
 
+/* When banner is closed, move footer to bottom */
+.footerNoBanner {
+    bottom: 0 !important;
+}
+
+:global(.home) .footerNoBanner {
+    bottom: 0 !important;
+}
+
 :global(.home) .footer p,
 :global(.home) .footer a {
     color: white;
@@ -108,14 +117,6 @@
         width: 100vw;
         padding: 20px;
         gap: 20px;
-<<<<<<< HEAD
-        bottom: 2.5rem; /* Account for smaller banner height on mobile */
-    }
-    
-    /* Homepage mobile footer adjustment */
-    :global(.home) .footer {
-        bottom: 2.5rem; /* Account for smaller banner height on mobile homepage */
-=======
         position: fixed !important;
         left: 0;
         right: 0;
@@ -126,7 +127,6 @@
         width: 100vw;
         left: 0;
         right: 0;
->>>>>>> main
     }
 
     .col {

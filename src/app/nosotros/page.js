@@ -1,7 +1,7 @@
 import { sanityFetch } from '@/sanity/lib/live'
 import Image from "next/image";
 import layout from "../layout.module.css";
-import styles from "./nosotros.module.css";
+import styles from "./about.module.css";
 import StructuredData from '@/components/StructuredData';
 
 export const metadata = {

@@ -1,6 +1,5 @@
 import { sanityFetch } from '@/sanity/lib/live'
 import { urlFor } from '@/sanity/lib/image'
-import Header from '@/components/Header'
 import HeroCarousel from '@/components/HeroCarousel'
 import StructuredData from '@/components/StructuredData'
 import NewsletterModal from '@/components/NewsletterModal'

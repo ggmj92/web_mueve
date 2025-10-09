@@ -6,20 +6,25 @@ import { useState, useEffect, useMemo } from 'react'
 import styles from './artists.module.css'
 
 async function getArtists() {
-    const query = `*[_type == "artist" && defined(slug.current)] | order(name asc){
-    _id, name, "slug": slug.current,
-    artworks[]->{
-      _id,
-      title,
-      image{
-        asset->{
-          url,
-          metadata{ dimensions{ width, height, aspectRatio } }
+    try {
+        const query = `*[_type == "artist" && defined(slug.current)] | order(name asc){
+        _id, name, "slug": slug.current,
+        artworks[]->{
+          _id,
+          title,
+          image{
+            asset->{
+              url,
+              metadata{ dimensions{ width, height, aspectRatio } }
+            }
+          }
         }
-      }
+      }`
+        return await client.fetch(query)
+    } catch (error) {
+        console.error('Error fetching artists:', error)
+        return []
     }
-  }`
-    return client.fetch(query)
 }
 
 export default function ArtistsPage() {
@@ -27,7 +32,12 @@ export default function ArtistsPage() {
     const [hoveredArtist, setHoveredArtist] = useState(null)
 
     useEffect(() => {
-        getArtists().then(setArtists)
+        getArtists()
+            .then(setArtists)
+            .catch(error => {
+                console.error('Error loading artists:', error)
+                setArtists([])
+            })
     }, [])
 
     const getPreviewArtwork = (artist) => {

@@ -2,6 +2,7 @@ import { sanityFetch } from '@/sanity/lib/live'
 import Image from "next/image";
 import styles from "./about.module.css";
 import StructuredData from '@/components/StructuredData';
+import NewsletterModal from '@/components/NewsletterModal';
 
 export const metadata = {
   title: "Nosotros - Sobre Mueve Galería",
@@ -36,6 +37,7 @@ export default async function NosotrosPage() {
   return (
     <>
       <StructuredData type="BreadcrumbList" />
+      <NewsletterModal />
       <div className={styles.about}>
 
         {/* TEXT COLUMN */}

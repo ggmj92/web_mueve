@@ -2,7 +2,7 @@
 
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect } from 'react'
 import styles from './artists.module.css'
 
 async function getArtists() {
@@ -45,23 +45,7 @@ export default function ArtistsPage() {
         return artist.artworks[0]
     }
 
-    // Decide which artwork to show:
-    //  - If hovering: use that artist's first artwork
-    //  - Else: use the first artist's first artwork
-    //  - Else: show a local placeholder
-    const previewArtwork = useMemo(() => {
-        if (hoveredArtist) return getPreviewArtwork(hoveredArtist)
-        if (artists[0]) return getPreviewArtwork(artists[0])
-        return null
-    }, [hoveredArtist, artists])
 
-    // Build a URL for the image (Sanity or local placeholder)
-    const previewUrl = previewArtwork
-        ? urlFor(previewArtwork.image).width(2000).quality(90).auto('format').url()
-        : '/logos/image.jpg' // make sure this exists in /public/logos/
-
-    const previewAlt =
-        previewArtwork?.title || hoveredArtist?.name || artists[0]?.name || 'Artwork preview'
 
     return (
 

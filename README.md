@@ -42,6 +42,21 @@ Mueve Gallery es un sitio construido con Next.js 15 (en modo App Router) que pre
   - `npm run format` – Aplica Prettier a todo el repositorio.
 - **Calidad de código** – Husky y lint-staged formatean y lintéan archivos automáticamente antes de cada commit.
 
+### ¿Cómo ejecutar `npm run lint`?
+
+Puedes correr el comando desde cualquier terminal posicionada en la raíz del proyecto (`web_mueve`). Dos opciones habituales:
+
+1. **Terminal integrada de VS Code**: abre la carpeta del proyecto en VS Code, presiona <kbd>Ctrl</kbd>/<kbd>Cmd</kbd> + <kbd>`</kbd> para abrir la terminal integrada y asegúrate de que el prompt muestre la ruta del proyecto. Luego escribe `npm run lint` y presiona <kbd>Enter</kbd>.
+2. **Terminal del sistema** (macOS Terminal, Windows PowerShell, etc.): navega hasta la carpeta del repositorio con `cd /ruta/a/web_mueve` y ejecuta `npm run lint`.
+
+El script lanzará ESLint con la configuración del repositorio y reportará cualquier error o advertencia de estilo. Si se detectan problemas, corrige los archivos indicados y vuelve a ejecutar el comando hasta que finalice sin errores.
+
+#### Consejos antes de ejecutar el lint y cómo interpretar errores comunes
+
+- Asegúrate de haber instalado las dependencias al menos una vez con `npm install` y de encontrarte en la raíz del proyecto (`web_mueve`).
+- Si ves un error como `'isHome' is assigned a value but never used`, significa que tu copia local aún tiene una variable declarada que ya no se utiliza en el componente `Header`. Puedes solucionarlo actualizando tu rama (`git pull`) o eliminando la constante sobrante en `src/components/Header.js`.
+- Cualquier otro mensaje seguirá la estructura `<archivo>:<línea>:<columna> <nivel> <descripción>`; abre el archivo indicado, revisa la línea reportada y aplica la corrección sugerida por ESLint.
+
 ## Prerrequisitos
 
 1. Node.js 20 o superior y npm 10 (o pnpm/yarn/bun si lo prefieres).

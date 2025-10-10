@@ -2,9 +2,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 1rem;
+    padding: var(--header-padding-block, 1rem) var(--layout-padding-inline, 2rem);
     width: 100%;
-    color: #111;
+    color: var(--header-text-color, #111);
+    background: var(--header-background, transparent);
+    box-sizing: border-box;
 }
 
 /* When menu is open, lift header above overlay without moving it */
@@ -27,6 +29,7 @@
 
 .logo {
     object-fit: contain;
+    filter: var(--header-logo-filter, none);
 }
 
 .logoWrap a {
@@ -44,7 +47,7 @@
     font-size: 2rem;
     font-weight: 200;
     text-decoration: none;
-    color: #111;
+    color: inherit;
     transition: opacity 0.2s ease;
 }
 
@@ -81,7 +84,7 @@
 .hamburgerLine {
     width: 2rem;
     height: 0.25rem;
-    background: #111;
+    background: var(--hamburger-line-color, currentColor);
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
@@ -166,26 +169,7 @@
     top: 0;
     left: 0;
     right: 0;
-    background: transparent;
-    color: white;
     z-index: 20;
-}
-
-:global(.home) .header .link {
-    color: white;
-}
-
-:global(.home) .header .link:hover {
-    font-style: italic;
-    opacity: 0.7;
-}
-
-:global(.home) .header .logo {
-    filter: brightness(0) invert(1);
-}
-
-:global(.home) .hamburgerLine {
-    background: white;
 }
 
 /* When hamburger is open on homepage, make X lines black */

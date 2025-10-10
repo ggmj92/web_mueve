@@ -44,7 +44,6 @@ export default {
                             initialValue: 'center'
                         }
                     ],
-                    // 👇 Per-item preview in the array
                     preview: {
                         select: {
                             media: 'image',
@@ -64,7 +63,6 @@ export default {
             ]
         }
     ],
-    // 👇 Document row preview in the left list
     preview: {
         select: { slides: 'slides' },
         prepare({ slides }) {

@@ -6,7 +6,6 @@ export default {
         { name: 'spanish', type: 'text', title: 'Texto (Español)', options: { rows: 14 } },
         { name: 'english', type: 'text', title: 'Texto (Inglés)', options: { rows: 14 } }
     ],
-    // 👇 Document row preview (clean title + short snippet)
     preview: {
         select: { es: 'spanish', en: 'english' },
         prepare({ es, en }) {

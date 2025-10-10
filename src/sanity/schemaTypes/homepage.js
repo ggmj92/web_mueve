@@ -17,7 +17,7 @@ export default {
                             name: 'image',
                             title: 'Image',
                             type: 'image',
-                            options: { hotspot: true },
+                            options: { hotspot: true }
                         },
                         { name: 'caption', title: 'Caption / Credit', type: 'string' },
                         {
@@ -25,6 +25,7 @@ export default {
                             title: 'Duration (ms)',
                             type: 'number',
                             initialValue: 5000,
+                            validation: (Rule) => Rule.min(500)
                         },
                         {
                             name: 'position',
@@ -36,14 +37,42 @@ export default {
                                     { title: 'Top', value: 'top' },
                                     { title: 'Bottom', value: 'bottom' },
                                     { title: 'Left', value: 'left' },
-                                    { title: 'Right', value: 'right' },
+                                    { title: 'Right', value: 'right' }
                                 ],
+                                layout: 'radio'
                             },
-                            initialValue: 'center',
-                        },
+                            initialValue: 'center'
+                        }
                     ],
-                },
-            ],
-        },
+                    // 👇 Per-item preview in the array
+                    preview: {
+                        select: {
+                            media: 'image',
+                            title: 'caption',
+                            durationMs: 'durationMs',
+                            position: 'position'
+                        },
+                        prepare({ media, title, durationMs, position }) {
+                            return {
+                                media,
+                                title: title || 'Untitled slide',
+                                subtitle: `⏱ ${durationMs ?? 5000} ms • ${position || 'center'}`
+                            };
+                        }
+                    }
+                }
+            ]
+        }
     ],
-}
+    // 👇 Document row preview in the left list
+    preview: {
+        select: { slides: 'slides' },
+        prepare({ slides }) {
+            const count = Array.isArray(slides) ? slides.length : 0;
+            return {
+                title: 'Homepage',
+                subtitle: count ? `slides: ${count} item${count === 1 ? '' : 's'}` : 'No slides yet'
+            };
+        }
+    }
+};

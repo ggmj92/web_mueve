@@ -82,11 +82,11 @@ body.home {
 body.inner {
   background: #fff;
   --header-text-color: #111;
-  --header-background: #fff;
+  --header-background: transparent;
   --header-logo-filter: none;
   --hamburger-line-color: #111;
   --footer-text-color: #111;
-  --footer-background: #fff;
+  --footer-background: transparent;
 }
 
 @media (max-width: 600px) {

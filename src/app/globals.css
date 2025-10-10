@@ -23,7 +23,21 @@ a {
   --background: #ffffff;
   --foreground: #171717;
   --max-width: 1200px;
-  
+
+  /* Shared layout spacing */
+  --layout-padding-inline: 2rem;
+  --layout-padding-block: 2rem;
+  --header-padding-block: 1rem;
+  --footer-padding-block: 1.25rem;
+
+  /* Header / footer presentation */
+  --header-text-color: #111;
+  --header-background: transparent;
+  --header-logo-filter: none;
+  --hamburger-line-color: #111;
+  --footer-text-color: #111;
+  --footer-background: transparent;
+
   /* Navigation variables */
   --nav-width: 300px;
   --nav-padding-inline: 2.5rem;
@@ -42,7 +56,7 @@ body {
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: var(--font-mueve), sans-serif;  
+  font-family: var(--font-mueve), sans-serif;
 }
 
 /* Apply font to all elements */
@@ -55,13 +69,32 @@ img {
   display: block;
 }
 
-/* Homepage specific styles */
-.home html,
-.home body {
+body.home {
   background: transparent !important;
+  --header-text-color: #fff;
+  --header-background: transparent;
+  --header-logo-filter: brightness(0) invert(1);
+  --hamburger-line-color: #fff;
+  --footer-text-color: #fff;
+  --footer-background: transparent;
 }
 
-/* Force X to be visible on homepage when menu is open */
-.home .header button[class*="hamburger"] span[class*="hamburgerLineOpen"] {
-  background: black !important;
+body.inner {
+  background: #fff;
+  --header-text-color: #111;
+  --header-background: #fff;
+  --header-logo-filter: none;
+  --hamburger-line-color: #111;
+  --footer-text-color: #111;
+  --footer-background: #fff;
 }
+
+@media (max-width: 600px) {
+  :root {
+    --layout-padding-inline: 1rem;
+    --layout-padding-block: 1.5rem;
+    --header-padding-block: 0.75rem;
+    --footer-padding-block: 1rem;
+  }
+}
+

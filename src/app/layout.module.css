@@ -9,7 +9,7 @@
     flex: 1;
     max-width: var(--max-width, 1200px);
     margin: 0 auto;
-    padding: 2rem;
+    padding: var(--layout-padding-block, 2rem) var(--layout-padding-inline, 2rem);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -19,7 +19,7 @@
 .container {
     max-width: var(--max-width, 1400px);
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 var(--layout-padding-inline, 2rem);
     width: 100%;
 }
 
@@ -76,11 +76,11 @@
 
 @media (max-width: 600px) {
     .main {
-        padding: 1rem;
+        padding: var(--layout-padding-block, 1.5rem) var(--layout-padding-inline, 1rem);
     }
 
     .container {
-        padding: 0 1rem;
+        padding: 0 var(--layout-padding-inline, 1rem);
     }
-    
+
 }

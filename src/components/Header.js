@@ -3,13 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
-import { usePathname } from "next/navigation";
 import styles from "./Header.module.css";
 
 export default function Header() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
-    const pathname = usePathname();
-    const isHome = pathname === "/";
 
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);

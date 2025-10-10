@@ -7,6 +7,13 @@
     color: #111;
 }
 
+/* When menu is open, lift header above overlay without moving it */
+.headerElevated {
+    position: relative;
+    z-index: 1100 !important; /* above .mobileNavOverlay (1000) and .mobileNav (1001) */
+    pointer-events: none; /* don't block sidebar clicks */
+}
+
 /* 👇 Add width via aspect-ratio so the fill image has a real box */
 .logoWrap {
     position: relative;
@@ -46,6 +53,113 @@
     opacity: 0.7;
 }
 
+/* Hamburger Menu Styles */
+.hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 25;
+    position: relative;
+}
+
+/* When menu is open, raise only z-index so position doesn't change */
+.hamburgerElevated {
+    z-index: 1100; /* above .mobileNavOverlay (1000) and .mobileNav (1001) */
+    pointer-events: auto; /* keep the button clickable */
+}
+
+.hamburger:focus {
+    outline: none;
+}
+
+.hamburgerLine {
+    width: 2rem;
+    height: 0.25rem;
+    background: #111;
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: 1px;
+}
+
+.hamburgerLineOpen:nth-child(1) {
+    transform: rotate(45deg);
+}
+
+.hamburgerLineOpen:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.hamburgerLineOpen:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
+
+/* Mobile Navigation Overlay */
+.mobileNavOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.mobileNavOverlayOpen {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobileNav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: var(--nav-width, 300px);
+    height: 100%;
+    background: #fff;
+    padding: var(--nav-padding-block, 4.5rem) var(--nav-padding-inline, 2.5rem);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+    overflow-y: auto;
+}
+
+.mobileNavOpen {
+    transform: translateX(0);
+}
+
+.mobileNavContent {
+    display: flex;
+    flex-direction: column;
+    gap: var(--nav-gap, 1rem);
+    height: 100%;
+}
+
+.mobileNavLink {
+    font-size: var(--nav-font-size, 1.1rem);
+    font-weight: 200;
+    text-decoration: none;
+    color: #111;
+    letter-spacing: var(--nav-letter-spacing, 0.035em);
+    transition: font-style 0.2s ease;
+    padding: 0.5rem 0;
+}
+
+.mobileNavLink:hover {
+    font-style: italic;
+}
+
 /* Homepage overlay tweaks */
 :global(.home) .header {
     position: absolute;
@@ -54,7 +168,7 @@
     right: 0;
     background: transparent;
     color: white;
-    z-index: 10;
+    z-index: 20;
 }
 
 :global(.home) .header .link {
@@ -68,7 +182,15 @@
 
 :global(.home) .header .logo {
     filter: brightness(0) invert(1);
-    
+}
+
+:global(.home) .hamburgerLine {
+    background: white;
+}
+
+/* When hamburger is open on homepage, make X lines black */
+:global(.home) .header .hamburger .hamburgerLineOpen {
+    background: black !important;
 }
 
 
@@ -85,12 +207,31 @@
 
 /* Responsive */
 @media (max-width: 600px) {
-
     .logoWrap {
         height: 3.5rem;
     }
 
     .link {
         font-size: 1.4rem;
+    }
+
+    .hamburger {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    .hamburgerLine {
+        width: 1.5rem;
+        height: 0.2rem;
+    }
+
+    .mobileNav {
+        width: 100%;
+        padding: 2rem 1.5rem;
+    }
+
+    .mobileNavLink {
+        font-size: 1.5rem;
+        padding: 1rem 0;
     }
 }

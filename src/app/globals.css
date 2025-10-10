@@ -60,3 +60,8 @@ img {
 .home body {
   background: transparent !important;
 }
+
+/* Force X to be visible on homepage when menu is open */
+.home .header button[class*="hamburger"] span[class*="hamburgerLineOpen"] {
+  background: black !important;
+}

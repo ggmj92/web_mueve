@@ -33,7 +33,7 @@ export default function Header() {
                 <button 
                     className={`${styles.hamburger} ${isMenuOpen ? styles.hamburgerElevated : ''}`}
                     onClick={toggleMenu}
-                    aria-label="Toggle navigation menu"
+                    aria-label={isMenuOpen ? "Close navigation menu" : "Open navigation menu"}
                 >
                     <span className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerLineOpen : ''}`}></span>
                     <span className={`${styles.hamburgerLine} ${isMenuOpen ? styles.hamburgerLineOpen : ''}`}></span>
@@ -41,20 +41,9 @@ export default function Header() {
                 </button>
             </header>
             
-            {/* Mobile Navigation Overlay */}
+            {/* Mobile Navigation Overlay - No separate close button, hamburger transforms to X */}
             <div className={`${styles.mobileNavOverlay} ${isMenuOpen ? styles.mobileNavOverlayOpen : ''}`} onClick={closeMenu}>
                 <nav className={`${styles.mobileNav} ${isMenuOpen ? styles.mobileNavOpen : ''}`} onClick={(e) => e.stopPropagation()}>
-                    {/* X Button inside mobile nav */}
-                    <button 
-                        className={styles.mobileNavClose}
-                        onClick={closeMenu}
-                        aria-label="Close navigation menu"
-                    >
-                        <span className={styles.closeLine}></span>
-                        <span className={styles.closeLine}></span>
-                        <span className={styles.closeLine}></span>
-                    </button>
-                    
                     <div className={styles.mobileNavContent}>
                         <Link href="/artistas" className={styles.mobileNavLink} onClick={closeMenu}>
                             Artistas

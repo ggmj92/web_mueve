@@ -143,11 +143,49 @@
     transform: translateX(0);
 }
 
+/* X Button inside mobile nav */
+.mobileNavClose {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.closeLine {
+    width: 1.5rem;
+    height: 0.2rem;
+    background: #000; /* Always black on white background */
+    border-radius: 10px;
+    transition: all 0.3s linear;
+    position: relative;
+    transform-origin: center;
+}
+
+.closeLine:nth-child(1) {
+    transform: rotate(45deg);
+    margin-bottom: -0.2rem;
+}
+
+.closeLine:nth-child(2) {
+    transform: rotate(-45deg);
+}
+
 .mobileNavContent {
     display: flex;
     flex-direction: column;
     gap: var(--nav-gap, 1rem);
     height: 100%;
+    padding-top: 3rem; /* Space for the X button */
 }
 
 .mobileNavLink {
@@ -218,5 +256,17 @@
     .mobileNavLink {
         font-size: 1.5rem;
         padding: 1rem 0;
+    }
+
+    .mobileNavClose {
+        width: 1.5rem;
+        height: 1.5rem;
+        top: 0.75rem;
+        right: 0.75rem;
+    }
+
+    .closeLine {
+        width: 1.2rem;
+        height: 0.15rem;
     }
 }

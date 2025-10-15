@@ -44,6 +44,16 @@ export default function Header() {
             {/* Mobile Navigation Overlay */}
             <div className={`${styles.mobileNavOverlay} ${isMenuOpen ? styles.mobileNavOverlayOpen : ''}`} onClick={closeMenu}>
                 <nav className={`${styles.mobileNav} ${isMenuOpen ? styles.mobileNavOpen : ''}`} onClick={(e) => e.stopPropagation()}>
+                    {/* X Button inside mobile nav */}
+                    <button 
+                        className={styles.mobileNavClose}
+                        onClick={closeMenu}
+                        aria-label="Close navigation menu"
+                    >
+                        <span className={styles.closeLine}></span>
+                        <span className={styles.closeLine}></span>
+                    </button>
+                    
                     <div className={styles.mobileNavContent}>
                         <Link href="/artistas" className={styles.mobileNavLink} onClick={closeMenu}>
                             Artistas

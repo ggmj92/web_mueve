@@ -25,7 +25,7 @@ export default function StructuredData({ type = 'Organization' }) {
             // Add your contact information here
             "telephone": "+51 987 654 321",
             "contactType": "customer service",
-            "email": "info@mueve.com.pe"
+            "email": "info@muevegaleria.com"
         },
         "openingHours": [
             // Add your opening hours here

@@ -73,7 +73,7 @@
 
 /* When menu is open, raise only z-index so position doesn't change */
 .hamburgerElevated {
-    z-index: 10001; /* above .mobileNav (10000) */
+    z-index: 10002; /* above .mobileNav (10000) but only for the button area */
     pointer-events: auto; /* keep the button clickable */
 }
 
@@ -137,6 +137,7 @@
     z-index: 10000;
     overflow-y: auto;
 }
+
 
 .mobileNavOpen {
     transform: translateX(0);

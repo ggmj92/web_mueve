@@ -1,5 +1,5 @@
 export default {
-  name: 'artista',
+  name: 'artist',
   title: 'Artista',
   type: 'document',
   fields: [
@@ -32,7 +32,7 @@ export default {
       name: 'artworks',
       type: 'array',
       title: 'Obras',
-      of: [{ type: 'reference', to: [{ type: 'obra' }] }]
+      of: [{ type: 'reference', to: [{ type: 'artwork' }] }]
     }
   ],
   preview: {

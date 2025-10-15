@@ -6,7 +6,7 @@ import styles from './artists.module.css'
 
 async function getArtists() {
     try {
-        const query = `*[_type == "artist" && defined(slug.current)] | order(name asc){
+        const query = `*[_type == "artista" && defined(slug.current)] | order(name asc){
         _id, name, "slug": slug.current
       }`
         return await client.fetch(query)

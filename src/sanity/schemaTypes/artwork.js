@@ -1,5 +1,5 @@
 export default {
-    name: 'obra',
+    name: 'artwork',
     title: 'Obra',
     type: 'document',
     fields: [
@@ -7,7 +7,7 @@ export default {
             name: 'artist',
             title: 'Artista',
             type: 'reference',
-            to: [{ type: 'artista' }],
+            to: [{ type: 'artist' }],
             validation: (Rule) => Rule.required()
         },
         {

@@ -52,6 +52,7 @@ export default function Header() {
                     >
                         <span className={styles.closeLine}></span>
                         <span className={styles.closeLine}></span>
+                        <span className={styles.closeLine}></span>
                     </button>
                     
                     <div className={styles.mobileNavContent}>

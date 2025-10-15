@@ -143,11 +143,11 @@
     transform: translateX(0);
 }
 
-/* X Button inside mobile nav */
+/* X Button inside mobile nav - positioned exactly where hamburger was */
 .mobileNavClose {
     position: absolute;
-    top: 1rem;
-    right: 1rem;
+    top: var(--header-padding-block, 1rem);
+    right: var(--layout-padding-inline, 2rem);
     width: 2rem;
     height: 2rem;
     background: transparent;
@@ -157,26 +157,30 @@
     z-index: 10001;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
 .closeLine {
-    width: 1.5rem;
-    height: 0.2rem;
+    width: 2rem;
+    height: 0.25rem;
     background: #000; /* Always black on white background */
     border-radius: 10px;
     transition: all 0.3s linear;
     position: relative;
-    transform-origin: center;
+    transform-origin: 1px;
 }
 
 .closeLine:nth-child(1) {
     transform: rotate(45deg);
-    margin-bottom: -0.2rem;
 }
 
 .closeLine:nth-child(2) {
+    opacity: 0;
+    transform: translateX(20px);
+}
+
+.closeLine:nth-child(3) {
     transform: rotate(-45deg);
 }
 
@@ -261,12 +265,12 @@
     .mobileNavClose {
         width: 1.5rem;
         height: 1.5rem;
-        top: 0.75rem;
-        right: 0.75rem;
+        top: var(--header-padding-block, 0.75rem);
+        right: var(--layout-padding-inline, 1rem);
     }
 
     .closeLine {
-        width: 1.2rem;
-        height: 0.15rem;
+        width: 1.5rem;
+        height: 0.2rem;
     }
 }

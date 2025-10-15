@@ -24,7 +24,8 @@
     text-align: left;
 }
 
-.list a {
+.list a,
+.artistName {
     font-size: 20px;
     color: #000;
     font-weight: 300;
@@ -136,7 +137,8 @@
         align-items: center;
     }
 
-    .list a {
+    .list a,
+    .artistName {
         font-size: 1.2rem;
     }
 }

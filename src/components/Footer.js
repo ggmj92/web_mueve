@@ -76,7 +76,7 @@ export default function Footer() {
                     rel="noopener noreferrer"
                     className={styles.desktopInstagram}
                 >
-                    <p>INSTAGRAM</p>
+                    <p>@mueve.galeria</p>
                 </a>
             </div>
             </footer>

@@ -27,7 +27,7 @@ export default function ArtistsPage() {
                 setLoading(false)
             })
             .catch(error => {
-                console.error('Error loading artists:', error)
+                console.error('Error al cargar artistas:', error)
                 setArtists([])
                 setLoading(false)
             })
@@ -38,7 +38,7 @@ export default function ArtistsPage() {
             <div className={styles.listCol}>
                 {loading ? (
                     <div>
-                        <p>Loading artists...</p>
+                        <p>Cargando artistas...</p>
                     </div>
                 ) : artists.length > 0 ? (
                     <ul className={styles.list}>
@@ -52,7 +52,7 @@ export default function ArtistsPage() {
                     </ul>
                 ) : (
                     <div>
-                        <p>No artists found.</p>
+                        <p>No se encontraron artistas.</p>
                     </div>
                 )}
             </div>

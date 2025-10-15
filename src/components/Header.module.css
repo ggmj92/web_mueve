@@ -11,9 +11,13 @@
 
 /* When menu is open, lift header above overlay without moving it */
 .headerElevated {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     z-index: 1100 !important; /* above .mobileNavOverlay (1000) and .mobileNav (1001) */
     pointer-events: none; /* don't block sidebar clicks */
+    background: var(--header-background, transparent);
 }
 
 /* 👇 Add width via aspect-ratio so the fill image has a real box */
@@ -73,7 +77,7 @@
 
 /* When menu is open, raise only z-index so position doesn't change */
 .hamburgerElevated {
-    z-index: 1100; /* above .mobileNavOverlay (1000) and .mobileNav (1001) */
+    z-index: 1101; /* above .headerElevated (1100) */
     pointer-events: auto; /* keep the button clickable */
 }
 

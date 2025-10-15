@@ -9,10 +9,7 @@ async function getArtists() {
         const query = `*[_type == "artist"] | order(name asc){
         _id, name, "slug": slug.current
       }`
-        console.log('Fetching artists with query:', query)
-        const result = await client.fetch(query)
-        console.log('Fetched artists:', result)
-        return result
+        return await client.fetch(query)
     } catch (error) {
         console.error('Error fetching artists:', error)
         return []
@@ -21,24 +18,29 @@ async function getArtists() {
 
 export default function ArtistsPage() {
     const [artists, setArtists] = useState([])
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
-        console.log('Component mounted, fetching artists...')
         getArtists()
             .then(artists => {
-                console.log('Artists loaded:', artists)
                 setArtists(artists)
+                setLoading(false)
             })
             .catch(error => {
                 console.error('Error loading artists:', error)
                 setArtists([])
+                setLoading(false)
             })
     }, [])
 
     return (
         <div className={`${styles.artists} alignSecondCol`}>
             <div className={styles.listCol}>
-                {artists.length > 0 ? (
+                {loading ? (
+                    <div>
+                        <p>Loading artists...</p>
+                    </div>
+                ) : artists.length > 0 ? (
                     <ul className={styles.list}>
                         {artists.map((a) => (
                             <li key={a.slug ?? a._id}>
@@ -50,8 +52,7 @@ export default function ArtistsPage() {
                     </ul>
                 ) : (
                     <div>
-                        <p>No artists found. Loading...</p>
-                        <p>Check console for debugging info.</p>
+                        <p>No artists found.</p>
                     </div>
                 )}
             </div>

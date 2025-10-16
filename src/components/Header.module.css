@@ -185,6 +185,21 @@
     background: black !important;
 }
 
+/* Mobile-specific: When mobile nav is open, make logo black and clickable */
+@media (max-width: 900px) {
+    .headerElevated .logo {
+        filter: brightness(0) invert(0) !important; /* Black logo */
+        z-index: 10002; /* Above mobile nav */
+        pointer-events: auto; /* Make it clickable */
+    }
+
+    /* Ensure logo link is clickable when mobile nav is open */
+    .headerElevated .logoWrap a {
+        pointer-events: auto;
+        z-index: 10002;
+    }
+}
+
 
 @media (max-width: 1400px) {
  

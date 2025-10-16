@@ -43,7 +43,7 @@ export default async function ArtworkPage({ params }) {
             year: a.year || '',
             technique: a.technique || '',
             dims: a.dimensions || '',
-            description: a.about || '',
+            description: a.description || '',
         }))
 
     const index = Math.max(

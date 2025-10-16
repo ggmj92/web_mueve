@@ -15,7 +15,6 @@ export default function ArtworkViewer({
     const len = slides.length
     const slide = slides[i]
     const artBoxRef = useRef(null)
-    const [infoTop, setInfoTop] = useState(null)
 
     const go = (d) => setI((prev) => (prev + d + len) % len)
 
@@ -26,27 +25,6 @@ export default function ArtworkViewer({
         window.history.replaceState(null, '', url)
     }, [i, baseHref, slide])
 
-    // Measure the top of the artwork box relative to the viewport so the info can be fixed at that exact height
-    useEffect(() => {
-        function measure() {
-            if (!artBoxRef.current) return
-            const rect = artBoxRef.current.getBoundingClientRect()
-            setInfoTop(Math.max(0, Math.round(rect.top)))
-        }
-        // Measure after image load/paint
-        const img = artBoxRef.current?.querySelector('img')
-        if (img && !img.complete) {
-            img.addEventListener('load', measure, { once: true })
-        } else {
-            measure()
-        }
-        window.addEventListener('resize', measure)
-        window.addEventListener('orientationchange', measure)
-        return () => {
-            window.removeEventListener('resize', measure)
-            window.removeEventListener('orientationchange', measure)
-        }
-    }, [i, slide?.url])
 
     const meta = useMemo(
         () => ({
@@ -62,10 +40,7 @@ export default function ArtworkViewer({
     if (!len) return null
 
     return (
-        <section
-            className={styles.wrap}
-            style={infoTop != null ? { '--info-top': `${infoTop}px` } : undefined}
-        >
+        <section className={styles.wrap}>
             {/* Left fixed info */}
             <aside className={styles.info}>
                 <div className={styles.artist}>{artistName}</div>

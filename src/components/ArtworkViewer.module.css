@@ -1,174 +1,141 @@
-/* Overall layout: grid so info and image share the same top */
 .wrap {
-    --content-offset: calc(var(--edge) + var(--col1) + var(--gap12));
-    padding: var(--header-h) 0 var(--footer-h);
-    display: grid;
-    grid-template-columns: min(22ch, 30vw) 2rem 1fr;
-    grid-auto-rows: auto;
-    align-items: start;
+    position: relative;
+    padding: 2rem;
+    --info-top: 100px;
 }
 
-/* Left info aligned with first column; sticky to keep in view */
 .info {
     position: fixed;
-    top: var(--info-top, var(--header-h));
-    left: var(--edge);
-    width: min(22ch, 30vw);
-    z-index: 2;
+    top: 8rem;
+    left: 2rem;
+    z-index: 10;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    max-width: 400px;
 }
 
 .artist {
-    font-weight: 500;
+    font-weight: 600;
     margin-bottom: 0.5rem;
 }
 
 .workTitle {
-    margin-bottom: 0.35rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
 }
 
 .row {
-    color: #444;
-    margin-bottom: 0.25rem;
+    margin-bottom: 0.2rem;
+    opacity: 0.8;
 }
 
-/* Stage in right column, top-aligned, centered horizontally */
 .stage {
-    grid-column: 1 / -1;
-    grid-row: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 0 4rem;
+    height: 100vh;
+    padding: 4.2rem 0 2rem 0;
 }
 
 .artBox {
-    /* Top-aligned box that participates in layout */
-    margin-left: var(--content-offset);
-    margin-right: auto;
-    width: clamp(520px, calc(2 * (50vw - var(--content-offset))), 1120px);
-    max-width: calc(100% - 2 * var(--edge));
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: 500px;
+    /* Fixed height for all images */
     display: flex;
-    /* center child horizontally */
+    align-items: start;
     justify-content: center;
 }
 
 .art {
-    display: block;
-    margin: 0 auto;
-    width: 100%;
-    /* always fill the artBox width */
+    max-height: 100%;
+    max-width: 100%;
+    width: auto;
     height: auto;
-    /* preserve aspect ratio */
     object-fit: contain;
-    object-position: top center;
-    /* top aligns with name */
+    object-position: center;
 }
 
-/* Fixed side arrows */
 .arrow {
     position: fixed;
-    top: calc(var(--header-h) + 50vh);
+    top: 60%;
     transform: translateY(-50%);
     background: none;
-    color: black;
     border: none;
-    font-size: 1.4rem;
+    font-size: 2rem;
     cursor: pointer;
-    z-index: 10;
+    z-index: 20;
+    padding: 1rem;
+    transition: opacity 0.2s ease;
 }
 
-.left {
-    left: var(--edge);
+.arrow:hover {
+    opacity: 0.7;
 }
 
-.right {
-    right: var(--edge);
+.arrow.left {
+    left: 2rem;
 }
 
-/* Long description below stage */
+.arrow.right {
+    right: 2rem;
+}
+
 .description {
-    grid-column: 1 / -1;
-    width: 640px;
-    margin-top: 10rem;
-    margin-left: var(--content-offset);
-    margin-right: auto;
-    font-size: 14px;
+    margin: 2rem 4rem;
+    max-width: 650px;
     line-height: 1.2;
-    color: #444;
-    white-space: pre-line;
+    font-size: 0.95rem;
 }
 
-@media (max-width: 900px) {
-    .wrap {
-        grid-template-columns: min(26ch, 38vw) 1.5rem 1fr;
-    }
-
-    .artBox {
-        width: min(70vw, 720px);
-    }
-
-    .art {
-        max-height: 60vh;
-    }
-}
-
+/* Responsive adjustments */
 @media (max-width: 768px) {
     .wrap {
-        display: block;
-        padding: calc(var(--header-h) + 1rem) 0 calc(var(--footer-h) + 3rem);
+        padding: 1rem;
     }
 
     .info {
-        position: static;
-        width: auto;
-        margin: 0 var(--edge) 1.5rem;
+        left: 1rem;
+        max-width: 150px;
+        font-size: 0.8rem;
     }
 
     .stage {
-        margin-inline: 0;
+        margin: 0 2rem;
     }
 
     .artBox {
-        margin: 0 var(--edge);
-        width: auto;
-        max-width: none;
-    }
-
-    .art {
-        max-height: 58vh;
+        height: 400px;
+        /* Slightly smaller on mobile */
     }
 
     .arrow {
-        top: auto;
-        bottom: calc(var(--footer-h) + 2rem);
-        transform: none;
+        font-size: 1.5rem;
+        padding: 0.5rem;
     }
 
-    .left {
-        left: calc(var(--edge) + 0.25rem);
+    .arrow.left {
+        left: 0.5rem;
     }
 
-    .right {
-        right: calc(var(--edge) + 0.25rem);
+    .arrow.right {
+        right: 0.5rem;
     }
 
     .description {
-        width: auto;
-        margin: 2.5rem var(--edge) 0;
+        margin: 1rem 2rem;
     }
 }
 
-@media (max-width: 540px) {
-    .info {
-        margin: 0 var(--edge) 1.25rem;
+@media (max-width: 480px) {
+    .artBox {
+        height: 300px;
+        /* Even smaller on very small screens */
     }
 
-    .art {
-        max-height: 52vh;
-    }
-
-    .arrow {
-        font-size: 1.2rem;
-    }
-
-    .description {
-        font-size: 13px;
-        line-height: 1.35;
+    .stage {
+        margin: 0 1rem;
     }
 }

@@ -21,7 +21,7 @@ export default function Header() {
         <>
             <header className={`${styles.header} ${isMenuOpen ? styles.headerElevated : ''}`}>
                 <div className={styles.logoWrap}>
-                    <Link href="/">
+                    <Link href="/" onClick={closeMenu}>
                         <Image
                             src="/logos/mueve_logo.png"
                             alt="Mueve Logo"

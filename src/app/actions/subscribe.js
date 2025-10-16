@@ -27,8 +27,11 @@ function saveEmailLocally(email) {
             emails = JSON.parse(data);
         }
         
+        // Check if email already exists
+        const emailExists = emails.some(subscriber => subscriber.email === email);
+        
         // Add new email if not already exists
-        if (!emails.includes(email)) {
+        if (!emailExists) {
             emails.push({
                 email,
                 subscribedAt: new Date().toISOString(),
@@ -37,6 +40,8 @@ function saveEmailLocally(email) {
             
             fs.writeFileSync(emailsFile, JSON.stringify(emails, null, 2));
             console.log(`Email saved locally: ${email}`);
+        } else {
+            console.log(`Email already exists: ${email}`);
         }
         
         return true;

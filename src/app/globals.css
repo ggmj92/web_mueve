@@ -42,8 +42,8 @@ a {
   --nav-width: 300px;
   --nav-padding-inline: 2.5rem;
   --nav-padding-block: 4.5rem;
-  --nav-gap: 1rem;
-  --nav-font-size: 1.1rem;
+  --nav-gap: 1px;
+  --nav-font-size: 1.2rem;
   --nav-letter-spacing: 0.035em;
   --header-h: 4.5rem;
 }

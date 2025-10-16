@@ -3,7 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    padding-bottom: 2rem;
+    padding: calc(var(--header-h, 4.5rem) + 2rem) 0 2rem 0;
 }
 
 .copy {

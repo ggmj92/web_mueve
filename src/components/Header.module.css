@@ -7,14 +7,10 @@
     color: var(--header-text-color, #111);
     background: var(--header-background, transparent);
     box-sizing: border-box;
+    position: fixed;
+    z-index: 1000;
 }
 
-/* When menu is open, lift header above overlay without moving it */
-.headerElevated {
-    position: relative;
-    z-index: 10001 !important; /* above .mobileNav (10000) so hamburger is visible */
-    pointer-events: none; /* don't block sidebar clicks */
-}
 
 /* 👇 Add width via aspect-ratio so the fill image has a real box */
 .logoWrap {
@@ -56,150 +52,44 @@
     opacity: 0.7;
 }
 
-/* Hamburger Menu Styles */
-.hamburger {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    width: 2rem;
-    height: 2rem;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-    z-index: 25;
-    position: relative;
-}
-
-/* When menu is open, raise only z-index so position doesn't change */
-.hamburgerElevated {
-    z-index: 10002; /* above .headerElevated (10001) */
-    pointer-events: auto; /* keep the button clickable */
-}
-
-.hamburger:focus {
-    outline: none;
-}
-
-.hamburgerLine {
-    width: 2rem;
-    height: 0.25rem;
-    background: var(--hamburger-line-color, currentColor);
-    border-radius: 10px;
-    transition: all 0.3s linear;
-    position: relative;
-    transform-origin: 1px;
-}
-
-.hamburgerLineOpen:nth-child(1) {
-    transform: rotate(45deg);
-}
-
-.hamburgerLineOpen:nth-child(2) {
-    opacity: 0;
-    transform: translateX(20px);
-}
-
-.hamburgerLineOpen:nth-child(3) {
-    transform: rotate(-45deg);
-}
-
-
-/* Mobile Navigation Overlay */
-.mobileNavOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 9999;
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-}
-
-.mobileNavOverlayOpen {
-    opacity: 1;
-    visibility: visible;
-}
-
-.mobileNav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: var(--nav-width, 300px);
-    height: 100%;
-    background: #fff;
-    padding: var(--nav-padding-block, 4.5rem) var(--nav-padding-inline, 2.5rem);
-    transform: translateX(100%);
-    transition: transform 0.3s ease;
-    z-index: 10000;
-    overflow-y: auto;
-}
-
-
-.mobileNavOpen {
-    transform: translateX(0);
-}
-
-
-.mobileNavContent {
-    display: flex;
-    flex-direction: column;
-    gap: var(--nav-gap, 2rem);
-    height: 100%;
-    padding-top: 2rem; /* Space for the X button */
-    
-}
-
-.mobileNavLink {
-    font-size: var(--nav-font-size, 1.1rem);
-    font-weight: 200;
-    text-decoration: none;
-    color: #111;
-    letter-spacing: var(--nav-letter-spacing, 0.035em);
-    transition: font-style 0.2s ease;
-    padding: 0.5rem 0;
-}
-
-.mobileNavLink:hover {
-    font-style: italic;
-}
 
 /* Homepage overlay tweaks */
 :global(.home) .header {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     z-index: 20;
 }
 
-/* When hamburger is open on homepage, make X lines black */
-:global(.home) .header .hamburger .hamburgerLineOpen {
-    background: black !important;
-}
-
-/* When hamburger is open (mobile nav visible), make X lines black */
-.headerElevated .hamburger .hamburgerLineOpen {
-    background: black !important;
-}
-
-/* Mobile-specific: When mobile nav is open, make logo black and clickable */
-@media (max-width: 900px) {
-    .headerElevated .logo {
-        filter: brightness(0) invert(0) !important; /* Black logo */
-        z-index: 10002; /* Above mobile nav */
-        pointer-events: auto; /* Make it clickable */
-    }
-
-    /* Ensure logo link is clickable when mobile nav is open */
-    .headerElevated .logoWrap a {
-        pointer-events: auto;
-        z-index: 10002;
+/* On mobile, make header fixed even on homepage */
+@media (max-width: 600px) {
+    :global(.home) .header {
+        position: fixed !important;
     }
 }
+
+/* When navbar is open, make logo visible and clickable through overlay */
+:global(body.nav-open) .logoWrap {
+    z-index: 10001 !important;
+    pointer-events: auto !important;
+}
+
+:global(body.nav-open) .logoWrap a {
+    z-index: 10001 !important;
+    pointer-events: auto !important;
+}
+
+/* When navbar is open, make logo black (especially on homepage) */
+:global(body.nav-open) .logo {
+    filter: brightness(0) invert(0) !important; /* Black logo */
+}
+
+/* Ensure logo is clickable when navbar is open */
+:global(body.nav-open) .logoWrap {
+    position: relative;
+}
+
 
 
 @media (max-width: 1400px) {
@@ -216,31 +106,12 @@
 /* Responsive */
 @media (max-width: 600px) {
     .logoWrap {
-        height: 3.5rem;
+        height: 2.5rem;
     }
 
     .link {
         font-size: 1.4rem;
     }
 
-    .hamburger {
-        width: 1.5rem;
-        height: 1.5rem;
-    }
-
-    .hamburgerLine {
-        width: 1.5rem;
-        height: 0.2rem;
-    }
-
-    .mobileNav {
-        width: 100%;
-        padding: 2rem 1.5rem;
-    }
-
-    .mobileNavLink {
-        font-size: 1.5rem;
-        padding-top: 2rem;
-    }
 
 }

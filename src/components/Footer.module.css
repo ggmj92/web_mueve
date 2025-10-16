@@ -32,7 +32,7 @@
 }
 
 :global(.home) .footer {
-    position: absolute;
+    position: fixed;
     bottom: 3rem; /* Account for banner height on homepage */
     left: 0;
     right: 0;
@@ -62,6 +62,10 @@
 
 .addressLink {
     white-space: nowrap;
+}
+
+.addressLink:hover + .limaPeru {
+    font-style: italic;
 }
 
 .newsletter {

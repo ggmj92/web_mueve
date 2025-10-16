@@ -5,7 +5,7 @@
     width: 100%;
     max-width: var(--max-width, 1200px);
     margin: 0 auto;
-    padding: 2rem 0;
+    padding: calc(var(--header-h, 4.5rem) + 2rem) 0 2rem 0;
 }
 
 .listCol {
@@ -132,9 +132,11 @@
 
 @media (max-width: 600px) {
     .listCol {
-        width: 90%;
-        padding: 1rem;
-        align-items: center;
+        width: 100%;
+        padding: 6rem 0;
+        align-items: left;
+        gap: 0.1rem !important;
+
     }
 
     .list a,

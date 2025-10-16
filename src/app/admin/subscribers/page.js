@@ -16,7 +16,7 @@ export default async function SubscribersPage() {
   const subscribers = await getSubscribers();
 
   return (
-    <div style={{ padding: '2rem', maxWidth: '800px', margin: '0 auto' }}>
+    <div style={{ padding: `calc(var(--header-h, 4.5rem) + 2rem) 2rem 2rem 2rem`, maxWidth: '800px', margin: '0 auto' }}>
       <h1>Newsletter Subscribers</h1>
       <p>Total subscribers: {subscribers.length}</p>
       

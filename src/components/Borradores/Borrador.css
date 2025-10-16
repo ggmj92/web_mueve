@@ -1,0 +1,98 @@
+.container {
+    max-width: 3000px;
+    padding: calc(var(--header-h) - 2rem) 0 2rem;
+    position: relative;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    text-align: left;
+}
+
+.list a {
+    font-size: 1.5rem;
+    color: #000;
+    transition: font-style 0.2s ease;
+}
+
+.list a:hover {
+    font-style: italic;
+}
+
+/* Artwork Preview Styles */
+.preview {
+    position: fixed;
+    /* non-static, so Next/Image fill works */
+    bottom: calc(var(--footer-h) + 2rem);
+    right: 2rem;
+    width: 550px;
+    height: 700px;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-in-out;
+    z-index: 10;
+}
+
+/* IMPORTANT: match the class used on <Image /> */
+.previewImage {
+    /* With next/image + fill, use object-fit via CSS class */
+    object-fit: cover;
+    object-position: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 900px) {
+    .container {
+        padding: calc(var(--header-h)) 0 2.5rem;
+    }
+
+    .list {
+        gap: 0.75rem;
+    }
+
+    .list a {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .preview {
+        right: 1rem;
+        width: 180px;
+        height: 220px;
+    }
+
+    /* fill still works – no width/height on the img itself */
+}
+
+@media (max-width: 600px) {
+    .container {
+        padding: calc(var(--header-h) + 0.5rem) var(--edge) 3rem;
+    }
+
+    .list {
+        gap: 0.6rem;
+    }
+
+    .list a {
+        font-size: 1rem;
+    }
+}

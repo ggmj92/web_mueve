@@ -16,6 +16,7 @@ ol {
 a {
   text-decoration: none;
   color: inherit;
+  cursor: pointer;
 }
 
 /* Root variables */
@@ -67,6 +68,16 @@ body {
 img {
   max-width: 100%;
   display: block;
+}
+
+/* Ensure all interactive elements show pointer cursor */
+button, [role="button"], [onclick] {
+  cursor: pointer !important;
+}
+
+/* Force pointer cursor on all clickable elements */
+a, button, [role="button"], [onclick], .card, .portfolio, .navLink, .link, .logoWrap a {
+  cursor: pointer !important;
 }
 
 body.home {

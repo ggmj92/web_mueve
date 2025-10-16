@@ -1,0 +1,174 @@
+/* Overall layout: grid so info and image share the same top */
+.wrap {
+    --content-offset: calc(var(--edge) + var(--col1) + var(--gap12));
+    padding: var(--header-h) 0 var(--footer-h);
+    display: grid;
+    grid-template-columns: min(22ch, 30vw) 2rem 1fr;
+    grid-auto-rows: auto;
+    align-items: start;
+}
+
+/* Left info aligned with first column; sticky to keep in view */
+.info {
+    position: fixed;
+    top: var(--info-top, var(--header-h));
+    left: var(--edge);
+    width: min(22ch, 30vw);
+    z-index: 2;
+}
+
+.artist {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.workTitle {
+    margin-bottom: 0.35rem;
+}
+
+.row {
+    color: #444;
+    margin-bottom: 0.25rem;
+}
+
+/* Stage in right column, top-aligned, centered horizontally */
+.stage {
+    grid-column: 1 / -1;
+    grid-row: 1;
+}
+
+.artBox {
+    /* Top-aligned box that participates in layout */
+    margin-left: var(--content-offset);
+    margin-right: auto;
+    width: clamp(520px, calc(2 * (50vw - var(--content-offset))), 1120px);
+    max-width: calc(100% - 2 * var(--edge));
+    display: flex;
+    /* center child horizontally */
+    justify-content: center;
+}
+
+.art {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    /* always fill the artBox width */
+    height: auto;
+    /* preserve aspect ratio */
+    object-fit: contain;
+    object-position: top center;
+    /* top aligns with name */
+}
+
+/* Fixed side arrows */
+.arrow {
+    position: fixed;
+    top: calc(var(--header-h) + 50vh);
+    transform: translateY(-50%);
+    background: none;
+    color: black;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.left {
+    left: var(--edge);
+}
+
+.right {
+    right: var(--edge);
+}
+
+/* Long description below stage */
+.description {
+    grid-column: 1 / -1;
+    width: 640px;
+    margin-top: 10rem;
+    margin-left: var(--content-offset);
+    margin-right: auto;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #444;
+    white-space: pre-line;
+}
+
+@media (max-width: 900px) {
+    .wrap {
+        grid-template-columns: min(26ch, 38vw) 1.5rem 1fr;
+    }
+
+    .artBox {
+        width: min(70vw, 720px);
+    }
+
+    .art {
+        max-height: 60vh;
+    }
+}
+
+@media (max-width: 768px) {
+    .wrap {
+        display: block;
+        padding: calc(var(--header-h) + 1rem) 0 calc(var(--footer-h) + 3rem);
+    }
+
+    .info {
+        position: static;
+        width: auto;
+        margin: 0 var(--edge) 1.5rem;
+    }
+
+    .stage {
+        margin-inline: 0;
+    }
+
+    .artBox {
+        margin: 0 var(--edge);
+        width: auto;
+        max-width: none;
+    }
+
+    .art {
+        max-height: 58vh;
+    }
+
+    .arrow {
+        top: auto;
+        bottom: calc(var(--footer-h) + 2rem);
+        transform: none;
+    }
+
+    .left {
+        left: calc(var(--edge) + 0.25rem);
+    }
+
+    .right {
+        right: calc(var(--edge) + 0.25rem);
+    }
+
+    .description {
+        width: auto;
+        margin: 2.5rem var(--edge) 0;
+    }
+}
+
+@media (max-width: 540px) {
+    .info {
+        margin: 0 var(--edge) 1.25rem;
+    }
+
+    .art {
+        max-height: 52vh;
+    }
+
+    .arrow {
+        font-size: 1.2rem;
+    }
+
+    .description {
+        font-size: 13px;
+        line-height: 1.35;
+    }
+}

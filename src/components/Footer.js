@@ -48,7 +48,7 @@ export default function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className={styles.mobileInstagram}>
-                    <p>INSTAGRAM</p>
+                    <p>@mueve.galeria</p>
                 </a>
             </div>
             <div className={`${styles.col} ${styles.contactCol}`}>

@@ -56,9 +56,9 @@ export default {
         },
         {
             name: 'featured',
-            title: 'Destacado',
+            title: 'Destacado (Página del Artista)',
             type: 'boolean',
-            description: 'Marcar esta obra como destacada para que aparezca como imagen principal en la página del artista. Solo una obra por artista puede estar destacada.',
+            description: 'Marcar esta obra como destacada para que aparezca como imagen principal (hero) en la página del artista. Solo una obra por artista puede estar destacada.',
             initialValue: false,
             validation: (Rule) => Rule.custom(async (featured, context) => {
                 if (!featured) return true; // If not featured, no validation needed
@@ -83,6 +83,36 @@ export default {
                 
                 return true;
             })
+        },
+        {
+            name: 'featuredPreview',
+            title: 'Destacado (Vista Previa Hover)',
+            type: 'boolean',
+            description: 'Marcar esta obra como la que aparece en la vista previa al hacer hover sobre el nombre del artista en la lista de artistas. Solo una obra por artista puede estar marcada.',
+            initialValue: false,
+            validation: (Rule) => Rule.custom(async (featuredPreview, context) => {
+                if (!featuredPreview) return true;
+                
+                const { document, getClient } = context;
+                const client = getClient({ apiVersion: '2023-01-01' });
+                
+                if (!document?.artist?._ref) return true;
+                
+                // Find other preview-featured artworks for the same artist
+                const otherPreviewArtworks = await client.fetch(
+                    `*[_type == "artwork" && artist._ref == $artistRef && featuredPreview == true && _id != $currentId]`,
+                    { 
+                        artistRef: document.artist._ref,
+                        currentId: document._id 
+                    }
+                );
+                
+                if (otherPreviewArtworks.length > 0) {
+                    return 'Solo una obra por artista puede estar marcada para vista previa. Desmarca la obra actual primero.';
+                }
+                
+                return true;
+            })
         }
     ],
     preview: {
@@ -91,13 +121,17 @@ export default {
             media: 'image',
             year: 'year',
             artist: 'artist.name',
-            featured: 'featured'
+            featured: 'featured',
+            featuredPreview: 'featuredPreview'
         },
-        prepare({ title, media, year, artist, featured }) {
+        prepare({ title, media, year, artist, featured, featuredPreview }) {
             const subtitle = [artist, year].filter(Boolean).join(' • ');
-            const featuredText = featured ? ' ⭐ Destacado' : '';
+            const badges = [];
+            if (featured) badges.push('⭐ Hero');
+            if (featuredPreview) badges.push('👁️ Preview');
+            const badgeText = badges.length > 0 ? ' ' + badges.join(' ') : '';
             return {
-                title: (title || 'Sin título') + featuredText,
+                title: (title || 'Sin título') + badgeText,
                 subtitle: subtitle || '—',
                 media
             };

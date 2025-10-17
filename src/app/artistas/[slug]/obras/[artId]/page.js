@@ -59,6 +59,16 @@ export default async function ArtworkPage({ params }) {
                 initialIndex={index}
                 baseHref={`/artistas/${slug}/obras/`}
             />
+            <div style={{ 
+                display: 'none',
+                padding: 'calc(var(--header-h) + 2rem) var(--edge)',
+                textAlign: 'center'
+            }} className="mobile-message">
+                <p>La vista de obras individuales no está disponible en dispositivos móviles.</p>
+                <a href={`/artistas/${slug}`} style={{ textDecoration: 'underline' }}>
+                    Volver a {artist.name}
+                </a>
+            </div>
         </main>
     )
 }

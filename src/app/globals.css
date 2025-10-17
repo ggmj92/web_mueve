@@ -117,6 +117,17 @@ body.inner {
   --footer-background: transparent;
 }
 
+/* Mobile message for artwork detail page */
+.mobile-message {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-message {
+    display: block !important;
+  }
+}
+
 @media (max-width: 600px) {
   :root {
     --layout-padding-inline: 1rem;

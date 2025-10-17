@@ -41,7 +41,18 @@ export default function ArtworkViewer({
 
     return (
         <section className={styles.wrap}>
-            {/* Left fixed info */}
+            {/* Centered image box (manual carousel) */}
+            <div className={styles.stage}>
+                <div className={styles.artBox} ref={artBoxRef}>
+                    <img
+                        src={slide.url}
+                        alt={meta.title || 'Artwork'}
+                        className={styles.art}
+                    />
+                </div>
+            </div>
+
+            {/* Info - fixed on desktop, below artwork on mobile */}
             <aside className={styles.info}>
                 <div className={styles.artist}>{artistName}</div>
                 <div className={styles.workTitle}>
@@ -53,17 +64,6 @@ export default function ArtworkViewer({
                 {meta.technique && <div className={styles.row}>{meta.technique}</div>}
                 {meta.dims && <div className={styles.row}>{meta.dims}</div>}
             </aside>
-
-            {/* Centered image box (manual carousel) */}
-            <div className={styles.stage}>
-                <div className={styles.artBox} ref={artBoxRef}>
-                    <img
-                        src={slide.url}
-                        alt={meta.title || 'Artwork'}
-                        className={styles.art}
-                    />
-                </div>
-            </div>
 
             {/* Fixed side arrows */}
             <button

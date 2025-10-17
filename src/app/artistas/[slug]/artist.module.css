@@ -119,6 +119,11 @@
     .heroImage {
         padding: 0 var(--layout-padding-inline, 1rem);
     }
+
+    .card {
+        pointer-events: none;
+        cursor: default !important;
+    }
 }
 
 @media (max-width: 600px) {

@@ -105,8 +105,8 @@ export default async function ArtistPage({ params }) {
                                 .auto('format')
                                 .url()
                             
-                            // Mobile: original full image
-                            const mobileImageUrl = urlFor(aw.image)
+                            // Mobile: use raw asset URL to bypass hotspot/crop entirely
+                            const mobileImageUrl = urlFor(aw.image.asset)
                                 .width(1200)
                                 .quality(90)
                                 .auto('format')

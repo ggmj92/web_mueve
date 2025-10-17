@@ -15,9 +15,12 @@ async function getArtists() {
           featuredPreview,
           image{
             asset->{
+              _id,
               url,
               metadata{ dimensions{ width, height, aspectRatio } }
-            }
+            },
+            hotspot,
+            crop
           }
         }
       }`
@@ -86,8 +89,10 @@ export default function ArtistsPage() {
                 <div className={styles.preview}>
                     <img
                         src={urlFor(getPreviewArtwork(hoveredArtist).image)
-                            .width(2000)
-                            .quality(100)
+                            .width(1000)
+                            .height(1600)
+                            .fit('crop')
+                            .quality(90)
                             .auto('format')
                             .url()}
                         alt={getPreviewArtwork(hoveredArtist).title || 'Artwork preview'}

@@ -63,7 +63,7 @@
 }
 
 .bio {
-    max-width: 100%;
+    max-width: 37%;
     margin: 0.25rem 0 0 0;
     line-height: 1;
     color: #333;
@@ -124,7 +124,23 @@
     display: none;
 }
 
+@media (max-width: 1400px) {
+    .bio {
+        max-width: 60% !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .bio {
+        max-width: 60% !important;
+    }
+}
+
 @media (max-width: 900px) {
+    .bio {
+        max-width: 70% !important;
+    }
+
     .cards {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -145,6 +161,10 @@
 
     .portfolio {
         font-size: 1rem !important;
+    }
+
+    .bio {
+        max-width: 100% !important;
     }
 
     .info {

@@ -28,8 +28,8 @@ a {
   /* Shared layout spacing */
   --layout-padding-inline: 2rem;
   --layout-padding-block: 2rem;
-  --header-padding-block: 1rem;
-  --footer-padding-block: 1.25rem;
+  --header-padding-block: 1px;
+  --footer-padding-block: 10px;
 
   /* Header / footer presentation */
   --header-text-color: #111;
@@ -122,6 +122,6 @@ body.inner {
     --layout-padding-inline: 1rem;
     --layout-padding-block: 1.5rem;
     --header-padding-block: 0.75rem;
-    --footer-padding-block: 1rem;
+    --footer-padding-block: 5px;
   }
 }

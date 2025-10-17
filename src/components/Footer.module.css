@@ -1,18 +1,23 @@
 .footer {
+    width: 100%;
+    background: white;
+    padding: var(--footer-padding-block, 1.25rem) var(--layout-padding-inline, 2rem);
+    box-sizing: border-box;
+    bottom: 3rem;
+    /* Account for banner height */
+    position: fixed;
+    z-index: 10;
+    color: var(--footer-text-color, #000);
+}
+
+.footerInner {
     display: flex;
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: flex-start;
     width: 60%;
     margin-left: 0;
-    background: var(--footer-background, transparent);
-    padding: var(--footer-padding-block, 1.25rem) var(--layout-padding-inline, 2rem);
-    box-sizing: border-box;
     line-height: 1rem;
-    bottom: 3rem; /* Account for banner height */
-    position: fixed;
-    z-index: 10;
-    color: var(--footer-text-color, #000);
 }
 
 .footer p {
@@ -34,10 +39,15 @@
 
 :global(.home) .footer {
     position: fixed;
-    bottom: 3rem; /* Account for banner height on homepage */
+    background: var(--footer-background, transparent);
+    bottom: 3rem;
+    /* Account for banner height on homepage */
     left: 0;
     right: 0;
     z-index: 10;
+}
+
+:global(.home) .footerInner {
     width: 60%;
     margin-left: 0;
 }
@@ -65,7 +75,7 @@
     white-space: nowrap;
 }
 
-.addressLink:hover + .limaPeru {
+.addressLink:hover+.limaPeru {
     font-style: italic;
 }
 
@@ -77,24 +87,30 @@
     display: none;
 }
 
+/* Mobile-specific rows - hidden by default */
+.mobileRow1,
+.mobileRow2 {
+    display: none;
+}
+
 @media (max-width: 1400px) {
-    .footer {
+    .footerInner {
         width: 80%;
     }
-    
-    :global(.home) .footer {
+
+    :global(.home) .footerInner {
         width: 80%;
     }
 }
 
 @media (max-width: 900px) {
-    .footer {
+    .footerInner {
         width: 100%;
         flex-wrap: wrap;
         justify-content: flex-end;
     }
-    
-    :global(.home) .footer {
+
+    :global(.home) .footerInner {
         width: 100%;
     }
 
@@ -103,54 +119,59 @@
     }
 
     .mobileInstagram {
-        display: block;
+        display: block !important;
     }
 
     .desktopInstagram {
-        display: none;
+        display: none !important;
     }
 }
 
 @media (max-width: 600px) {
-    .footer {
+    .footerInner {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        flex-direction: column;
+        width: 100%;
+        gap: 2px;
+    }
+
+    :global(.home) .footerInner {
+        width: 100%;
+    }
+
+    .footer {
         width: 100vw;
-        padding: var(--footer-padding-block, 1rem) var(--layout-padding-inline, 1rem);
-        gap: 20px;
-        row-gap: 0px;
-        position: fixed !important;
         left: 0;
         right: 0;
         /* Ensure footer is fixed on mobile for all pages */
     }
-    
-    :global(.home) .footer {
-        width: 100vw;
-        left: 0;
-        right: 0;
+
+    .footer p {
+        font-size: 12px;
+        font-weight: 320;
     }
 
+    /* Hide desktop columns on mobile */
     .col {
-        flex: 1 1 50%;
+        display: none;
+    }
+
+    /* Show mobile rows */
+    .mobileRow1,
+    .mobileRow2 {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        box-sizing: border-box;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
     }
 
-    .contactCol {
-        align-items: flex-end;
-        text-align: right;
-    }
-
-    .contactLine {
-        white-space: nowrap;
-    }
-
-    .contactLine p {
-        margin: 0;
+    .mobileAddress,
+    .mobileInstagram {
         text-align: left;
+    }
+
+    .mobileEmail,
+    .mobileNewsletter {
+        text-align: right;
     }
 }

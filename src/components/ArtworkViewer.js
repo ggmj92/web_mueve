@@ -46,7 +46,9 @@ export default function ArtworkViewer({
                 <div className={styles.artist}>{artistName}</div>
                 <div className={styles.workTitle}>
                     {meta.title}
-                    {meta.year ? `, ${meta.year}` : ''}
+                    {meta.year ? (
+                        <span className={styles.year}>, {meta.year}</span>
+                    ) : ''}
                 </div>
                 {meta.technique && <div className={styles.row}>{meta.technique}</div>}
                 {meta.dims && <div className={styles.row}>{meta.dims}</div>}

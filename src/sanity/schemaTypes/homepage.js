@@ -27,35 +27,18 @@ export default {
                             initialValue: 5000,
                             validation: (Rule) => Rule.min(500)
                         },
-                        {
-                            name: 'position',
-                            title: 'Focal Position (CSS)',
-                            type: 'string',
-                            options: {
-                                list: [
-                                    { title: 'Center', value: 'center' },
-                                    { title: 'Top', value: 'top' },
-                                    { title: 'Bottom', value: 'bottom' },
-                                    { title: 'Left', value: 'left' },
-                                    { title: 'Right', value: 'right' }
-                                ],
-                                layout: 'radio'
-                            },
-                            initialValue: 'center'
-                        }
                     ],
                     preview: {
                         select: {
                             media: 'image',
                             title: 'caption',
-                            durationMs: 'durationMs',
-                            position: 'position'
+                            durationMs: 'durationMs'
                         },
-                        prepare({ media, title, durationMs, position }) {
+                        prepare({ media, title, durationMs }) {
                             return {
                                 media,
                                 title: title || 'Untitled slide',
-                                subtitle: `⏱ ${durationMs ?? 5000} ms • ${position || 'center'}`
+                                subtitle: `⏱ ${durationMs ?? 5000} ms`
                             };
                         }
                     }

@@ -15,16 +15,21 @@
 }
 
 .artist {
-    font-weight: 600;
+    font-weight: 400;
     margin-bottom: 0.5rem;
 }
 
 .workTitle {
-    font-weight: 500;
+    font-weight: 800;
     margin-bottom: 0.3rem;
 }
 
+.year {
+    font-weight: 400;
+}
+
 .row {
+    font-weight: 400;
     margin-bottom: 0.2rem;
     opacity: 0.8;
 }
@@ -84,6 +89,7 @@
 }
 
 .description {
+    font-weight: 400;
     margin: 2rem 4rem;
     max-width: 650px;
     line-height: 1.2;

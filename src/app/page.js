@@ -8,20 +8,54 @@ import styles from './homepage.module.css'
 async function getHomepageSlides() {
   const data = await sanityFetch({
     query: `*[_type == "homepage"][0]{
-    slides[]{ image, durationMs, position }
+    slides[]{ 
+      image{ 
+        asset->{ url },
+        crop,
+        hotspot
+      }, 
+      durationMs
+    }
   }`,
     revalidate: 0, // Always revalidate for live updates
   })
 
   let slides = (data?.data?.slides || [])
-    .map((s) => ({
-      url: s?.image
-        ? urlFor(s.image).width(2400).quality(85).auto('format').url()
-        : null,
-      durationMs: s?.durationMs || 5000,
-      position: s?.position || 'center',
-    }))
-    .filter((s) => !!s.url)
+    .map((s) => {
+      // Debug logging
+      console.log('Slide crop data:', {
+        crop: s?.image?.crop,
+        hotspot: s?.image?.hotspot,
+        hasCrop: !!(s?.image?.crop && (s.image.crop.left > 0 || s.image.crop.right < 1 || s.image.crop.top > 0 || s.image.crop.bottom < 1))
+      })
+      
+      return {
+        // Desktop: full image, no cropping
+        desktopUrl: s?.image?.asset?.url
+          ? urlFor({
+              asset: s.image.asset
+            })
+              .width(2400)
+              .height(1200)
+              .fit('crop')
+              .quality(85)
+              .auto('format')
+              .url()
+          : null,
+        // Mobile: cropped image using hotspot/crop data
+        mobileUrl: s?.image?.asset?.url
+          ? urlFor(s.image)
+              .width(2400)
+              .height(1200)
+              .fit('crop')
+              .quality(85)
+              .auto('format')
+              .url()
+          : null,
+        durationMs: s?.durationMs || 5000,
+      }
+    })
+    .filter((s) => !!s.desktopUrl)
 
   if (slides.length === 0) {
     slides = [

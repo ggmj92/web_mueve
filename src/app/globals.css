@@ -65,18 +65,35 @@ body {
   font-family: var(--font-mueve), sans-serif;
 }
 
+.container {
+  max-width: var(--max-width, 1200px);
+  margin-inline: auto;
+  padding-inline: var(--layout-padding-inline, 2rem);
+  width: 100%;
+}
+
 img {
   max-width: 100%;
   display: block;
 }
 
 /* Ensure all interactive elements show pointer cursor */
-button, [role="button"], [onclick] {
+button,
+[role="button"],
+[onclick] {
   cursor: pointer !important;
 }
 
 /* Force pointer cursor on all clickable elements */
-a, button, [role="button"], [onclick], .card, .portfolio, .navLink, .link, .logoWrap a {
+a,
+button,
+[role="button"],
+[onclick],
+.card,
+.portfolio,
+.navLink,
+.link,
+.logoWrap a {
   cursor: pointer !important;
 }
 
@@ -108,4 +125,3 @@ body.inner {
     --footer-padding-block: 1rem;
   }
 }
-

@@ -12,7 +12,7 @@
 
 .heroImage {
     width: 100%;
-    padding: 0 var(--edge, 2rem);
+    padding: 0 var(--layout-padding-inline, 2rem);
 }
 
 .heroImg {
@@ -28,7 +28,7 @@
 .info {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
-    padding: 0.5rem var(--edge, 2rem) 3rem;
+    padding: 0.5rem var(--layout-padding-inline, 2rem) 3rem;
     --cards-gap: 1rem;
     color: black;
 }
@@ -72,7 +72,7 @@
 .cardsSection {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
-    padding: 2rem var(--edge, 2rem) 3rem;
+    padding: 2rem var(--layout-padding-inline, 2rem) 3rem;
 }
 
 .cards {
@@ -81,7 +81,7 @@
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: var(--cards-gap);
-    padding: 0 var(--edge);
+    padding: 0;
     width: 100%;
 }
 
@@ -117,13 +117,13 @@
 
 @media (max-width: 768px) {
     .heroImage {
-        padding: 0 1rem;
+        padding: 0 var(--layout-padding-inline, 1rem);
     }
 }
 
 @media (max-width: 600px) {
     .info {
-        padding-inline: var(--edge);
+        padding-inline: var(--layout-padding-inline);
     }
 
     .infoRow {
@@ -151,10 +151,6 @@
 }
 
 @media (max-width: 480px) {
-    .cards {
-        padding-inline: var(--edge);
-    }
-
     .cards {
         grid-template-columns: repeat(2, 1fr);
     }

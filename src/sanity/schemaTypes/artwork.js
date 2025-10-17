@@ -68,12 +68,17 @@ export default {
                 
                 if (!document?.artist?._ref) return true; // No artist reference, skip validation
                 
-                // Find other featured artworks for the same artist
+                // Get the base ID without the 'drafts.' prefix
+                const baseId = document._id.replace(/^drafts\./, '');
+                
+                // Find other featured artworks for the same artist, excluding both draft and published versions of current doc
                 const otherFeaturedArtworks = await client.fetch(
-                    `*[_type == "artwork" && artist._ref == $artistRef && featured == true && _id != $currentId]`,
+                    `*[_type == "artwork" && artist._ref == $artistRef && featured == true && !(_id in [$currentId, $draftId, $publishedId])]`,
                     { 
                         artistRef: document.artist._ref,
-                        currentId: document._id 
+                        currentId: document._id,
+                        draftId: `drafts.${baseId}`,
+                        publishedId: baseId
                     }
                 );
                 
@@ -98,12 +103,17 @@ export default {
                 
                 if (!document?.artist?._ref) return true;
                 
-                // Find other preview-featured artworks for the same artist
+                // Get the base ID without the 'drafts.' prefix
+                const baseId = document._id.replace(/^drafts\./, '');
+                
+                // Find other preview-featured artworks for the same artist, excluding both draft and published versions of current doc
                 const otherPreviewArtworks = await client.fetch(
-                    `*[_type == "artwork" && artist._ref == $artistRef && featuredPreview == true && _id != $currentId]`,
+                    `*[_type == "artwork" && artist._ref == $artistRef && featuredPreview == true && !(_id in [$currentId, $draftId, $publishedId])]`,
                     { 
                         artistRef: document.artist._ref,
-                        currentId: document._id 
+                        currentId: document._id,
+                        draftId: `drafts.${baseId}`,
+                        publishedId: baseId
                     }
                 );
                 

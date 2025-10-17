@@ -39,7 +39,11 @@ This system allows you to mark artworks as "Destacado" (Featured) in two differe
 - The system enforces that only one artwork per artist can be marked for each purpose
 - If you try to mark a second artwork while another is already marked, Sanity will show an error message asking you to unmark the current one first
 - Both fields are optional - if nothing is marked, the system defaults to the first artwork
-- **Hotspot & Crop**: The preview hover displays images in a vertical format (1000×1600px). For horizontal images, use the Hotspot and Crop tools in Sanity to control which part of the image is visible in the preview
+- **Hotspot & Crop**: Both the hover preview and the artist page cards display images in a vertical format. The same hotspot/crop settings apply to both:
+  - **Hover preview**: 1000×1600px
+  - **Desktop cards**: 600×800px (3:4 aspect ratio)
+  - **Mobile**: Full original image is shown (no cropping applied)
+- For horizontal images, use the Hotspot and Crop tools to control which part appears in the vertical displays
 
 ## Technical Implementation
 
@@ -57,8 +61,11 @@ This system allows you to mark artworks as "Destacado" (Featured) in two differe
 - **Artist detail page**: Already had logic to prioritize `featured` artworks for hero image
 
 ### Image Rendering with Hotspot
-- The preview image uses Sanity's `urlFor()` builder with `.fit('crop')` mode
-- Dimensions: 1000×1600px (vertical format matching the preview container)
+- Both the hover preview and desktop cards use Sanity's `urlFor()` builder with `.fit('crop')` mode
+- **Hover preview dimensions**: 1000×1600px
+- **Desktop card dimensions**: 600×800px (3:4 aspect ratio)
+- **Mobile**: Uses full original image with no cropping (via `<picture>` element)
 - When hotspot data is present, Sanity automatically centers the crop around the hotspot
 - When crop data is present, Sanity respects the crop boundaries set in the studio
-- This ensures horizontal images display the most important part when shown in the vertical preview area
+- This ensures horizontal images display the most important part when shown in vertical formats on desktop
+- On mobile (≤768px), the full uncropped image is displayed with `object-fit: contain`

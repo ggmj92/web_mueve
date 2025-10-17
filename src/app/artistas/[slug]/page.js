@@ -1,4 +1,5 @@
 import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 import styles from './artist.module.css'
 
 export const revalidate = 0 // dev-friendly
@@ -23,9 +24,12 @@ async function getArtistWithWorks(slug) {
       featured,
       image{
         asset->{
+          _id,
           url,
           metadata{ dimensions{ width, height, aspectRatio } }
-        }
+        },
+        hotspot,
+        crop
       }
     }
   }`
@@ -91,17 +95,37 @@ export default async function ArtistPage({ params }) {
                         {artist.artworks.map((aw) => {
                             const url = aw?.image?.asset?.url
                             if (!url || !aw.slug?.current) return null
+                            
+                            // Desktop: cropped vertical image respecting hotspot
+                            const desktopImageUrl = urlFor(aw.image)
+                                .width(600)
+                                .height(800)
+                                .fit('crop')
+                                .quality(90)
+                                .auto('format')
+                                .url()
+                            
+                            // Mobile: original full image
+                            const mobileImageUrl = urlFor(aw.image)
+                                .width(1200)
+                                .quality(90)
+                                .auto('format')
+                                .url()
+                            
                             return (
                                 <div key={aw._id} className={styles.cardWrapper}>
                                     <a
                                         href={`/artistas/${slug}/obras/${aw.slug.current}`}
                                         className={styles.card}
                                     >
-                                        <img
-                                            src={url}
-                                            alt={aw.title || 'Artwork'}
-                                            className={styles.cardImage}
-                                        />
+                                        <picture>
+                                            <source media="(max-width: 768px)" srcSet={mobileImageUrl} />
+                                            <img
+                                                src={desktopImageUrl}
+                                                alt={aw.title || 'Artwork'}
+                                                className={styles.cardImage}
+                                            />
+                                        </picture>
                                     </a>
                                     <div className={styles.cardInfo}>
                                         <div className={styles.cardTitle}>

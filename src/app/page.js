@@ -22,11 +22,14 @@ async function getHomepageSlides() {
 
   let slides = (data?.data?.slides || [])
     .map((s) => {
+      // Extract hotspot for focal point positioning
+      const hotspot = s?.image?.hotspot || { x: 0.5, y: 0.5 }
+      
       // Debug logging
-      console.log('Slide crop data:', {
+      console.log('Slide data:', {
         crop: s?.image?.crop,
-        hotspot: s?.image?.hotspot,
-        hasCrop: !!(s?.image?.crop && (s.image.crop.left > 0 || s.image.crop.right < 1 || s.image.crop.top > 0 || s.image.crop.bottom < 1))
+        hotspot: hotspot,
+        assetUrl: s?.image?.asset?.url
       })
       
       return {
@@ -42,16 +45,24 @@ async function getHomepageSlides() {
               .auto('format')
               .url()
           : null,
-        // Mobile: cropped image using hotspot/crop data
+        // Mobile: Use portrait aspect ratio with hotspot-aware cropping
+        // rect() uses the crop rectangle, then we crop to viewport size centered on hotspot
         mobileUrl: s?.image?.asset?.url
           ? urlFor(s.image)
-              .width(2400)
-              .height(1200)
+              .width(1080)
+              .height(1920)
               .fit('crop')
+              .crop('focalpoint')
+              .focalPoint(hotspot.x, hotspot.y)
               .quality(85)
               .auto('format')
               .url()
           : null,
+        // Pass hotspot coordinates (0-1 range) for CSS background-position
+        hotspot: {
+          x: hotspot.x,
+          y: hotspot.y
+        },
         durationMs: s?.durationMs || 5000,
       }
     })

@@ -86,22 +86,44 @@ export default async function ArtistPage({ params }) {
             {/* 5-up portrait cards; horizontally scrollable if more */}
             {artist.artworks?.length > 0 && (
                 <section className={styles.cardsSection}>
+                    <h2 className={styles.mobileHeader}>Obras Seleccionadas</h2>
                     <div className={styles.cards}>
                         {artist.artworks.map((aw) => {
                             const url = aw?.image?.asset?.url
                             if (!url || !aw.slug?.current) return null
                             return (
-                                <a
-                                    href={`/artistas/${slug}/obras/${aw.slug.current}`}
-                                    key={aw._id}
-                                    className={styles.card}
-                                >
-                                    <img
-                                        src={url}
-                                        alt={aw.title || 'Artwork'}
-                                        className={styles.cardImage}
-                                    />
-                                </a>
+                                <div key={aw._id} className={styles.cardWrapper}>
+                                    <a
+                                        href={`/artistas/${slug}/obras/${aw.slug.current}`}
+                                        className={styles.card}
+                                    >
+                                        <img
+                                            src={url}
+                                            alt={aw.title || 'Artwork'}
+                                            className={styles.cardImage}
+                                        />
+                                    </a>
+                                    <div className={styles.cardInfo}>
+                                        <div className={styles.cardTitle}>
+                                            {aw.title}
+                                            {aw.year && (
+                                                <span className={styles.cardYear}>
+                                                    , {aw.year}
+                                                </span>
+                                            )}
+                                        </div>
+                                        {aw.technique && (
+                                            <div className={styles.cardDetail}>
+                                                {aw.technique}
+                                            </div>
+                                        )}
+                                        {aw.dimensions && (
+                                            <div className={styles.cardDetail}>
+                                                {aw.dimensions}
+                                            </div>
+                                        )}
+                                    </div>
+                                </div>
                             )
                         })}
                     </div>

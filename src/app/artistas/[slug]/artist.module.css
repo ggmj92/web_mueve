@@ -45,7 +45,7 @@
 .name {
     white-space: nowrap;
     font-size: 2rem;
-    font-weight: 400;
+    font-weight: 100;
     letter-spacing: 0.02em;
     margin: 0 0 0.75rem 0;
 }
@@ -53,7 +53,8 @@
 .portfolio {
     margin-right: 100px;
     text-decoration: underline;
-    font-size: 2rem;
+    font-size: 1.8rem;
+    font-weight: 100;
     cursor: pointer !important;
 }
 
@@ -62,10 +63,12 @@
 }
 
 .bio {
-    max-width: 75ch;
+    max-width: 100%;
     margin: 0.25rem 0 0 0;
-    line-height: 1.45;
+    line-height: 1;
     color: #333;
+    font-size: 13px;
+    font-weight: 100;
 }
 
 /* Cards row */
@@ -109,6 +112,18 @@
     /* keep portrait feel */
 }
 
+.cardWrapper {
+    display: contents;
+}
+
+.cardInfo {
+    display: none;
+}
+
+.mobileHeader {
+    display: none;
+}
+
 @media (max-width: 900px) {
     .cards {
         grid-template-columns: repeat(4, 1fr);
@@ -116,13 +131,83 @@
 }
 
 @media (max-width: 768px) {
+    .hero {
+        display: none;
+    }
+
     .heroImage {
-        padding: 0 var(--layout-padding-inline, 1rem);
+        display: none;
+    }
+
+    .name {
+        font-size: 1.2rem !important;
+    }
+
+    .portfolio {
+        font-size: 1rem !important;
+    }
+
+    .info {
+        margin-top: var(--header-h, 4.5rem);
+        padding-top: 2rem;
+    }
+
+    .mobileHeader {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 100;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.02em;
+    }
+
+    .cardsSection {
+        padding-top: 1rem;
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .cardWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
     }
 
     .card {
         pointer-events: none;
         cursor: default !important;
+        width: 100%;
+        aspect-ratio: auto;
+    }
+
+    .cardImage {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .cardInfo {
+        display: block;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+
+    .cardTitle {
+        font-weight: 400;
+        margin-bottom: 0.25rem;
+    }
+
+    .cardYear {
+        font-weight: 200;
+    }
+
+    .cardDetail {
+        font-weight: 200;
+        opacity: 0.85;
+        margin-bottom: 0.15rem;
     }
 }
 

@@ -18,9 +18,41 @@ export default {
     },
     {
       name: 'portfolio',
-      title: 'Portafolio (PDF descargable)',
-      type: 'file',
-      options: { accept: '.pdf' }
+      title: 'Portafolio',
+      type: 'object',
+      description: 'Sube un archivo PDF o proporciona un enlace externo (ej. Google Drive)',
+      fields: [
+        {
+          name: 'file',
+          title: 'Archivo PDF',
+          type: 'file',
+          options: { accept: '.pdf' }
+        },
+        {
+          name: 'externalLink',
+          title: 'Enlace Externo',
+          type: 'url',
+          description: 'Usa esto si el PDF está alojado externamente (ej. Google Drive, Dropbox)',
+          validation: (Rule) => Rule.uri({
+            scheme: ['http', 'https']
+          })
+        }
+      ],
+      validation: (Rule) => Rule.custom((portfolio) => {
+        if (!portfolio) return true; // Portfolio is optional
+        const hasFile = portfolio?.file?.asset;
+        const hasLink = portfolio?.externalLink;
+        
+        if (hasFile && hasLink) {
+          return 'Por favor usa solo un archivo PDF O un enlace externo, no ambos.';
+        }
+        
+        if (!hasFile && !hasLink) {
+          return 'Por favor proporciona un archivo PDF o un enlace externo.';
+        }
+        
+        return true;
+      })
     },
     {
       name: 'bio',

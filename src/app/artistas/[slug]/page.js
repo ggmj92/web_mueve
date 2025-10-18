@@ -10,6 +10,12 @@ async function getArtistWithWorks(slug) {
     name,
     bio,
     portfolio{
+      file{
+        asset->{
+          url
+        }
+      },
+      externalLink,
       asset->{
         url
       }
@@ -53,6 +59,11 @@ export default async function ArtistPage({ params }) {
     const featuredArtwork = artworks.find((a) => a.featured)
     const heroArtwork = featuredArtwork || artworks[0]
 
+    // Get portfolio URL (supports both old and new structure)
+    const portfolioUrl = artist.portfolio?.file?.asset?.url || 
+                         artist.portfolio?.externalLink || 
+                         artist.portfolio?.asset?.url // Legacy support for old structure
+
     return (
         <main>
             {/* Top: static hero image */}
@@ -72,10 +83,10 @@ export default async function ArtistPage({ params }) {
             <section className={styles.info}>
                 <div className={styles.infoRow}>
                     <h1 className={styles.name}>{artist.name}</h1>
-                    {artist.portfolio?.asset?.url ? (
+                    {portfolioUrl ? (
                         <a
                             className={styles.portfolio}
-                            href={artist.portfolio.asset.url}
+                            href={portfolioUrl}
                             target="_blank"
                             rel="noopener noreferrer"
                             aria-label="Ver portafolio"

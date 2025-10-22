@@ -71,6 +71,15 @@
     font-weight: 100;
 }
 
+.bio p {
+    margin: 0 0 1em 0;
+    line-height: 1.5;
+}
+
+.bio p:last-child {
+    margin-bottom: 0;
+}
+
 /* Cards row */
 .cardsSection {
     width: 100vw;

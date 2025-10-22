@@ -1,5 +1,6 @@
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
+import { PortableText } from '@portabletext/react'
 import styles from './artist.module.css'
 
 export const revalidate = 0 // dev-friendly
@@ -95,7 +96,11 @@ export default async function ArtistPage({ params }) {
                         </a>
                     ) : null}
                 </div>
-                {artist.bio ? <p className={styles.bio}>{artist.bio}</p> : null}
+                {artist.bio ? (
+                    <div className={styles.bio}>
+                        <PortableText value={artist.bio} />
+                    </div>
+                ) : null}
             </section>
 
             {/* 5-up portrait cards; horizontally scrollable if more */}

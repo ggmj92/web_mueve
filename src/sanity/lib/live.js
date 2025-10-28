@@ -6,4 +6,6 @@ import { client } from './client'
 
 export const { sanityFetch, SanityLive } = defineLive({
   client,
+  serverToken: false, // Only fetch published content
+  browserToken: false, // Live preview only works in Presentation Tool
 });

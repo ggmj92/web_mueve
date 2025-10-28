@@ -5,7 +5,7 @@
     padding: var(--header-padding-block, 1rem) var(--layout-padding-inline, 2rem);
     width: 100%;
     color: var(--header-text-color, #111);
-    background: var(--header-background, transparent);
+    background: white;
     box-sizing: border-box;
     position: fixed;
     z-index: 1000;
@@ -15,7 +15,7 @@
 /* 👇 Add width via aspect-ratio so the fill image has a real box */
 .logoWrap {
     position: relative;
-    height: 4.5rem;
+    height: 3.5rem;
     /* match link height on desktop */
     aspect-ratio: var(--logo-ar, 4 / 1);
     /* <-- adjust to your logo */
@@ -31,6 +31,7 @@
 .logoWrap a {
     display: block;
     height: 100%;
+    cursor: pointer !important;
 }
 
 
@@ -45,6 +46,7 @@
     text-decoration: none;
     color: inherit;
     transition: opacity 0.2s ease;
+    cursor: pointer !important;
 }
 
 .link:hover {
@@ -56,6 +58,7 @@
 /* Homepage overlay tweaks */
 :global(.home) .header {
     position: fixed;
+    background: var(--header-background, transparent);
     top: 0;
     left: 0;
     right: 0;
@@ -82,7 +85,8 @@
 
 /* When navbar is open, make logo black (especially on homepage) */
 :global(body.nav-open) .logo {
-    filter: brightness(0) invert(0) !important; /* Black logo */
+    filter: brightness(0) invert(0) !important;
+    /* Black logo */
 }
 
 /* Ensure logo is clickable when navbar is open */
@@ -92,9 +96,7 @@
 
 
 
-@media (max-width: 1400px) {
- 
-}
+@media (max-width: 1400px) {}
 
 @media (max-width: 1000px) {
     .link {

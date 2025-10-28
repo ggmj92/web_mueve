@@ -36,49 +36,84 @@ export default function Footer() {
         <>
             <ConstructionBanner />
             <footer className={`${styles.footer} ${bannerClosed ? styles.footerNoBanner : ''}`}>
-            <div className={styles.col}>
-                <a href="https://maps.app.goo.gl/g22oW8UUtikFqpVe7"
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.addressLink}>
-                    <p>Gral Borgoño 770, Miraflores</p>
-                </a>
-                <p className={styles.limaPeru}>Lima, Perú</p>
-                <a href="https://www.instagram.com/mueve.galeria/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.mobileInstagram}>
-                    <p>@mueve.galeria</p>
-                </a>
-            </div>
-            <div className={`${styles.col} ${styles.contactCol}`}>
-                <a
-                    href="mailto:info@muevegaleria.com?subject=Consulta desde Mueve Web"
-                    target="_blank"
-                    rel="noreferrer"
-                    className={styles.contactLine}
-                >
-                    <p>info@muevegaleria.com</p>
-                </a>
-                <p></p>
-                <a 
-                    href="#"
-                    onClick={handleNewsletterClick}
-                    className={styles.newsletter}
-                >
-                    <p>Suscríbete a nuestra newsletter</p>
-                </a>
-            </div>
+                <div className={styles.footerInner}>
+                    {/* Desktop layout - 3 columns */}
+                    <div className={styles.col}>
+                        <a href="https://maps.app.goo.gl/g22oW8UUtikFqpVe7"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.addressLink}>
+                            <p>Gral Borgoño 770, Miraflores</p>
+                        </a>
+                        <p className={styles.limaPeru}>Lima, Perú</p>
+                        <a href="https://www.instagram.com/mueve.galeria/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.mobileInstagram}>
+                            <p>@mueve.galeria</p>
+                        </a>
+                    </div>
+                    <div className={`${styles.col} ${styles.contactCol}`}>
+                        <a
+                            href="mailto:info@muevegaleria.com?subject=Consulta desde Mueve Web"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.contactLine}
+                        >
+                            <p>info@muevegaleria.com</p>
+                        </a>
+                        <p></p>
+                        <a 
+                            href="#"
+                            onClick={handleNewsletterClick}
+                            className={styles.newsletter}
+                        >
+                            <p>Suscríbete a nuestra newsletter</p>
+                        </a>
+                    </div>
+                    <div className={styles.col}>
+                        <a href="https://www.instagram.com/mueve.galeria/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.desktopInstagram}
+                        >
+                            <p>@mueve.galeria</p>
+                        </a>
+                    </div>
 
-            <div className={styles.col}>
-                <a href="https://www.instagram.com/mueve.galeria/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={styles.desktopInstagram}
-                >
-                    <p>@mueve.galeria</p>
-                </a>
-            </div>
+                    {/* Mobile layout - 2 rows */}
+                    <div className={styles.mobileRow1}>
+                        <a href="https://maps.app.goo.gl/g22oW8UUtikFqpVe7"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.mobileAddress}>
+                            <p>Gral Borgoño 770, Miraflores</p>
+                        </a>
+                        <a
+                            href="mailto:info@muevegaleria.com?subject=Consulta desde Mueve Web"
+                            target="_blank"
+                            rel="noreferrer"
+                            className={styles.mobileEmail}
+                        >
+                            <p>info@muevegaleria.com</p>
+                        </a>
+                    </div>
+                    <div className={styles.mobileRow2}>
+                        <a href="https://www.instagram.com/mueve.galeria/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.mobileInstagram}>
+                            <p>@mueve.galeria</p>
+                        </a>
+                        <a 
+                            href="#"
+                            onClick={handleNewsletterClick}
+                            className={styles.mobileNewsletter}
+                        >
+                            <p>Suscríbete a nuestra newsletter</p>
+                        </a>
+                    </div>
+                </div>
             </footer>
         </>
     );

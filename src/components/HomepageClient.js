@@ -10,10 +10,12 @@ export default function HomepageClient({ children, fontClass }) {
     const pathname = usePathname();
     const [isHome, setIsHome] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const [isStudio, setIsStudio] = useState(false);
 
     useEffect(() => {
         setMounted(true);
         setIsHome(pathname === "/");
+        setIsStudio(pathname?.startsWith("/studio"));
     }, [pathname]);
 
     // Ensure we have valid class names to prevent hydration mismatch
@@ -21,7 +23,15 @@ export default function HomepageClient({ children, fontClass }) {
     const mainClass = styles.main ? styles.main : 'main';
 
     // Default to home class until we know the actual pathname
-    const bodyClassName = mounted ? (isHome ? "home" : "inner") : "home";
+    const bodyClassName = mounted ? (isStudio ? "studio" : (isHome ? "home" : "inner")) : "home";
+
+    if (isStudio) {
+        return (
+            <body className={`${bodyClass} ${fontClass} ${bodyClassName}`}>
+                <main className={mainClass}>{children}</main>
+            </body>
+        );
+    }
 
     return (
         <body className={`${bodyClass} ${fontClass} ${bodyClassName}`}>

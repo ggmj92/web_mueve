@@ -1,13 +1,39 @@
 'use client'
 
 import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 import { useState, useEffect } from 'react'
 import styles from './artists.module.css'
 
 async function getArtists() {
     try {
-        const query = `*[_type == "artist"] | order(name asc){
-        _id, name, "slug": slug.current
+        const query = `*[_type == "artist" && defined(slug.current)] | order(name asc){
+        _id, name, "slug": slug.current,
+        artworks[]{
+          title,
+          featuredPreview,
+          image{
+            asset->{
+              _id,
+              url,
+              metadata{ dimensions{ width, height, aspectRatio } }
+            },
+            hotspot,
+            crop
+          },
+          detailImages[]{
+            featuredPreview,
+            image{
+              asset->{
+                _id,
+                url,
+                metadata{ dimensions{ width, height, aspectRatio } }
+              },
+              hotspot,
+              crop
+            }
+          }
+        }
       }`
         return await client.fetch(query)
     } catch (error) {
@@ -19,6 +45,7 @@ async function getArtists() {
 export default function ArtistsPage() {
     const [artists, setArtists] = useState([])
     const [loading, setLoading] = useState(true)
+    const [hoveredArtist, setHoveredArtist] = useState(null)
 
     useEffect(() => {
         getArtists()
@@ -33,6 +60,28 @@ export default function ArtistsPage() {
             })
     }, [])
 
+    const getPreviewArtwork = (artist) => {
+        if (!artist?.artworks?.length) return null
+        
+        // Check all artworks for featuredPreview (main image or detail images)
+        for (const artwork of artist.artworks) {
+            // Check if main image is marked as featuredPreview
+            if (artwork.featuredPreview && artwork.image) {
+                return artwork
+            }
+            // Check if any detail image is marked as featuredPreview
+            if (artwork.detailImages?.length) {
+                const featuredDetail = artwork.detailImages.find(d => d.featuredPreview)
+                if (featuredDetail?.image) {
+                    return { ...artwork, image: featuredDetail.image }
+                }
+            }
+        }
+        
+        // Fallback to first artwork if no preview is marked
+        return artist.artworks[0]
+    }
+
     return (
         <div className={`${styles.artists} alignSecondCol`}>
             <div className={styles.listCol}>
@@ -44,9 +93,13 @@ export default function ArtistsPage() {
                     <ul className={styles.list}>
                         {artists.map((a) => (
                             <li key={a.slug ?? a._id}>
-                                <span className={styles.artistName}>
+                                <a
+                                    href={`/artistas/${a.slug}`}
+                                    onMouseEnter={() => setHoveredArtist(a)}
+                                    onMouseLeave={() => setHoveredArtist(null)}
+                                >
                                     {a.name}
-                                </span>
+                                </a>
                             </li>
                         ))}
                     </ul>
@@ -56,10 +109,22 @@ export default function ArtistsPage() {
                     </div>
                 )}
             </div>
+
+            {hoveredArtist && getPreviewArtwork(hoveredArtist) && (
+                <div className={styles.preview}>
+                    <img
+                        src={urlFor(getPreviewArtwork(hoveredArtist).image)
+                            .width(1000)
+                            .height(1600)
+                            .fit('crop')
+                            .quality(90)
+                            .auto('format')
+                            .url()}
+                        alt={getPreviewArtwork(hoveredArtist).title || 'Artwork preview'}
+                        className={styles.previewImage}
+                    />
+                </div>
+            )}
         </div>
     )
 }
-
-
-
-

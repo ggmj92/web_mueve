@@ -9,13 +9,24 @@ async function getArtists() {
     try {
         const query = `*[_type == "artist" && defined(slug.current)] | order(name asc){
         _id, name, "slug": slug.current,
-        artworks[]->{
-          _id,
+        artworks[]{
           title,
           image{
             asset->{
               url,
               metadata{ dimensions{ width, height, aspectRatio } }
+            },
+            hotspot,
+            crop
+          },
+          detailImages[]{
+            image{
+              asset->{
+                url,
+                metadata{ dimensions{ width, height, aspectRatio } }
+              },
+              hotspot,
+              crop
             }
           }
         }

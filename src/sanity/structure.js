@@ -31,7 +31,7 @@ export const structure = (S) =>
             )
         ),
       
-      // Artists section
+      // Artists section (artworks are now inline within each artist)
       S.listItem()
         .title('Artistas')
         .icon(() => '👨‍🎨')
@@ -42,45 +42,6 @@ export const structure = (S) =>
               S.document()
                 .documentId(artistId)
                 .schemaType('artist')
-            )
-        ),
-      
-      // Artworks section
-      S.listItem()
-        .title('Obras')
-        .icon(() => '🖼️')
-        .child(
-          S.documentTypeList('artwork')
-            .title('Todas las Obras')
-            .child((artworkId) =>
-              S.document()
-                .documentId(artworkId)
-                .schemaType('artwork')
-            )
-        ),
-        
-      // Artworks by Artist (grouped view)
-      S.listItem()
-        .title('Obras por Artista')
-        .icon(() => '👨‍🎨🖼️')
-        .child(
-          S.documentTypeList('artist')
-            .title('Obras por Artista')
-            .child((artistId) =>
-              S.document()
-                .documentId(artistId)
-                .schemaType('artist')
-                .child(
-                  S.documentList()
-                    .title('Obras')
-                    .filter('_type == "artwork" && artist._ref == $artistId')
-                    .params({ artistId })
-                    .child((artworkId) =>
-                      S.document()
-                        .documentId(artworkId)
-                        .schemaType('artwork')
-                    )
-                )
             )
         )
     ])

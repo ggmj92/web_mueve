@@ -1,6 +1,10 @@
+// DEPRECATED: Artworks are now inline objects within the artist schema.
+// This file is kept for reference but is no longer used.
+// To add artworks, edit them directly within the artist document.
+
 export default {
     name: 'artwork',
-    title: 'Obra',
+    title: 'Obra (DEPRECATED)',
     type: 'document',
     fields: [
         {

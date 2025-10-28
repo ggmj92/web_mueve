@@ -7,8 +7,7 @@ async function getArtistWithWorks(slug) {
     const query = `*[_type == "artist" && slug.current == $slug][0]{
     _id,
     name,
-    artworks[]->{
-      _id,
+    artworks[]{
       title,
       slug,
       year,
@@ -16,7 +15,18 @@ async function getArtistWithWorks(slug) {
       dimensions,
       description,
       about,
-      image{ asset->{ url, metadata{ dimensions{ width, height, aspectRatio } } } }
+      image{ 
+        asset->{ url, metadata{ dimensions{ width, height, aspectRatio } } },
+        hotspot,
+        crop
+      },
+      detailImages[]{
+        image{
+          asset->{ url, metadata{ dimensions{ width, height, aspectRatio } } },
+          hotspot,
+          crop
+        }
+      }
     }
   }`
     return client.fetch(query, { slug })
@@ -32,19 +42,40 @@ export default async function ArtworkPage({ params }) {
             </main>
         )
 
+    // Expand artworks with their detail images into separate slides
     const slides = (artist.artworks || [])
         .filter((a) => a?.image?.asset?.url)
-        .map((a) => ({
-            id: a._id,
-            slug: a.slug?.current || '',
-            url: a.image.asset.url,
-            ar: a.image.asset.metadata?.dimensions?.aspectRatio || 1,
-            title: a.title || '',
-            year: a.year || '',
-            technique: a.technique || '',
-            dims: a.dimensions || '',
-            description: a.description || '',
-        }))
+        .flatMap((a) => {
+            const baseSlug = a.slug?.current || ''
+            const mainSlide = {
+                id: baseSlug,
+                slug: baseSlug,
+                url: a.image.asset.url,
+                ar: a.image.asset.metadata?.dimensions?.aspectRatio || 1,
+                title: a.title || '',
+                year: a.year || '',
+                technique: a.technique || '',
+                dims: a.dimensions || '',
+                description: a.description || '',
+            }
+            
+            // Add detail images as separate slides
+            const detailSlides = (a.detailImages || [])
+                .filter(d => d?.image?.asset?.url)
+                .map((d, idx) => ({
+                    id: `${baseSlug}-detalle-${idx + 1}`,
+                    slug: `${baseSlug}-detalle-${idx + 1}`,
+                    url: d.image.asset.url,
+                    ar: d.image.asset.metadata?.dimensions?.aspectRatio || 1,
+                    title: `${a.title || ''} (Detalle ${idx + 1})`,
+                    year: a.year || '',
+                    technique: a.technique || '',
+                    dims: a.dimensions || '',
+                    description: a.description || '',
+                }))
+            
+            return [mainSlide, ...detailSlides]
+        })
 
     const index = Math.max(
         0,

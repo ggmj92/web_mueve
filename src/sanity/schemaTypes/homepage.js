@@ -9,9 +9,8 @@ export default {
             type: 'array',
             of: [
                 {
-                    name: 'slide',
-                    title: 'Slide',
                     type: 'object',
+                    title: 'Slide',
                     fields: [
                         {
                             name: 'image',

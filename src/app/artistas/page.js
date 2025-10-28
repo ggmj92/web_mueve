@@ -9,8 +9,7 @@ async function getArtists() {
     try {
         const query = `*[_type == "artist" && defined(slug.current)] | order(name asc){
         _id, name, "slug": slug.current,
-        artworks[]->{
-          _id,
+        artworks[]{
           title,
           featuredPreview,
           image{
@@ -21,6 +20,18 @@ async function getArtists() {
             },
             hotspot,
             crop
+          },
+          detailImages[]{
+            featuredPreview,
+            image{
+              asset->{
+                _id,
+                url,
+                metadata{ dimensions{ width, height, aspectRatio } }
+              },
+              hotspot,
+              crop
+            }
           }
         }
       }`
@@ -51,10 +62,24 @@ export default function ArtistsPage() {
 
     const getPreviewArtwork = (artist) => {
         if (!artist?.artworks?.length) return null
-        // First try to find the artwork marked as featuredPreview
-        const previewArtwork = artist.artworks.find(a => a.featuredPreview)
+        
+        // Check all artworks for featuredPreview (main image or detail images)
+        for (const artwork of artist.artworks) {
+            // Check if main image is marked as featuredPreview
+            if (artwork.featuredPreview && artwork.image) {
+                return artwork
+            }
+            // Check if any detail image is marked as featuredPreview
+            if (artwork.detailImages?.length) {
+                const featuredDetail = artwork.detailImages.find(d => d.featuredPreview)
+                if (featuredDetail?.image) {
+                    return { ...artwork, image: featuredDetail.image }
+                }
+            }
+        }
+        
         // Fallback to first artwork if no preview is marked
-        return previewArtwork || artist.artworks[0]
+        return artist.artworks[0]
     }
 
     return (
@@ -103,7 +128,3 @@ export default function ArtistsPage() {
         </div>
     )
 }
-
-
-
-

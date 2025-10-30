@@ -2,6 +2,7 @@ import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
 import styles from './artist.module.css'
+import ArtworkCarousel from './ArtworkCarousel'
 
 export const revalidate = 0 // dev-friendly
 
@@ -138,70 +139,11 @@ export default async function ArtistPage({ params }) {
                 ) : null}
             </section>
 
-            {/* 5-up portrait cards; horizontally scrollable if more */}
+            {/* 5-up portrait cards; infinite carousel on desktop if more than 5 */}
             {artist.artworks?.length > 0 && (
                 <section className={styles.cardsSection}>
                     <h2 className={styles.mobileHeader}>Obras Seleccionadas</h2>
-                    <div className={styles.cards}>
-                        {artist.artworks.map((aw, index) => {
-                            const url = aw?.image?.asset?.url
-                            if (!url || !aw.slug?.current) return null
-                            
-                            // Desktop: cropped vertical image respecting hotspot
-                            const desktopImageUrl = urlFor(aw.image)
-                                .width(600)
-                                .height(800)
-                                .fit('crop')
-                                .quality(90)
-                                .auto('format')
-                                .url()
-                            
-                            // Mobile: use raw asset URL to bypass hotspot/crop entirely
-                            const mobileImageUrl = urlFor(aw.image.asset)
-                                .width(1200)
-                                .quality(90)
-                                .auto('format')
-                                .url()
-                            
-                            return (
-                                <div key={aw.slug?.current || `artwork-${index}`} className={styles.cardWrapper}>
-                                    <a
-                                        href={`/artistas/${slug}/obras/${aw.slug.current}`}
-                                        className={styles.card}
-                                    >
-                                        <picture>
-                                            <source media="(max-width: 768px)" srcSet={mobileImageUrl} />
-                                            <img
-                                                src={desktopImageUrl}
-                                                alt={aw.title || 'Artwork'}
-                                                className={styles.cardImage}
-                                            />
-                                        </picture>
-                                    </a>
-                                    <div className={styles.cardInfo}>
-                                        <div className={styles.cardTitle}>
-                                            {aw.title}
-                                            {aw.year && (
-                                                <span className={styles.cardYear}>
-                                                    , {aw.year}
-                                                </span>
-                                            )}
-                                        </div>
-                                        {aw.technique && (
-                                            <div className={styles.cardDetail}>
-                                                {aw.technique}
-                                            </div>
-                                        )}
-                                        {aw.dimensions && (
-                                            <div className={styles.cardDetail}>
-                                                {aw.dimensions}
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            )
-                        })}
-                    </div>
+                    <ArtworkCarousel artworks={artist.artworks} artistSlug={slug} />
                 </section>
             )}
         </main>

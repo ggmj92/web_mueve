@@ -85,6 +85,13 @@
     width: 100vw;
     margin-left: calc(-50vw + 50%);
     padding: 2rem var(--layout-padding-inline, 2rem) 3rem;
+    /* Add extra bottom padding to account for fixed footer + banner */
+    padding-bottom: calc(3rem + 3rem + 3rem); /* section padding + footer + banner */
+}
+
+/* When banner is hidden, reduce bottom padding */
+:global(.banner-hidden) .cardsSection {
+    padding-bottom: calc(3rem + 3rem); /* section padding + footer only */
 }
 
 .cards {
@@ -217,6 +224,12 @@
 
     .cardsSection {
         padding-top: 1rem;
+        /* Adjust for mobile banner height (2.5rem) */
+        padding-bottom: calc(3rem + 3rem + 2.5rem); /* section padding + footer + mobile banner */
+    }
+    
+    :global(.banner-hidden) .cardsSection {
+        padding-bottom: calc(3rem + 3rem); /* section padding + footer only */
     }
 
     .cards {

@@ -60,6 +60,16 @@ body {
   font-family: var(--font-mueve), sans-serif;
 }
 
+/* Add bottom padding to all pages to account for fixed footer + banner */
+body:not(.home):not(.studio) {
+  padding-bottom: calc(3rem + 3rem); /* footer height + banner height */
+}
+
+/* When banner is hidden, reduce padding */
+body.banner-hidden:not(.home):not(.studio) {
+  padding-bottom: 3rem; /* only footer height */
+}
+
 /* Apply font to all elements */
 * {
   font-family: var(--font-mueve), sans-serif;
@@ -134,5 +144,14 @@ body.inner {
     --layout-padding-block: 1.5rem;
     --header-padding-block: 0.75rem;
     --footer-padding-block: 5px;
+  }
+  
+  /* Adjust for mobile banner height (2.5rem instead of 3rem) */
+  body:not(.home):not(.studio) {
+    padding-bottom: calc(3rem + 2.5rem); /* footer height + mobile banner height */
+  }
+  
+  body.banner-hidden:not(.home):not(.studio) {
+    padding-bottom: 3rem; /* only footer height */
   }
 }

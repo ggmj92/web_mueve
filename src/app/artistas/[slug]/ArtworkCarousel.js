@@ -28,13 +28,21 @@ export default function ArtworkCarousel({ artworks, artistSlug }) {
         const scrollSpeed = 0.5
 
         // Get total width of one complete set of artworks
+        // Use actual rendered cards count, not artworks.length (some may be filtered out)
         const getSetWidth = () => {
             const cards = carousel.querySelectorAll(`.${styles.cardWrapper}`)
             if (cards.length === 0) return 0
+            
+            // Calculate how many cards represent one set (total cards / 3 sets)
+            const cardsPerSet = Math.floor(cards.length / 3)
+            if (cardsPerSet === 0) return 0
+            
             const firstCard = cards[0]
-            const lastCard = cards[artworks.length - 1]
+            const lastCardOfFirstSet = cards[cardsPerSet - 1]
+            if (!firstCard || !lastCardOfFirstSet) return 0
+            
             const firstRect = firstCard.getBoundingClientRect()
-            const lastRect = lastCard.getBoundingClientRect()
+            const lastRect = lastCardOfFirstSet.getBoundingClientRect()
             return lastRect.right - firstRect.left
         }
 

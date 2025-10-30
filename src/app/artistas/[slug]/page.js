@@ -1,6 +1,7 @@
 import { client } from '@/sanity/lib/client'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
+import ScrollIndicator from '@/components/ScrollIndicator'
 import styles from './artist.module.css'
 import ArtworkCarousel from './ArtworkCarousel'
 
@@ -104,6 +105,7 @@ export default async function ArtistPage({ params }) {
     return (
         <>
             <NewsletterModal />
+            <ScrollIndicator />
             <main>
             {/* Top: static hero image */}
             {heroArtwork && (

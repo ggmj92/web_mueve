@@ -1,0 +1,77 @@
+.scrollIndicator {
+  position: fixed;
+  bottom: calc(3rem + 3rem + 1rem); /* footer + banner + spacing */
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 15; /* Below banner (25) but above content */
+  pointer-events: none;
+  animation: fadeInOut 3s ease-in-out;
+}
+
+/* Adjust position when banner is hidden */
+:global(.banner-hidden) .scrollIndicator {
+  bottom: calc(3rem + 1rem); /* footer + spacing only */
+}
+
+.arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  animation: pulse 1.5s ease-in-out 2; /* Pulse twice */
+}
+
+.arrow svg {
+  width: 36px;
+  height: 36px;
+}
+
+/* Fade in, stay, then fade out */
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+/* Pulsating arrow */
+@keyframes pulse {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(8px);
+    opacity: 1;
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 600px) {
+  .scrollIndicator {
+    bottom: calc(3rem + 2.5rem + 1rem); /* footer + mobile banner + spacing */
+  }
+  
+  :global(.banner-hidden) .scrollIndicator {
+    bottom: calc(3rem + 1rem); /* footer + spacing only */
+  }
+  
+  .arrow {
+    transform: scale(0.9);
+  }
+}

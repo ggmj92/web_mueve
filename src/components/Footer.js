@@ -2,14 +2,14 @@
 
 import { useState, useEffect } from 'react';
 import styles from "./Footer.module.css";
-import ConstructionBanner from "./ConstructionBanner";
+import AnnouncementBanner from "./AnnouncementBanner";
 
 export default function Footer() {
     const [bannerClosed, setBannerClosed] = useState(false);
 
     useEffect(() => {
         // Check if banner was previously dismissed
-        const wasDismissed = localStorage.getItem('construction-banner-dismissed');
+        const wasDismissed = localStorage.getItem('announcement-banner-dismissed');
         if (wasDismissed) {
             setBannerClosed(true);
         }
@@ -19,10 +19,10 @@ export default function Footer() {
             setBannerClosed(true);
         };
 
-        window.addEventListener('constructionBannerClosed', handleBannerClosed);
+        window.addEventListener('announcementBannerClosed', handleBannerClosed);
         
         return () => {
-            window.removeEventListener('constructionBannerClosed', handleBannerClosed);
+            window.removeEventListener('announcementBannerClosed', handleBannerClosed);
         };
     }, []);
 
@@ -34,7 +34,7 @@ export default function Footer() {
 
     return (
         <>
-            <ConstructionBanner />
+            <AnnouncementBanner />
             <footer className={`${styles.footer} ${bannerClosed ? styles.footerNoBanner : ''}`}>
                 <div className={styles.footerInner}>
                     {/* Desktop layout - 3 columns */}

@@ -19,7 +19,7 @@ export default function HomepageClient({ children, fontClass }) {
         setIsStudio(pathname?.startsWith("/studio"));
         
         // Check if banner was dismissed
-        const wasDismissed = localStorage.getItem('construction-banner-dismissed');
+        const wasDismissed = localStorage.getItem('announcement-banner-dismissed');
         setBannerVisible(!wasDismissed);
         
         // Listen for banner close event
@@ -27,10 +27,10 @@ export default function HomepageClient({ children, fontClass }) {
             setBannerVisible(false);
         };
         
-        window.addEventListener('constructionBannerClosed', handleBannerClosed);
+        window.addEventListener('announcementBannerClosed', handleBannerClosed);
         
         return () => {
-            window.removeEventListener('constructionBannerClosed', handleBannerClosed);
+            window.removeEventListener('announcementBannerClosed', handleBannerClosed);
         };
     }, [pathname]);
 

@@ -17,6 +17,20 @@ export const structure = (S) =>
             )
         ),
       
+      // Announcement Banner section
+      S.listItem()
+        .title('Banner de Anuncios')
+        .icon(() => '📢')
+        .child(
+          S.documentTypeList('announcementBanner')
+            .title('Banner de Anuncios')
+            .child((bannerId) =>
+              S.document()
+                .documentId(bannerId)
+                .schemaType('announcementBanner')
+            )
+        ),
+      
       // About section
       S.listItem()
         .title('Nosotros')

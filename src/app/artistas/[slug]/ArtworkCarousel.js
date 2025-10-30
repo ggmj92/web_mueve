@@ -7,6 +7,8 @@ import styles from './artist.module.css'
 export default function ArtworkCarousel({ artworks, artistSlug }) {
     const carouselRef = useRef(null)
     const [isDesktop, setIsDesktop] = useState(false)
+    const [leftHover, setLeftHover] = useState(false)
+    const [rightHover, setRightHover] = useState(false)
 
     useEffect(() => {
         const checkDesktop = () => {
@@ -101,16 +103,32 @@ export default function ArtworkCarousel({ artworks, artistSlug }) {
         }
     }, [artworks.length, isDesktop])
 
+    // Manual navigation functions
+    const handleScrollLeft = () => {
+        if (!carouselRef.current) return
+        const scrollAmount = carouselRef.current.offsetWidth * 0.8
+        carouselRef.current.scrollBy({ left: -scrollAmount, behavior: 'smooth' })
+    }
+
+    const handleScrollRight = () => {
+        if (!carouselRef.current) return
+        const scrollAmount = carouselRef.current.offsetWidth * 0.8
+        carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+    }
+
     // Triple the artworks for seamless infinite scrolling
     const displayArtworks = isDesktop && artworks.length > 5
         ? [...artworks, ...artworks, ...artworks]
         : artworks
 
+    const showNavigation = isDesktop && artworks.length > 1
+
     return (
-        <div
-            ref={carouselRef}
-            className={`${styles.cards} ${isDesktop && artworks.length > 5 ? styles.cardsCarousel : ''}`}
-        >
+        <div className={styles.carouselContainer}>
+            <div
+                ref={carouselRef}
+                className={`${styles.cards} ${isDesktop && artworks.length > 5 ? styles.cardsCarousel : ''}`}
+            >
             {displayArtworks.map((aw, index) => {
                 const url = aw?.image?.asset?.url
                 if (!url || !aw.slug?.current) return null
@@ -169,6 +187,47 @@ export default function ArtworkCarousel({ artworks, artistSlug }) {
                     </div>
                 )
             })}
+        </div>
+
+            {/* Navigation arrows */}
+            {showNavigation && (
+                <>
+                    <button
+                        className={`${styles.artworkNavColumn} ${styles.artworkNavLeft} ${leftHover ? styles.artworkNavHover : ''}`}
+                        onClick={handleScrollLeft}
+                        onMouseEnter={() => setLeftHover(true)}
+                        onMouseLeave={() => setLeftHover(false)}
+                        aria-label="Scroll left"
+                    >
+                        <svg 
+                            className={styles.artworkNavArrow}
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2"
+                        >
+                            <polyline points="15 18 9 12 15 6" />
+                        </svg>
+                    </button>
+                    <button
+                        className={`${styles.artworkNavColumn} ${styles.artworkNavRight} ${rightHover ? styles.artworkNavHover : ''}`}
+                        onClick={handleScrollRight}
+                        onMouseEnter={() => setRightHover(true)}
+                        onMouseLeave={() => setRightHover(false)}
+                        aria-label="Scroll right"
+                    >
+                        <svg 
+                            className={styles.artworkNavArrow}
+                            viewBox="0 0 24 24" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            strokeWidth="2"
+                        >
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                    </button>
+                </>
+            )}
         </div>
     )
 }

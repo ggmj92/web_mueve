@@ -1,6 +1,7 @@
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
+import NewsletterModal from '@/components/NewsletterModal'
 import styles from './artist.module.css'
 import ArtworkCarousel from './ArtworkCarousel'
 
@@ -102,7 +103,9 @@ export default async function ArtistPage({ params }) {
                          artist.portfolio?.asset?.url // Legacy support for old structure
 
     return (
-        <main>
+        <>
+            <NewsletterModal />
+            <main>
             {/* Top: static hero image */}
             {heroArtwork && (
                 <section className={styles.hero}>
@@ -147,5 +150,6 @@ export default async function ArtistPage({ params }) {
                 </section>
             )}
         </main>
+        </>
     )
 }

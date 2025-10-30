@@ -300,3 +300,66 @@
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* Artwork carousel container and navigation */
+.carouselContainer {
+    position: relative;
+    width: 100%;
+}
+
+.carouselContainer > .cards,
+.carouselContainer > .cardsCarousel {
+    width: 100%;
+}
+
+.artworkNavColumn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3%;
+    max-width: 200px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 300ms ease;
+    padding: 0;
+}
+
+.artworkNavColumn:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.artworkNavLeft {
+    left: 0;
+}
+
+.artworkNavRight {
+    right: 0;
+}
+
+.artworkNavArrow {
+    width: 48px;
+    height: 48px;
+    color: white;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    opacity: 0;
+    transition: opacity 300ms ease, transform 200ms ease;
+    transform: scale(0.9);
+}
+
+.artworkNavColumn:hover .artworkNavArrow {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.artworkNavLeft:hover .artworkNavArrow {
+    transform: scale(1) translateX(-4px);
+}
+
+.artworkNavRight:hover .artworkNavArrow {
+    transform: scale(1) translateX(4px);
+}

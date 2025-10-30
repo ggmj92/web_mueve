@@ -3,6 +3,7 @@
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import { useState, useEffect } from 'react'
+import NewsletterModal from '@/components/NewsletterModal'
 import styles from './artists.module.css'
 
 async function getArtists() {
@@ -83,7 +84,9 @@ export default function ArtistsPage() {
     }
 
     return (
-        <div className={`${styles.artists} alignSecondCol`}>
+        <>
+            <NewsletterModal />
+            <div className={`${styles.artists} alignSecondCol`}>
             <div className={styles.listCol}>
                 {loading ? (
                     <div>
@@ -126,5 +129,6 @@ export default function ArtistsPage() {
                 </div>
             )}
         </div>
+        </>
     )
 }

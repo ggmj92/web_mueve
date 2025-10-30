@@ -22,11 +22,11 @@
   position: absolute;
   inset: 0;
   opacity: 0;
-  transition: opacity 1400ms ease-in-out;
+  transition: opacity 600ms ease-in-out;
   will-change: opacity;
   height: 100vh;
   width: 100vw;
-  background-color: #f0f0f0;
+  background-color: transparent;
   overflow: hidden;
 }
 
@@ -39,4 +39,57 @@
 
 .visible {
   opacity: 1;
+}
+
+/* Navigation columns */
+.navColumn {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3%;
+  max-width: 200px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 300ms ease;
+  padding: 0;
+}
+
+.navColumn:hover {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.navLeft {
+  left: 0;
+}
+
+.navRight {
+  right: 0;
+}
+
+.navArrow {
+  width: 48px;
+  height: 48px;
+  color: white;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+  opacity: 0;
+  transition: opacity 300ms ease, transform 200ms ease;
+  transform: scale(0.9);
+}
+
+.navColumn:hover .navArrow {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.navLeft:hover .navArrow {
+  transform: scale(1) translateX(-4px);
+}
+
+.navRight:hover .navArrow {
+  transform: scale(1) translateX(4px);
 }

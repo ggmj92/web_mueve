@@ -1,5 +1,6 @@
 import { client } from '@/sanity/lib/client'
 import ArtworkViewer from '@/components/ArtworkViewer'
+import NewsletterModal from '@/components/NewsletterModal'
 
 export const revalidate = 0
 
@@ -83,7 +84,9 @@ export default async function ArtworkPage({ params }) {
     )
 
     return (
-        <main>
+        <>
+            <NewsletterModal />
+            <main>
             <ArtworkViewer
                 artistName={artist.name}
                 slides={slides}
@@ -101,5 +104,6 @@ export default async function ArtworkPage({ params }) {
                 </a>
             </div>
         </main>
+        </>
     )
 }

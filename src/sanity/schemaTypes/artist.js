@@ -26,7 +26,9 @@ export default {
           name: 'file',
           title: 'Archivo PDF',
           type: 'file',
-          options: { accept: '.pdf' }
+          options: {
+            accept: '.pdf'
+          }
         },
         {
           name: 'externalLink',

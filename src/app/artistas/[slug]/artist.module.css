@@ -97,6 +97,32 @@
     width: 100%;
 }
 
+/* Infinite carousel mode for desktop when more than 5 artworks */
+.cardsCarousel {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: scroll;
+    scroll-behavior: auto;
+    width: 100%;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    cursor: grab;
+}
+
+.cardsCarousel:active {
+    cursor: grabbing;
+}
+
+.cardsCarousel::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+}
+
+.cardsCarousel .cardWrapper {
+    flex: 0 0 calc((100% - (var(--cards-gap) * 4)) / 5);
+    display: block;
+    margin-right: var(--cards-gap);
+}
+
 .card {
     aspect-ratio: 3 / 4;
     /* portrait tile */

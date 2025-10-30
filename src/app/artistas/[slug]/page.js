@@ -1,5 +1,4 @@
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
 import styles from './artist.module.css'

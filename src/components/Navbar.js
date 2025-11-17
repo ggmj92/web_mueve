@@ -74,6 +74,9 @@ export default function Navbar() {
                         <Link href="/artistas" className={styles.navLink} onClick={closeMenu}>
                             Artistas
                         </Link>
+                        <Link href="/publicaciones" className={styles.navLink} onClick={closeMenu}>
+                            Publicaciones
+                        </Link>
                         <Link href="/nosotros" className={styles.navLink} onClick={closeMenu}>
                             Nosotros
                         </Link>

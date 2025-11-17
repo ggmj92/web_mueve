@@ -57,5 +57,19 @@ export const structure = (S) =>
                 .documentId(artistId)
                 .schemaType('artist')
             )
+        ),
+      
+      // Publicaciones section
+      S.listItem()
+        .title('Publicaciones')
+        .icon(() => '📚')
+        .child(
+          S.documentTypeList('publicacion')
+            .title('Publicaciones')
+            .child((publicacionId) =>
+              S.document()
+                .documentId(publicacionId)
+                .schemaType('publicacion')
+            )
         )
     ])

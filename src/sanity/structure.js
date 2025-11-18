@@ -73,6 +73,34 @@ export const structure = (S) =>
             )
         ),
       
+      // Ferias section
+      S.listItem()
+        .title('Ferias')
+        .icon(() => '🎪')
+        .child(
+          S.documentTypeList('feria')
+            .title('Ferias')
+            .child((feriaId) =>
+              S.document()
+                .documentId(feriaId)
+                .schemaType('feria')
+            )
+        ),
+      
+      // Exposiciones section
+      S.listItem()
+        .title('Exposiciones')
+        .icon(() => '🖼️')
+        .child(
+          S.documentTypeList('exposicion')
+            .title('Exposiciones')
+            .child((exposicionId) =>
+              S.document()
+                .documentId(exposicionId)
+                .schemaType('exposicion')
+            )
+        ),
+      
       // Publicaciones section
       S.listItem()
         .title('Publicaciones')

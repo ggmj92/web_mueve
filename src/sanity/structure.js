@@ -59,6 +59,20 @@ export const structure = (S) =>
             )
         ),
       
+      // Guest artists (mueve estar) section
+      S.listItem()
+        .title('Artistas invitados (mueve estar)')
+        .icon(() => '🧑‍🎨')
+        .child(
+          S.documentTypeList('guestArtist')
+            .title('Artistas invitados (mueve estar)')
+            .child((guestArtistId) =>
+              S.document()
+                .documentId(guestArtistId)
+                .schemaType('guestArtist')
+            )
+        ),
+      
       // Publicaciones section
       S.listItem()
         .title('Publicaciones')

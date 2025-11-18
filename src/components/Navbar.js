@@ -80,6 +80,9 @@ export default function Navbar() {
                         <Link href="/nosotros" className={styles.navLink} onClick={closeMenu}>
                             Nosotros
                         </Link>
+                        <Link href="/mueve-estar" className={styles.navLink} onClick={closeMenu}>
+                            mueve (estar  )
+                        </Link>
                     </div>
                 </nav>
             </div>

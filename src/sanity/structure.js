@@ -57,5 +57,19 @@ export const structure = (S) =>
                 .documentId(artistId)
                 .schemaType('artist')
             )
+        ),
+      
+      // Ferias section
+      S.listItem()
+        .title('Ferias')
+        .icon(() => '🎪')
+        .child(
+          S.documentTypeList('feria')
+            .title('Ferias')
+            .child((feriaId) =>
+              S.document()
+                .documentId(feriaId)
+                .schemaType('feria')
+            )
         )
     ])

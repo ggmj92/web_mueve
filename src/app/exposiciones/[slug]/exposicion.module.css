@@ -6,17 +6,11 @@
     --artwork-max-height: 70vh;
 }
 
-/* Top info bar - full width, fixed at top */
+/* Top info section */
 .topBar {
-    position: fixed;
-    top: var(--header-h, 4.5rem);
-    left: 0;
-    right: 0;
-    width: 100%;
-    padding: 1.5rem var(--layout-padding-inline, 2rem);
-    background: white;
-    z-index: 15;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: calc(var(--header-h, 4.5rem) + 1.5rem) var(--layout-padding-inline, 2rem) 1px;
 }
 
 .topBarInner {
@@ -43,6 +37,7 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    text-align: center;
 }
 
 .portfolio {
@@ -108,7 +103,7 @@
     margin-right: auto;
     width: 100%;
     min-height: 100vh;
-    padding-top: calc(var(--header-h, 4.5rem) + 4rem + var(--artwork-top));
+    padding-top: 2rem;
     padding-bottom: 2rem;
     padding-left: 4rem;
     padding-right: 4rem;

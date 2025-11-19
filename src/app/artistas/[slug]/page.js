@@ -2,6 +2,7 @@ import { client } from '@/sanity/lib/client'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
 import ScrollIndicator from '@/components/ScrollIndicator'
+import PortfolioLink from '@/components/PortfolioLink'
 import styles from './artist.module.css'
 import ArtworkCarousel from './ArtworkCarousel'
 
@@ -12,16 +13,21 @@ async function getArtistWithWorks(slug) {
     _id,
     name,
     bio,
-    portfolio{
+    portfolioSpanish{
       file{
         asset->{
           url
         }
       },
-      externalLink,
-      asset->{
-        url
-      }
+      externalLink
+    },
+    portfolioEnglish{
+      file{
+        asset->{
+          url
+        }
+      },
+      externalLink
     },
     artworks[]{
       title,
@@ -97,11 +103,6 @@ export default async function ArtistPage({ params }) {
         heroArtwork = artworks[0]
     }
 
-    // Get portfolio URL (supports both old and new structure)
-    const portfolioUrl = artist.portfolio?.file?.asset?.url || 
-                         artist.portfolio?.externalLink || 
-                         artist.portfolio?.asset?.url // Legacy support for old structure
-
     return (
         <>
             <NewsletterModal />
@@ -124,17 +125,12 @@ export default async function ArtistPage({ params }) {
             <section className={styles.info}>
                 <div className={styles.infoRow}>
                     <h1 className={styles.name}>{artist.name}</h1>
-                    {portfolioUrl ? (
-                        <a
-                            className={styles.portfolio}
-                            href={portfolioUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Ver portafolio"
-                        >
-                            Portafolio
-                        </a>
-                    ) : null}
+                    <PortfolioLink
+                        spanish={artist.portfolioSpanish}
+                        english={artist.portfolioEnglish}
+                        label="Portafolio"
+                        className={styles.portfolio}
+                    />
                 </div>
                 {artist.bio ? (
                     <div className={styles.bio}>

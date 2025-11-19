@@ -138,6 +138,25 @@ body.inner {
   }
 }
 
+/* Portfolio/Dosier language link hover effects */
+.portfolio-lang-link {
+  font-style: normal;
+  transition: font-style 0.2s ease;
+}
+
+.portfolio-lang-link:hover {
+  font-style: italic;
+}
+
+/* Prevent hover effect on parent when both languages are available */
+.portfolio-dual-lang {
+  font-style: normal !important;
+}
+
+.portfolio-dual-lang:hover {
+  font-style: normal !important;
+}
+
 @media (max-width: 600px) {
   :root {
     --layout-padding-inline: 1rem;

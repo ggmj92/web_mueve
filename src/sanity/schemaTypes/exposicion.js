@@ -34,19 +34,46 @@ export default {
       name: 'artists',
       type: 'array',
       title: 'Artistas',
-      description: 'Seleccionar uno o varios artistas asociados a esta exposición',
+      description: 'Seleccionar artistas representados o escribir nombres de artistas invitados',
       of: [
         {
           type: 'reference',
-          to: [{ type: 'artist' }, { type: 'guestArtist' }]
+          title: 'Artista Representado',
+          to: [{ type: 'artist' }],
+          options: {
+            filter: '_type == "artist"'
+          }
+        },
+        {
+          type: 'object',
+          title: 'Artista Invitado (Texto)',
+          fields: [
+            {
+              name: 'name',
+              type: 'string',
+              title: 'Nombre del Artista',
+              validation: Rule => Rule.required()
+            }
+          ],
+          preview: {
+            select: {
+              title: 'name'
+            },
+            prepare(selection) {
+              return {
+                title: selection.title,
+                subtitle: 'Artista invitado'
+              }
+            }
+          }
         }
       ]
     },
     {
-      name: 'portfolio',
-      title: 'Portafolio / Enlace Externo',
+      name: 'dosierSpanish',
+      title: 'Dosier (Español)',
       type: 'object',
-      description: 'Sube un archivo PDF o proporciona un enlace externo',
+      description: 'Dosier en español - Sube un archivo PDF o proporciona un enlace externo',
       fields: [
         {
           name: 'file',
@@ -60,11 +87,59 @@ export default {
           name: 'externalLink',
           title: 'Enlace Externo',
           type: 'url',
+          description: 'Usa esto si el PDF está alojado externamente',
           validation: (Rule) => Rule.uri({
             scheme: ['http', 'https']
           })
         }
-      ]
+      ],
+      validation: (Rule) => Rule.custom((dosier) => {
+        if (!dosier) return true;
+        const hasFile = dosier?.file?.asset;
+        const hasLink = dosier?.externalLink;
+        
+        if (hasFile && hasLink) {
+          return 'Por favor usa solo un archivo PDF O un enlace externo, no ambos.';
+        }
+        
+        return true;
+      })
+    },
+    {
+      name: 'dosierEnglish',
+      title: 'Dosier (English)',
+      type: 'object',
+      description: 'Dosier in English - Upload a PDF file or provide an external link',
+      fields: [
+        {
+          name: 'file',
+          title: 'PDF File',
+          type: 'file',
+          options: {
+            accept: '.pdf'
+          }
+        },
+        {
+          name: 'externalLink',
+          title: 'External Link',
+          type: 'url',
+          description: 'Use this if the PDF is hosted externally',
+          validation: (Rule) => Rule.uri({
+            scheme: ['http', 'https']
+          })
+        }
+      ],
+      validation: (Rule) => Rule.custom((dosier) => {
+        if (!dosier) return true;
+        const hasFile = dosier?.file?.asset;
+        const hasLink = dosier?.externalLink;
+        
+        if (hasFile && hasLink) {
+          return 'Please use either a PDF file OR an external link, not both.';
+        }
+        
+        return true;
+      })
     },
     {
       name: 'description',

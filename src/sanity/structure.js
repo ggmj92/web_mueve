@@ -45,6 +45,20 @@ export const structure = (S) =>
             )
         ),
       
+      // Mueve Estar section
+      S.listItem()
+        .title('Mueve Estar')
+        .icon(() => '🎨')
+        .child(
+          S.documentTypeList('mueveEstar')
+            .title('Mueve Estar')
+            .child((mueveEstarId) =>
+              S.document()
+                .documentId(mueveEstarId)
+                .schemaType('mueveEstar')
+            )
+        ),
+      
       // Artists section (artworks are now inline within each artist)
       S.listItem()
         .title('Artistas')

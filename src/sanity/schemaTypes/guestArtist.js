@@ -17,10 +17,10 @@ export default {
       validation: (Rule) => Rule.required()
     },
     {
-      name: 'portfolio',
-      title: 'Portafolio',
+      name: 'portfolioSpanish',
+      title: 'Portafolio (Español)',
       type: 'object',
-      description: 'Sube un archivo PDF o proporciona un enlace externo (ej. Google Drive)',
+      description: 'Portafolio en español - Sube un archivo PDF o proporciona un enlace externo',
       fields: [
         {
           name: 'file',
@@ -44,12 +44,47 @@ export default {
         if (!portfolio) return true;
         const hasFile = portfolio?.file?.asset;
         const hasLink = portfolio?.externalLink;
+        
         if (hasFile && hasLink) {
           return 'Por favor usa solo un archivo PDF O un enlace externo, no ambos.';
         }
-        if (!hasFile && !hasLink) {
-          return 'Por favor proporciona un archivo PDF o un enlace externo.';
+        
+        return true;
+      })
+    },
+    {
+      name: 'portfolioEnglish',
+      title: 'Portafolio (English)',
+      type: 'object',
+      description: 'Portfolio in English - Upload a PDF file or provide an external link',
+      fields: [
+        {
+          name: 'file',
+          title: 'PDF File',
+          type: 'file',
+          options: {
+            accept: '.pdf'
+          }
+        },
+        {
+          name: 'externalLink',
+          title: 'External Link',
+          type: 'url',
+          description: 'Use this if the PDF is hosted externally (e.g. Google Drive, Dropbox)',
+          validation: (Rule) => Rule.uri({
+            scheme: ['http', 'https']
+          })
         }
+      ],
+      validation: (Rule) => Rule.custom((portfolio) => {
+        if (!portfolio) return true;
+        const hasFile = portfolio?.file?.asset;
+        const hasLink = portfolio?.externalLink;
+        
+        if (hasFile && hasLink) {
+          return 'Please use either a PDF file OR an external link, not both.';
+        }
+        
         return true;
       })
     },

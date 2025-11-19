@@ -1,128 +1,83 @@
 'use client'
 
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image'
+import { PortableText } from '@portabletext/react'
 import { useState, useEffect } from 'react'
 import NewsletterModal from '@/components/NewsletterModal'
-import styles from '../artistas/artists.module.css'
+import styles from './mueve-estar.module.css'
 
-async function getGuestArtists() {
+async function getMueveEstarData() {
     try {
-        const query = `*[_type == "guestArtist" && defined(slug.current)] | order(name asc){
-        _id, name, "slug": slug.current,
-        artworks[]{
-          title,
-          featuredPreview,
-          image{
-            asset->{
-              _id,
-              url,
-              metadata{ dimensions{ width, height, aspectRatio } }
-            },
-            hotspot,
-            crop
-          },
-          detailImages[]{
-            featuredPreview,
-            image{
-              asset->{
-                _id,
-                url,
-                metadata{ dimensions{ width, height, aspectRatio } }
-              },
-              hotspot,
-              crop
+        const query = `*[_type == "mueveEstar"][0]{
+            description,
+            artists[]{
+                name
             }
-          }
-        }
-      }`
+        }`
         return await client.fetch(query)
     } catch (error) {
-        console.error('Error fetching guest artists:', error)
-        return []
+        console.error('Error fetching mueve estar data:', error)
+        return null
     }
 }
 
 export default function MueveEstarPage() {
-    const [artists, setArtists] = useState([])
+    const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
-    const [hoveredArtist, setHoveredArtist] = useState(null)
 
     useEffect(() => {
-        getGuestArtists()
-            .then(artists => {
-                setArtists(artists)
+        getMueveEstarData()
+            .then(data => {
+                setData(data)
                 setLoading(false)
             })
             .catch(error => {
-                console.error('Error al cargar artistas invitados:', error)
-                setArtists([])
+                console.error('Error al cargar mueve estar:', error)
+                setData(null)
                 setLoading(false)
             })
     }, [])
 
-    const getPreviewArtwork = (artist) => {
-        if (!artist?.artworks?.length) return null
-        for (const artwork of artist.artworks) {
-            if (artwork.featuredPreview && artwork.image) {
-                return artwork
-            }
-            if (artwork.detailImages?.length) {
-                const featuredDetail = artwork.detailImages.find(d => d.featuredPreview)
-                if (featuredDetail?.image) {
-                    return { ...artwork, image: featuredDetail.image }
-                }
-            }
-        }
-        return artist.artworks[0]
-    }
+    // Sort artists alphabetically
+    const sortedArtists = data?.artists
+        ? [...data.artists].sort((a, b) => a.name.localeCompare(b.name, 'es'))
+        : []
 
     return (
         <>
             <NewsletterModal />
-            <div className={`${styles.artists} alignSecondCol`}>
-            <div className={styles.listCol}>
+            <div className={styles.mueveEstar}>
                 {loading ? (
-                    <div>
-                        <p>Cargando artistas...</p>
+                    <div className={styles.textCol}>
+                        <p>Cargando...</p>
                     </div>
-                ) : artists.length > 0 ? (
-                    <ul className={styles.list}>
-                        {artists.map((a) => (
-                            <li key={a.slug ?? a._id}>
-                                <a
-                                    href={`/mueve-estar/${a.slug}`}
-                                    onMouseEnter={() => setHoveredArtist(a)}
-                                    onMouseLeave={() => setHoveredArtist(null)}
-                                >
-                                    {a.name}
-                                </a>
-                            </li>
-                        ))}
-                    </ul>
                 ) : (
-                    <div>
-                        <p>No se encontraron artistas.</p>
-                    </div>
+                    <>
+                        {/* Description paragraph */}
+                        {data?.description && (
+                            <div className={styles.textCol}>
+                                <div className={styles.copy}>
+                                    <PortableText value={data.description} />
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Artist list */}
+                        {sortedArtists.length > 0 && (
+                            <div className={styles.listCol}>
+                                <h2 className={styles.listHeader}>Artistas Invitados</h2>
+                                <ul className={styles.list}>
+                                    {sortedArtists.map((artist, index) => (
+                                        <li key={index} className={styles.listItem}>
+                                            <span className={styles.artistName}>{artist.name}</span>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </>
                 )}
             </div>
-
-            {hoveredArtist && getPreviewArtwork(hoveredArtist) && (
-                <div className={styles.preview}>
-                    <img
-                        src={urlFor(getPreviewArtwork(hoveredArtist).image)
-                            .width(1000)
-                            .height(1600)
-                            .fit('crop')
-                            .quality(90)
-                            .auto('format')
-                            .url()}
-                        alt={getPreviewArtwork(hoveredArtist).title || 'Artwork preview'}
-                        className={styles.previewImage}
-                    />
-                </div>
-            )}
-        </div>
         </>
     )
 }

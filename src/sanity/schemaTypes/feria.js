@@ -38,6 +38,13 @@ export default {
             type: 'boolean',
             description: 'Marcar si esta feria está en la sección "Actuales"',
             initialValue: false
+        },
+        {
+            name: 'order',
+            title: 'Orden de Visualización',
+            type: 'number',
+            description: 'Número para ordenar las ferias (menor número = aparece primero). Ejemplo: 1, 2, 3...',
+            validation: Rule => Rule.integer().min(0)
         }
     ],
     preview: {

@@ -2,13 +2,15 @@
 
 import { useState, useRef, useEffect } from 'react'
 import { PortableText } from '@portabletext/react'
+import PortfolioLink from '@/components/PortfolioLink'
 import styles from './exposicion.module.css'
 
 export default function ExposicionViewer({
     exposicionTitle,
     year,
     artists,
-    portfolioUrl,
+    dosierSpanish,
+    dosierEnglish,
     slides,
     description
 }) {
@@ -62,28 +64,21 @@ export default function ExposicionViewer({
 
     return (
         <section className={styles.wrap}>
-            {/* Top info bar - full width */}
+            {/* Top info bar */}
             <div className={styles.topBar}>
                 <div className={styles.topBarInner}>
                     <div className={styles.titleYear}>
                         {exposicionTitle}, {year}
                     </div>
-                    {artists.length > 0 && (
-                        <div className={styles.artists}>
-                            {artists.join(', ')}
-                        </div>
-                    )}
-                    {portfolioUrl && (
-                        <a
-                            className={styles.portfolio}
-                            href={portfolioUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            aria-label="Ver portafolio"
-                        >
-                            Portafolio
-                        </a>
-                    )}
+                    <div className={styles.artists}>
+                        {artists.length > 0 ? artists.join(', ') : ''}
+                    </div>
+                    <PortfolioLink
+                        spanish={dosierSpanish}
+                        english={dosierEnglish}
+                        label="Dosier"
+                        className={styles.portfolio}
+                    />
                 </div>
             </div>
 

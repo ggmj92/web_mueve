@@ -1,5 +1,4 @@
 import { client } from '@/sanity/lib/client'
-import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
 import ScrollIndicator from '@/components/ScrollIndicator'
 import styles from './exposicion.module.css'

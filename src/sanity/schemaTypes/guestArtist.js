@@ -1,6 +1,6 @@
 export default {
-  name: 'artist',
-  title: 'Artista',
+  name: 'guestArtist',
+  title: 'Artista invitado (mueve estar)',
   type: 'document',
   fields: [
     {
@@ -111,7 +111,7 @@ export default {
       name: 'artworks',
       type: 'array',
       title: 'Obras',
-      description: 'Agregar obras para este artista. Haz clic en "Agregar elemento" para crear una nueva obra directamente aquí.',
+      description: 'Agregar obras para este artista invitado.',
       of: [
         {
           type: 'object',
@@ -166,7 +166,6 @@ export default {
               name: 'detailImages',
               title: 'Imágenes de Detalle',
               type: 'array',
-              description: 'Agrega imágenes de detalle de esta obra. Heredarán automáticamente toda la información (año, técnica, medidas, descripción) de la obra principal.',
               of: [
                 {
                   type: 'object',
@@ -244,10 +243,8 @@ export default {
               if (featured) badges.push('⭐ Hero');
               if (featuredPreview) badges.push('👁️ Preview');
               const badgeText = badges.length > 0 ? ' ' + badges.join(' ') : '';
-              
               const detailCount = Array.isArray(detailImages) ? detailImages.length : 0;
               const detailText = detailCount > 0 ? ` (+${detailCount} detalle${detailCount > 1 ? 's' : ''})` : '';
-              
               const subtitle = year ? `${year}${detailText}` : (detailText || '—');
               return {
                 title: (title || 'Sin título') + badgeText,
@@ -269,7 +266,7 @@ export default {
     prepare({ title, artworks }) {
       const count = Array.isArray(artworks) ? artworks.length : 0;
       return {
-        title: title || 'Artista sin nombre',
+        title: title || 'Artista invitado sin nombre',
         subtitle: count ? `${count} obra${count === 1 ? '' : 's'}` : 'Sin obras'
       };
     }

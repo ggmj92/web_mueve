@@ -77,8 +77,17 @@ export default function Navbar() {
                         <Link href="/ferias" className={styles.navLink} onClick={closeMenu}>
                             Ferias
                         </Link>
+                        <Link href="/exposiciones" className={styles.navLink} onClick={closeMenu}>
+                            Exposiciones
+                        </Link>
+                        <Link href="/publicaciones" className={styles.navLink} onClick={closeMenu}>
+                            Publicaciones
+                        </Link>
                         <Link href="/nosotros" className={styles.navLink} onClick={closeMenu}>
                             Nosotros
+                        </Link>
+                        <Link href="/mueve-estar" className={styles.navLink} onClick={closeMenu}>
+                            mueve (estar  )
                         </Link>
                     </div>
                 </nav>

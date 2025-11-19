@@ -45,6 +45,20 @@ export const structure = (S) =>
             )
         ),
       
+      // Mueve Estar section
+      S.listItem()
+        .title('Mueve Estar')
+        .icon(() => '🎨')
+        .child(
+          S.documentTypeList('mueveEstar')
+            .title('Mueve Estar')
+            .child((mueveEstarId) =>
+              S.document()
+                .documentId(mueveEstarId)
+                .schemaType('mueveEstar')
+            )
+        ),
+      
       // Artists section (artworks are now inline within each artist)
       S.listItem()
         .title('Artistas')
@@ -59,6 +73,19 @@ export const structure = (S) =>
             )
         ),
       
+      // Guest artists (mueve estar) section
+      S.listItem()
+        .title('Artistas invitados (mueve estar)')
+        .icon(() => '🧑‍🎨')
+        .child(
+          S.documentTypeList('guestArtist')
+            .title('Artistas invitados (mueve estar)')
+            .child((guestArtistId) =>
+              S.document()
+                .documentId(guestArtistId)
+                .schemaType('guestArtist')
+            )
+        ),
       // Ferias section
       S.listItem()
         .title('Ferias')
@@ -70,6 +97,34 @@ export const structure = (S) =>
               S.document()
                 .documentId(feriaId)
                 .schemaType('feria')
+            )
+        ),
+      
+      // Exposiciones section
+      S.listItem()
+        .title('Exposiciones')
+        .icon(() => '🖼️')
+        .child(
+          S.documentTypeList('exposicion')
+            .title('Exposiciones')
+            .child((exposicionId) =>
+              S.document()
+                .documentId(exposicionId)
+                .schemaType('exposicion')
+            )
+        ),
+      
+      // Publicaciones section
+      S.listItem()
+        .title('Publicaciones')
+        .icon(() => '📚')
+        .child(
+          S.documentTypeList('publicacion')
+            .title('Publicaciones')
+            .child((publicacionId) =>
+              S.document()
+                .documentId(publicacionId)
+                .schemaType('publicacion')
             )
         )
     ])

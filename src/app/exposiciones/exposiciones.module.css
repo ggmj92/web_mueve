@@ -1,4 +1,4 @@
-.artists {
+.exposiciones {
     position: relative;
     display: flex;
     flex-direction: row;
@@ -15,6 +15,22 @@
     flex-direction: column;
     justify-content: flex-start;
     z-index: 2;
+    gap: 3rem;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.sectionTitle {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+    margin-left: calc(-1 * var(--layout-padding-inline, 2rem));
+    padding-left: var(--layout-padding-inline, 2rem);
+    color: #000;
 }
 
 .list {
@@ -24,28 +40,42 @@
     text-align: left;
 }
 
-.list a,
-.artistName {
+.listItem {
+    display: flex;
+}
+
+.itemLink {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
     font-size: 20px;
     color: #000;
     font-weight: 300;
+    text-decoration: none;
     transition: font-style 0.2s ease;
 }
 
-.list a:hover {
+.itemLink:hover {
     font-style: italic;
 }
 
-/* Artwork Preview Styles */
+.itemName {
+    flex: 1;
+}
+
+.itemYear {
+    margin-left: 2rem;
+    white-space: nowrap;
+}
+
+/* Preview - matches artists page exactly */
 .preview {
     position: fixed;
     top: calc(var(--header-height, 8rem) + 2rem);
-    /* aligns with list top */
     right: 2rem;
     width: 500px;
     max-height: 800px;
     height: calc(100vh - var(--footer-height, 100px) - 8rem);
-    /* stops above footer */
     background-color: #fff;
     overflow: hidden;
     box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
@@ -66,53 +96,24 @@
     .listCol {
         padding-left: 7.5rem;
     }
-
 }
 
 @media (max-width: 1400px) {
     .preview {
-        position: fixed;
-        /* aligns with list top */
-        right: 2rem;
-        height: calc(100vh - var(--footer-height, 100px) - 8rem);
         width: 400px;
         max-height: 600px;
-        /* stops above footer */
-        background-color: #fff;
-        overflow: hidden;
-        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
-
 }
 
-
-/* Responsive stacking on mobile */
-/* Responsive stacking on mobile */
 @media (max-width: 900px) {
     .preview {
-        position: fixed;
-        /* aligns with list top */
-        right: 2rem;
-        height: calc(100vh - var(--footer-height, 100px) - 8rem);
         width: 400px;
         max-height: 600px;
-        background-color: #fff;
-        overflow: hidden;
-        box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-        z-index: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
     }
-
 }
 
 @media (max-width: 840px) {
-    .artists {
+    .exposiciones {
         flex-direction: column;
         padding: 0;
         align-items: left;
@@ -135,12 +136,14 @@
         width: 100%;
         padding: 6rem 0;
         align-items: left;
-        gap: 0.1rem !important;
-
+        gap: 2rem;
     }
 
-    .list a,
-    .artistName {
+    .itemLink {
+        font-size: 1.2rem;
+    }
+    
+    .sectionTitle {
         font-size: 1.2rem;
     }
 }

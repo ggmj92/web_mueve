@@ -3,13 +3,13 @@ import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
 import ScrollIndicator from '@/components/ScrollIndicator'
 import PortfolioLink from '@/components/PortfolioLink'
-import styles from './artist.module.css'
+import styles from '../../artistas/[slug]/artist.module.css'
 import ArtworkCarousel from './ArtworkCarousel'
 
-export const revalidate = 0 // dev-friendly
+export const revalidate = 0
 
-async function getArtistWithWorks(slug) {
-    const query = `*[_type == "artist" && slug.current == $slug][0]{
+async function getGuestArtistWithWorks(slug) {
+    const query = `*[_type == "guestArtist" && slug.current == $slug][0]{
     _id,
     name,
     bio,
@@ -65,9 +65,9 @@ async function getArtistWithWorks(slug) {
     return client.fetch(query, { slug })
 }
 
-export default async function ArtistPage({ params }) {
+export default async function MueveEstarArtistPage({ params }) {
     const { slug } = await params
-    const artist = await getArtistWithWorks(slug)
+    const artist = await getGuestArtistWithWorks(slug)
 
     if (!artist) {
         return (
@@ -77,18 +77,14 @@ export default async function ArtistPage({ params }) {
         )
     }
 
-    // Get the featured artwork for the static hero image, fallback to first artwork
     const artworks = (artist.artworks || []).filter((a) => a?.image?.asset?.url)
-    
-    // Check for featured main image or featured detail image
+
     let heroArtwork = null
     for (const artwork of artworks) {
-        // Check if main image is featured
         if (artwork.featured && artwork.image) {
             heroArtwork = artwork
             break
         }
-        // Check if any detail image is featured
         if (artwork.detailImages?.length) {
             const featuredDetail = artwork.detailImages.find(d => d.featured)
             if (featuredDetail?.image) {
@@ -97,8 +93,7 @@ export default async function ArtistPage({ params }) {
             }
         }
     }
-    
-    // Fallback to first artwork if no featured image
+
     if (!heroArtwork) {
         heroArtwork = artworks[0]
     }
@@ -108,7 +103,6 @@ export default async function ArtistPage({ params }) {
             <NewsletterModal />
             <ScrollIndicator />
             <main>
-            {/* Top: static hero image */}
             {heroArtwork && (
                 <section className={styles.hero}>
                     <div className={styles.heroImage}>
@@ -121,7 +115,6 @@ export default async function ArtistPage({ params }) {
                 </section>
             )}
 
-            {/* Below the fold: artist info section (left aligned to page edge) */}
             <section className={styles.info}>
                 <div className={styles.infoRow}>
                     <h1 className={styles.name}>{artist.name}</h1>
@@ -139,7 +132,6 @@ export default async function ArtistPage({ params }) {
                 ) : null}
             </section>
 
-            {/* 5-up portrait cards; infinite carousel on desktop if more than 5 */}
             {artist.artworks?.length > 0 && (
                 <section className={styles.cardsSection}>
                     <h2 className={styles.mobileHeader}>Obras Seleccionadas</h2>

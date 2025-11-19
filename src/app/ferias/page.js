@@ -7,13 +7,14 @@ import styles from './ferias.module.css'
 
 async function getFerias() {
     try {
-        const query = `*[_type == "feria" && defined(slug.current)] | order(year desc){
+        const query = `*[_type == "feria" && defined(slug.current)] | order(order asc, year desc){
         _id,
         title,
         "slug": slug.current,
         year,
         dateRange,
-        isCurrent
+        isCurrent,
+        order
       }`
         return await client.fetch(query)
     } catch (error) {
@@ -39,9 +40,6 @@ export default function FeriasPage() {
             })
     }, [])
 
-    const actuales = ferias.filter(f => f.isCurrent)
-    const pasadas = ferias.filter(f => !f.isCurrent)
-
     return (
         <>
             <NewsletterModal />
@@ -53,41 +51,19 @@ export default function FeriasPage() {
                     </div>
                 ) : (
                     <>
-                        {actuales.length > 0 && (
-                            <div className={styles.section}>
-                                <h2 className={styles.sectionTitle}>Actuales</h2>
-                                <ul className={styles.list}>
-                                    {actuales.map((f) => (
-                                        <li key={f.slug ?? f._id} className={styles.listItem}>
-                                            <div className={styles.itemLink}>
-                                                <span className={styles.itemName}>{f.title}</span>
-                                                <span className={styles.itemYear}>{f.year}</span>
-                                                <span className={styles.itemDate}>{f.dateRange}</span>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-                        
-                        {pasadas.length > 0 && (
-                            <div className={styles.section}>
-                                <h2 className={styles.sectionTitle}>Pasadas</h2>
-                                <ul className={styles.list}>
-                                    {pasadas.map((f) => (
-                                        <li key={f.slug ?? f._id} className={styles.listItem}>
-                                            <div className={styles.itemLink}>
-                                                <span className={styles.itemName}>{f.title}</span>
-                                                <span className={styles.itemYear}>{f.year}</span>
-                                                <span className={styles.itemDate}>{f.dateRange}</span>
-                                            </div>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                        )}
-
-                        {ferias.length === 0 && (
+                        {ferias.length > 0 ? (
+                            <ul className={styles.list}>
+                                {ferias.map((f) => (
+                                    <li key={f.slug ?? f._id} className={styles.listItem}>
+                                        <div className={styles.itemLink}>
+                                            <span className={styles.itemName}>{f.title}</span>
+                                            <span className={styles.itemYear}>{f.year}</span>
+                                            <span className={styles.itemDate}>{f.dateRange}</span>
+                                        </div>
+                                    </li>
+                                ))}
+                            </ul>
+                        ) : (
                             <div>
                                 <p>No se encontraron ferias.</p>
                             </div>

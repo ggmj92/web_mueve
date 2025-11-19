@@ -1,0 +1,337 @@
+.wrap {
+    position: relative;
+    padding: 0;
+    padding-bottom: 20rem;
+    --artwork-top: 5rem;
+    --artwork-max-height: 70vh;
+}
+
+/* Top info section */
+.topBar {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: calc(var(--header-h, 4.5rem) + 1.5rem) var(--layout-padding-inline, 2rem) 1px;
+}
+
+.topBarInner {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: nowrap;
+}
+
+.titleYear {
+    font-size: 1.5rem;
+    font-weight: 100;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.artists {
+    font-size: 1.5rem;
+    font-weight: 100;
+    letter-spacing: 0.02em;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-align: center;
+}
+
+.portfolio {
+    text-decoration: underline;
+    font-size: 1.5rem;
+    font-weight: 100;
+    cursor: pointer !important;
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.portfolio:hover {
+    font-style: italic;
+}
+
+/* Info panel - fixed on left side */
+.info {
+    position: fixed;
+    top: calc(var(--header-h, 4.5rem) + 4rem + var(--artwork-top));
+    left: 2rem;
+    z-index: 10;
+    font-size: 0.9rem;
+    line-height: 1;
+    width: 200px;
+    max-width: 200px;
+}
+
+.artworkInfoBlock {
+    margin-bottom: 2rem;
+}
+
+.artworkInfoBlock:last-child {
+    margin-bottom: 0;
+}
+
+.artist {
+    font-weight: 200;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.workTitle {
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+}
+
+.year {
+    font-weight: 200;
+}
+
+.row {
+    font-weight: 200;
+    margin-bottom: 0.2rem;
+    opacity: 0.8;
+}
+
+/* Stage - centered image viewport */
+.stage {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
+.artBox {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    max-height: var(--artwork-max-height);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.art {
+    max-height: var(--artwork-max-height);
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: top center;
+}
+
+/* Fixed side arrows */
+.arrow {
+    position: fixed;
+    top: 60%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 20;
+    padding: 1rem;
+    transition: opacity 0.2s ease;
+}
+
+.arrow:hover {
+    opacity: 0.7;
+}
+
+.arrow.left {
+    left: 2rem;
+}
+
+.arrow.right {
+    right: 2rem;
+}
+
+/* Description - revealed on scroll */
+.description {
+    font-weight: 200;
+    margin: 2rem 4rem;
+    max-width: 650px;
+    line-height: 1.5;
+    font-size: 0.95rem;
+    position: relative;
+}
+
+.descriptionInner {
+    line-height: 1.5;
+}
+
+.descriptionInner p {
+    margin: 0 0 1em 0;
+}
+
+.descriptionInner p:last-child {
+    margin-bottom: 0;
+}
+
+/* Pagination dots for mobile */
+.pagination {
+    display: none;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    padding: 0;
+    margin: 0 4px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.dotActive {
+    background: rgba(0, 0, 0, 0.8);
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .wrap {
+        --artwork-max-height: 60vh;
+        --artwork-top: 5rem;
+    }
+
+    .artBox {
+        max-width: 90%;
+    }
+
+    .info {
+        position: absolute;
+        top: calc(var(--header-h, 4.5rem) + 4rem + var(--artwork-top) + var(--artwork-max-height) + 3rem);
+        left: var(--layout-padding-inline, 2rem);
+        transform: none;
+        width: auto;
+        max-width: calc(100% - 2 * var(--layout-padding-inline, 2rem));
+        line-height: 1;
+        text-align: left;
+    }
+
+    .artist {
+        line-height: 1.4;
+    }
+
+    .stage {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: var(--layout-padding-inline, 2rem);
+        padding-right: var(--layout-padding-inline, 2rem);
+        padding-top: calc(var(--header-h, 4.5rem) + 4rem + var(--artwork-top));
+    }
+
+    .description {
+        position: absolute;
+        top: calc(100vh + 5rem);
+        left: var(--layout-padding-inline, 2rem);
+        margin: 0;
+        max-width: 60%;
+    }
+}
+
+@media (max-width: 768px) {
+    .topBar {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        position: relative;
+        top: 0;
+        padding: 2rem var(--layout-padding-inline, 2rem);
+        border-bottom: none;
+    }
+
+    .topBarInner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .titleYear,
+    .artists {
+        font-size: 1.2rem;
+        white-space: normal;
+    }
+
+    .portfolio {
+        font-size: 1rem;
+    }
+
+    .wrap {
+        padding-top: 0;
+        padding-bottom: calc(3rem + 3rem + 2.5rem);
+    }
+
+    .stage {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        min-height: auto;
+        padding: 0 var(--layout-padding-inline, 2rem);
+    }
+
+    .artBox {
+        max-width: 100%;
+        max-height: none;
+    }
+
+    .art {
+        max-height: none;
+        width: 100%;
+    }
+
+    .info {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        position: relative;
+        top: auto;
+        left: auto;
+        max-width: 100%;
+        margin-top: 2rem;
+        padding: 0 var(--layout-padding-inline, 2rem);
+    }
+
+    .arrow {
+        display: none;
+    }
+
+    .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 1.5rem 0;
+        margin-top: 1rem;
+    }
+
+    .description {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        position: relative;
+        top: auto;
+        left: auto;
+        max-width: 100%;
+        margin-top: 3rem;
+        margin-bottom: 0;
+        padding: 0 var(--layout-padding-inline, 2rem) 3rem;
+    }
+    
+    :global(.banner-hidden) .wrap {
+        padding-bottom: calc(3rem + 3rem);
+    }
+}
+
+@media (max-width: 600px) {
+    .titleYear,
+    .artists,
+    .portfolio {
+        font-size: 1.6rem;
+    }
+}

@@ -70,10 +70,10 @@ export default {
       ]
     },
     {
-      name: 'dosierSpanish',
-      title: 'Dosier (Español)',
+      name: 'portfolioSpanish',
+      title: 'Portafolio (Español)',
       type: 'object',
-      description: 'Dosier en español - Sube un archivo PDF o proporciona un enlace externo',
+      description: 'Portafolio en español - Sube un archivo PDF o proporciona un enlace externo',
       fields: [
         {
           name: 'file',
@@ -93,10 +93,10 @@ export default {
           })
         }
       ],
-      validation: (Rule) => Rule.custom((dosier) => {
-        if (!dosier) return true;
-        const hasFile = dosier?.file?.asset;
-        const hasLink = dosier?.externalLink;
+      validation: (Rule) => Rule.custom((portfolio) => {
+        if (!portfolio) return true;
+        const hasFile = portfolio?.file?.asset;
+        const hasLink = portfolio?.externalLink;
         
         if (hasFile && hasLink) {
           return 'Por favor usa solo un archivo PDF O un enlace externo, no ambos.';
@@ -106,10 +106,10 @@ export default {
       })
     },
     {
-      name: 'dosierEnglish',
-      title: 'Dosier (English)',
+      name: 'portfolioEnglish',
+      title: 'Portfolio (English)',
       type: 'object',
-      description: 'Dosier in English - Upload a PDF file or provide an external link',
+      description: 'Portfolio in English - Upload a PDF file or provide an external link',
       fields: [
         {
           name: 'file',
@@ -129,10 +129,10 @@ export default {
           })
         }
       ],
-      validation: (Rule) => Rule.custom((dosier) => {
-        if (!dosier) return true;
-        const hasFile = dosier?.file?.asset;
-        const hasLink = dosier?.externalLink;
+      validation: (Rule) => Rule.custom((portfolio) => {
+        if (!portfolio) return true;
+        const hasFile = portfolio?.file?.asset;
+        const hasLink = portfolio?.externalLink;
         
         if (hasFile && hasLink) {
           return 'Please use either a PDF file OR an external link, not both.';

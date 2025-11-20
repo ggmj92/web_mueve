@@ -12,7 +12,7 @@ async function getExposicionWithWorks(slug) {
     title,
     year,
     description,
-    dosierSpanish{
+    portfolioSpanish{
       file{
         asset->{
           url
@@ -20,7 +20,7 @@ async function getExposicionWithWorks(slug) {
       },
       externalLink
     },
-    dosierEnglish{
+    portfolioEnglish{
       file{
         asset->{
           url
@@ -72,6 +72,10 @@ export default async function ExposicionPage({ params }) {
 
     const artistNames = exposicion.artists?.map(a => a.name).filter(Boolean) || []
 
+    // Debug portfolio data
+    console.log('Portfolio Spanish:', exposicion.portfolioSpanish)
+    console.log('Portfolio English:', exposicion.portfolioEnglish)
+
     // Build slides from artworks
     const slides = (exposicion.artworks || [])
         .filter(aw => aw?.image?.asset?.url)
@@ -91,8 +95,8 @@ export default async function ExposicionPage({ params }) {
                 exposicionTitle={exposicion.title}
                 year={exposicion.year}
                 artists={artistNames}
-                dosierSpanish={exposicion.dosierSpanish}
-                dosierEnglish={exposicion.dosierEnglish}
+                portfolioSpanish={exposicion.portfolioSpanish}
+                portfolioEnglish={exposicion.portfolioEnglish}
                 slides={slides}
                 description={exposicion.description}
             />

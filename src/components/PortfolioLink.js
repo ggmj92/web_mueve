@@ -1,16 +1,16 @@
 /**
  * PortfolioLink Component
- * Displays portfolio/dosier links with ESP/ENG language options
+ * Displays portfolio links with ESP/ENG language options
  * Shows single language if only one is available, or both with hover effects
  */
 
 export default function PortfolioLink({ 
     spanish, 
     english, 
-    label = 'Portafolio', // 'Portafolio' or 'Dosier'
+    label = 'Portafolio',
     className = ''
 }) {
-    // Helper to get URL from portfolio/dosier object
+    // Helper to get URL from portfolio object
     const getUrl = (item) => {
         if (!item) return null
         return item.externalLink || item.file?.asset?.url || null

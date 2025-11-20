@@ -9,8 +9,8 @@ export default function ExposicionViewer({
     exposicionTitle,
     year,
     artists,
-    dosierSpanish,
-    dosierEnglish,
+    portfolioSpanish,
+    portfolioEnglish,
     slides,
     description
 }) {
@@ -74,9 +74,9 @@ export default function ExposicionViewer({
                         {artists.length > 0 ? artists.join(', ') : ''}
                     </div>
                     <PortfolioLink
-                        spanish={dosierSpanish}
-                        english={dosierEnglish}
-                        label="Dosier"
+                        spanish={portfolioSpanish}
+                        english={portfolioEnglish}
+                        label="Portafolio"
                         className={styles.portfolio}
                     />
                 </div>

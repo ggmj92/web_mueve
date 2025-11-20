@@ -12,7 +12,7 @@ export default function HeroCarousel({ slides }) {
     const [rightHover, setRightHover] = useState(false)
 
     const durations = useMemo(
-        () => (slides?.length ? slides.map((s) => s.durationMs || 5000) : [5000]),
+        () => (slides?.length ? slides.map((s) => s.durationMs || 2500) : [2500]),
         [slides]
     )
 
@@ -52,32 +52,38 @@ export default function HeroCarousel({ slides }) {
         return () => window.removeEventListener('resize', checkMobile)
     }, [])
 
+    // Only initialize once on mount, don't reset on slides change
     useEffect(() => {
         if (!slides?.length) return
-        setIndex(0)
-        setFront(0)
-        setLayers([
-            {
-                url: slides[0].desktopUrl || slides[0].url,
-                mobileUrl: slides[0].mobileUrl || slides[0].url,
-                caption: slides[0].caption || '',
-                hotspot: slides[0].hotspot || { x: 0.5, y: 0.5 },
-            },
-            slides[1]
-                ? {
-                    url: slides[1].desktopUrl || slides[1].url,
-                    mobileUrl: slides[1].mobileUrl || slides[1].url,
-                    caption: slides[1].caption || '',
-                    hotspot: slides[1].hotspot || { x: 0.5, y: 0.5 },
-                }
-                : {
+        
+        // Only set initial state if not already set
+        setLayers((prevLayers) => {
+            // If layers are already populated, don't reset
+            if (prevLayers[0]?.url) return prevLayers
+            
+            return [
+                {
                     url: slides[0].desktopUrl || slides[0].url,
                     mobileUrl: slides[0].mobileUrl || slides[0].url,
                     caption: slides[0].caption || '',
                     hotspot: slides[0].hotspot || { x: 0.5, y: 0.5 },
                 },
-        ])
-    }, [slides])
+                slides[1]
+                    ? {
+                        url: slides[1].desktopUrl || slides[1].url,
+                        mobileUrl: slides[1].mobileUrl || slides[1].url,
+                        caption: slides[1].caption || '',
+                        hotspot: slides[1].hotspot || { x: 0.5, y: 0.5 },
+                    }
+                    : {
+                        url: slides[0].desktopUrl || slides[0].url,
+                        mobileUrl: slides[0].mobileUrl || slides[0].url,
+                        caption: slides[0].caption || '',
+                        hotspot: slides[0].hotspot || { x: 0.5, y: 0.5 },
+                    },
+            ]
+        })
+    }, [])
 
     const goToSlide = (targetIndex) => {
         if (!slides?.length || targetIndex === index) return
@@ -110,14 +116,37 @@ export default function HeroCarousel({ slides }) {
         goToSlide(prevIndex)
     }
 
+    // Auto-advance carousel with page visibility handling
     useEffect(() => {
         if (!slides?.length) return
-        clearTimeout(timerRef.current)
-        timerRef.current = setTimeout(() => {
-            goNext()
-        }, durations[index])
+        
+        const startTimer = () => {
+            clearTimeout(timerRef.current)
+            timerRef.current = setTimeout(() => {
+                goNext()
+            }, durations[index])
+        }
 
-        return () => clearTimeout(timerRef.current)
+        const handleVisibilityChange = () => {
+            if (document.hidden) {
+                // Page is hidden, clear timer
+                clearTimeout(timerRef.current)
+            } else {
+                // Page is visible again, restart timer
+                startTimer()
+            }
+        }
+
+        // Start timer initially
+        startTimer()
+
+        // Listen for visibility changes
+        document.addEventListener('visibilitychange', handleVisibilityChange)
+
+        return () => {
+            clearTimeout(timerRef.current)
+            document.removeEventListener('visibilitychange', handleVisibilityChange)
+        }
     }, [index, front, slides, durations])
 
     if (!slides?.length) {

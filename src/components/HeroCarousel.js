@@ -83,6 +83,7 @@ export default function HeroCarousel({ slides }) {
                     },
             ]
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const goToSlide = (targetIndex) => {
@@ -120,10 +121,12 @@ export default function HeroCarousel({ slides }) {
     useEffect(() => {
         if (!slides?.length) return
         
+        const nextIndex = (index + 1) % slides.length
+        
         const startTimer = () => {
             clearTimeout(timerRef.current)
             timerRef.current = setTimeout(() => {
-                goNext()
+                goToSlide(nextIndex)
             }, durations[index])
         }
 
@@ -147,7 +150,7 @@ export default function HeroCarousel({ slides }) {
             clearTimeout(timerRef.current)
             document.removeEventListener('visibilitychange', handleVisibilityChange)
         }
-    }, [index, front, slides, durations])
+    }, [index, front, slides, durations, goToSlide])
 
     if (!slides?.length) {
         return null

@@ -188,6 +188,28 @@ export default {
               validation: (Rule) => Rule.required()
             },
             {
+              name: 'slug',
+              title: 'Slug',
+              type: 'slug',
+              description: 'Identificador único para esta imagen (se genera automáticamente)',
+              options: {
+                source: (doc, options) => {
+                  // Generate slug from parent title and index
+                  const parentTitle = options.parent?.title || 'imagen';
+                  const timestamp = Date.now();
+                  return `${parentTitle}-${timestamp}`;
+                },
+                maxLength: 96
+              }
+            },
+            {
+              name: 'featured',
+              title: 'Destacado (Página de Exposición) - Imagen Principal',
+              type: 'boolean',
+              description: 'Marcar esta imagen como la imagen principal que aparece en la parte superior de la página de la exposición',
+              initialValue: false
+            },
+            {
               name: 'artworkInfo',
               title: 'Información de Obra(s)',
               type: 'array',
@@ -244,12 +266,14 @@ export default {
           preview: {
             select: {
               media: 'image',
-              artworkInfo: 'artworkInfo'
+              artworkInfo: 'artworkInfo',
+              featured: 'featured'
             },
-            prepare({ media, artworkInfo }) {
+            prepare({ media, artworkInfo, featured }) {
               const count = Array.isArray(artworkInfo) ? artworkInfo.length : 0;
+              const featuredIcon = featured ? '⭐ ' : '';
               return {
-                title: count > 0 ? `${count} obra${count > 1 ? 's' : ''}` : 'Imagen',
+                title: `${featuredIcon}${count > 0 ? `${count} obra${count > 1 ? 's' : ''}` : 'Imagen'}`,
                 media
               }
             }

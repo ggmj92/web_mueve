@@ -1,0 +1,188 @@
+.wrap {
+    position: relative;
+    padding: 2rem;
+    padding-bottom: 20rem;
+    --artwork-top: 5rem;
+    --artwork-max-height: 70vh;
+}
+
+/* Info panel - fixed on left side */
+.info {
+    position: fixed;
+    top: calc(4rem + var(--artwork-top));
+    left: 2rem;
+    z-index: 10;
+    font-size: 0.9rem;
+    line-height: 1;
+    width: 200px;
+    max-width: 200px;
+}
+
+.artworkInfoBlock {
+    margin-bottom: 2rem;
+}
+
+.artworkInfoBlock:last-child {
+    margin-bottom: 0;
+}
+
+.artist {
+    font-weight: 200;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.workTitle {
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+}
+
+.year {
+    font-weight: 200;
+}
+
+.row {
+    font-weight: 200;
+    margin-bottom: 0.2rem;
+    opacity: 0.8;
+}
+
+/* Stage - centered image viewport */
+.stage {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: var(--artwork-top);
+    padding-bottom: 2rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+}
+
+.artBox {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    max-height: var(--artwork-max-height);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.art {
+    max-height: var(--artwork-max-height);
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    object-position: top center;
+}
+
+/* Fixed side arrows */
+.arrow {
+    position: fixed;
+    top: 60%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    z-index: 20;
+    padding: 1rem;
+    transition: opacity 0.2s ease;
+}
+
+.arrow:hover {
+    opacity: 0.7;
+}
+
+.arrow.left {
+    left: 2rem;
+}
+
+.arrow.right {
+    right: 2rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .wrap {
+        --artwork-max-height: 60vh;
+        --artwork-top: 5rem;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .artBox {
+        max-width: 90%;
+    }
+
+    .info {
+        position: absolute;
+        top: calc(var(--artwork-top) + var(--artwork-max-height) + 3rem);
+        left: var(--layout-padding-inline, 2rem);
+        transform: none;
+        width: auto;
+        max-width: calc(100% - 2 * var(--layout-padding-inline, 2rem));
+        line-height: 1;
+        text-align: left;
+    }
+
+    .artist {
+        line-height: 1.4;
+    }
+
+    .stage {
+        margin-left: auto;
+        margin-right: auto;
+        padding-left: var(--layout-padding-inline, 2rem);
+        padding-right: var(--layout-padding-inline, 2rem);
+        padding-top: var(--artwork-top);
+    }
+}
+
+@media (max-width: 768px) {
+    .wrap {
+        padding-top: 0;
+        padding-bottom: calc(3rem + 3rem + 2.5rem);
+    }
+
+    .stage {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        min-height: auto;
+        padding: calc(var(--header-h, 4.5rem) + 2rem) var(--layout-padding-inline, 2rem) 0;
+    }
+
+    .artBox {
+        max-width: 100%;
+        max-height: none;
+    }
+
+    .art {
+        max-height: none;
+        width: 100%;
+    }
+
+    .info {
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        position: relative;
+        top: auto;
+        left: auto;
+        max-width: 100%;
+        margin-top: 2rem;
+        padding: 0 var(--layout-padding-inline, 2rem);
+    }
+
+    .arrow {
+        display: none;
+    }
+    
+    :global(.banner-hidden) .wrap {
+        padding-bottom: calc(3rem + 3rem);
+    }
+}

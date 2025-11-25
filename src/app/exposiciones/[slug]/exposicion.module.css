@@ -1,337 +1,384 @@
-.wrap {
-    position: relative;
-    padding: 0;
-    padding-bottom: 20rem;
-    --artwork-top: 5rem;
-    --artwork-max-height: 70vh;
+.container {
+    padding: calc(var(--header-h) + 2rem) 0 2rem;
 }
 
-/* Top info section */
-.topBar {
+/* Hero section with full-width landscape image */
+.hero {
     width: 100vw;
     margin-left: calc(-50vw + 50%);
-    padding: calc(var(--header-h, 4.5rem) + 1.5rem) var(--layout-padding-inline, 2rem) 1px;
+    margin-top: var(--header-h, 100px);
+    margin-bottom: var(--footer-h, 70px);
 }
 
-.topBarInner {
+.heroImage {
+    width: 100%;
+    padding: 0 var(--layout-padding-inline, 2rem);
+}
+
+.heroImg {
+    width: 100%;
+    height: auto;
+    display: block;
+    object-fit: cover;
+    object-position: center;
+    padding-top: 15rem;
+}
+
+/* Below-the-fold info section */
+.info {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 0.5rem var(--layout-padding-inline, 2rem) 3rem;
+    --cards-gap: 1rem;
+    color: black;
+}
+
+.infoRow {
     display: flex;
     align-items: baseline;
     justify-content: space-between;
-    gap: 2rem;
-    flex-wrap: nowrap;
-}
-
-.titleYear {
-    font-size: 1.5rem;
-    font-weight: 100;
-    letter-spacing: 0.02em;
-    flex-shrink: 0;
-    white-space: nowrap;
+    padding-right: 0;
+    gap: 1rem;
 }
 
 .artists {
-    font-size: 1.5rem;
+    white-space: nowrap;
+    font-size: 2rem;
     font-weight: 100;
     letter-spacing: 0.02em;
-    flex: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    text-align: center;
+    margin: 0 0 0.75rem 0;
 }
 
 .portfolio {
+    margin-right: 100px;
     text-decoration: underline;
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: 100;
     cursor: pointer !important;
-    flex-shrink: 0;
-    white-space: nowrap;
 }
 
 .portfolio:hover {
     font-style: italic;
 }
 
-/* Info panel - fixed on left side */
-.info {
-    position: fixed;
-    top: calc(var(--header-h, 4.5rem) + 4rem + var(--artwork-top));
-    left: 2rem;
-    z-index: 10;
-    font-size: 0.9rem;
-    line-height: 1;
-    width: 200px;
-    max-width: 200px;
-}
-
-.artworkInfoBlock {
-    margin-bottom: 2rem;
-}
-
-.artworkInfoBlock:last-child {
-    margin-bottom: 0;
-}
-
-.artist {
-    font-weight: 200;
-    margin-bottom: 0.5rem;
-    line-height: 1;
-}
-
-.workTitle {
-    font-weight: 400;
-    margin-bottom: 0.3rem;
-}
-
-.year {
-    font-weight: 200;
-}
-
-.row {
-    font-weight: 200;
-    margin-bottom: 0.2rem;
-    opacity: 0.8;
-}
-
-/* Stage - centered image viewport */
-.stage {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
-    width: 100%;
-    min-height: 100vh;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
-    padding-left: 4rem;
-    padding-right: 4rem;
-}
-
-.artBox {
-    position: relative;
-    width: 100%;
-    max-width: 100%;
-    max-height: var(--artwork-max-height);
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
-}
-
-.art {
-    max-height: var(--artwork-max-height);
-    max-width: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
-    object-position: top center;
-}
-
-/* Fixed side arrows */
-.arrow {
-    position: fixed;
-    top: 60%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-    z-index: 20;
-    padding: 1rem;
-    transition: opacity 0.2s ease;
-}
-
-.arrow:hover {
-    opacity: 0.7;
-}
-
-.arrow.left {
-    left: 2rem;
-}
-
-.arrow.right {
-    right: 2rem;
-}
-
-/* Description - revealed on scroll */
 .description {
-    font-weight: 200;
-    margin: 2rem 4rem;
-    max-width: 650px;
-    line-height: 1.5;
-    font-size: 0.95rem;
-    position: relative;
+    max-width: 37%;
+    margin: 0.25rem 0 0 0;
+    line-height: 1;
+    color: #333;
+    font-size: 13px;
+    font-weight: 100;
 }
 
-.descriptionInner {
-    line-height: 1.5;
-}
-
-.descriptionInner p {
+.description p {
     margin: 0 0 1em 0;
+    line-height: 1.5;
 }
 
-.descriptionInner p:last-child {
+.description p:last-child {
     margin-bottom: 0;
 }
 
-/* Pagination dots for mobile */
-.pagination {
+/* Cards row */
+.cardsSection {
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    padding: 2rem var(--layout-padding-inline, 2rem) 3rem;
+    padding-bottom: calc(3rem + 3rem + 3rem);
+}
+
+:global(.banner-hidden) .cardsSection {
+    padding-bottom: calc(3rem + 3rem);
+}
+
+.cards {
+    --cards-gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: var(--cards-gap);
+    padding: 0;
+    width: 100%;
+}
+
+/* Infinite carousel mode for desktop when more than 5 artworks */
+.cardsCarousel {
+    display: flex;
+    grid-template-columns: none;
+    overflow-x: scroll;
+    scroll-behavior: auto;
+    width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    cursor: grab;
+}
+
+.cardsCarousel:active {
+    cursor: grabbing;
+}
+
+.cardsCarousel::-webkit-scrollbar {
     display: none;
 }
 
-.dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: rgba(0, 0, 0, 0.3);
-    border: none;
-    padding: 0;
-    margin: 0 4px;
-    cursor: pointer;
-    transition: background 0.2s ease;
+.cardsCarousel .cardWrapper {
+    flex: 0 0 calc((100% - (var(--cards-gap) * 4)) / 5);
+    display: block;
+    margin-right: var(--cards-gap);
 }
 
-.dotActive {
-    background: rgba(0, 0, 0, 0.8);
+.card {
+    aspect-ratio: 3 / 4;
+    background: #f5f5f5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    cursor: pointer !important;
+    text-decoration: none;
+    color: inherit;
 }
 
-/* Responsive adjustments */
-@media (max-width: 1200px) {
-    .wrap {
-        --artwork-max-height: 60vh;
-        --artwork-top: 5rem;
-    }
+.card:hover {
+    opacity: 0.9;
+}
 
-    .artBox {
-        max-width: 90%;
-    }
+.cardImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-    .info {
-        position: absolute;
-        top: calc(var(--header-h, 4.5rem) + 4rem + var(--artwork-top) + var(--artwork-max-height) + 3rem);
-        left: var(--layout-padding-inline, 2rem);
-        transform: none;
-        width: auto;
-        max-width: calc(100% - 2 * var(--layout-padding-inline, 2rem));
-        line-height: 1;
-        text-align: left;
-    }
+.cardWrapper {
+    display: contents;
+}
 
-    .artist {
-        line-height: 1.4;
-    }
+.cardInfo {
+    display: none;
+}
 
-    .stage {
-        margin-left: auto;
-        margin-right: auto;
-        padding-left: var(--layout-padding-inline, 2rem);
-        padding-right: var(--layout-padding-inline, 2rem);
-        padding-top: calc(var(--header-h, 4.5rem) + 4rem + var(--artwork-top));
-    }
+.cardInfoBlock {
+    margin-bottom: 1rem;
+}
 
+.cardInfoBlock:last-child {
+    margin-bottom: 0;
+}
+
+.cardArtist {
+    font-weight: 200;
+    margin-bottom: 0.25rem;
+}
+
+.cardTitle {
+    font-weight: 400;
+    margin-bottom: 0.25rem;
+}
+
+.cardYear {
+    font-weight: 200;
+}
+
+.cardDetail {
+    font-weight: 200;
+    opacity: 0.85;
+    margin-bottom: 0.15rem;
+}
+
+.mobileHeader {
+    display: none;
+}
+
+@media (max-width: 1400px) {
     .description {
-        position: absolute;
-        top: calc(100vh + 5rem);
-        left: var(--layout-padding-inline, 2rem);
-        margin: 0;
-        max-width: 60%;
+        max-width: 60% !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .description {
+        max-width: 60% !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .description {
+        max-width: 70% !important;
+    }
+
+    .cards {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
 @media (max-width: 768px) {
-    .topBar {
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        position: relative;
-        top: 0;
-        padding: 2rem var(--layout-padding-inline, 2rem);
-        border-bottom: none;
+    .hero {
+        display: none;
     }
 
-    .topBarInner {
+    .heroImage {
+        display: none;
+    }
+
+    .artists {
+        font-size: 1.2rem !important;
+    }
+
+    .portfolio {
+        font-size: 1rem !important;
+    }
+
+    .description {
+        max-width: 100% !important;
+    }
+
+    .info {
+        margin-top: var(--header-h, 4.5rem);
+        padding-top: 2rem;
+    }
+
+    .mobileHeader {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 100;
+        margin-bottom: 1.5rem;
+        letter-spacing: 0.02em;
+    }
+
+    .cardsSection {
+        padding-top: 1rem;
+        padding-bottom: calc(3rem + 3rem + 2.5rem);
+    }
+    
+    :global(.banner-hidden) .cardsSection {
+        padding-bottom: calc(3rem + 3rem);
+    }
+
+    .cards {
+        display: flex;
+        flex-direction: column;
+        gap: 2.5rem;
+    }
+
+    .cardWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .card {
+        pointer-events: none;
+        cursor: default !important;
+        width: 100%;
+        aspect-ratio: auto;
+    }
+
+    .cardImage {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+
+    .cardInfo {
+        display: block;
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+}
+
+@media (max-width: 600px) {
+    .info {
+        padding-inline: var(--layout-padding-inline);
+    }
+
+    .infoRow {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.75rem;
     }
 
-    .titleYear,
-    .artists {
-        font-size: 1.2rem;
-        white-space: normal;
-    }
-
-    .portfolio {
-        font-size: 1rem;
-    }
-
-    .wrap {
-        padding-top: 0;
-        padding-bottom: calc(3rem + 3rem + 2.5rem);
-    }
-
-    .stage {
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        min-height: auto;
-        padding: 0 var(--layout-padding-inline, 2rem);
-    }
-
-    .artBox {
-        max-width: 100%;
-        max-height: none;
-    }
-
-    .art {
-        max-height: none;
-        width: 100%;
-    }
-
-    .info {
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        position: relative;
-        top: auto;
-        left: auto;
-        max-width: 100%;
-        margin-top: 2rem;
-        padding: 0 var(--layout-padding-inline, 2rem);
-    }
-
-    .arrow {
-        display: none;
-    }
-
-    .pagination {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 1.5rem 0;
-        margin-top: 1rem;
-    }
-
-    .description {
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        position: relative;
-        top: auto;
-        left: auto;
-        max-width: 100%;
-        margin-top: 3rem;
-        margin-bottom: 0;
-        padding: 0 var(--layout-padding-inline, 2rem) 3rem;
-    }
-    
-    :global(.banner-hidden) .wrap {
-        padding-bottom: calc(3rem + 3rem);
-    }
-}
-
-@media (max-width: 600px) {
-    .titleYear,
     .artists,
     .portfolio {
         font-size: 1.6rem;
     }
+
+    .portfolio {
+        margin-left: 0;
+    }
+
+    .description {
+        margin-top: 1rem;
+    }
+
+    .cards {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 480px) {
+    .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Carousel container and navigation */
+.carouselContainer {
+    position: relative;
+    width: 100%;
+}
+
+.carouselContainer > .cards,
+.carouselContainer > .cardsCarousel {
+    width: 100%;
+}
+
+.artworkNavColumn {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 3%;
+    max-width: 200px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 300ms ease;
+    padding: 0;
+}
+
+.artworkNavColumn:hover {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.artworkNavLeft {
+    left: 0;
+}
+
+.artworkNavRight {
+    right: 0;
+}
+
+.artworkNavArrow {
+    width: 48px;
+    height: 48px;
+    color: white;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.3));
+    opacity: 0;
+    transition: opacity 300ms ease, transform 200ms ease;
+    transform: scale(0.9);
+}
+
+.artworkNavColumn:hover .artworkNavArrow {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.artworkNavLeft:hover .artworkNavArrow {
+    transform: scale(1) translateX(-4px);
+}
+
+.artworkNavRight:hover .artworkNavArrow {
+    transform: scale(1) translateX(4px);
 }

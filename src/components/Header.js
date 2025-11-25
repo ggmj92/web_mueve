@@ -20,7 +20,7 @@ export default function Header() {
             <div className={styles.logoWrap}>
                 <Link href="/" onClick={handleLogoClick}>
                     <Image
-                        src="/logos/mueve_logo.png"
+                        src="/logos/mueve_navbar_logo.png"
                         alt="Mueve Logo"
                         fill
                         className={styles.logo}

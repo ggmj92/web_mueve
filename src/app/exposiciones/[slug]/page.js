@@ -1,8 +1,10 @@
 import { client } from '@/sanity/lib/client'
+import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
 import ScrollIndicator from '@/components/ScrollIndicator'
+import PortfolioLink from '@/components/PortfolioLink'
 import styles from './exposicion.module.css'
-import ExposicionViewer from './ExposicionViewer'
+import ExposicionCarousel from './ExposicionCarousel'
 
 export const revalidate = 0
 
@@ -37,6 +39,8 @@ async function getExposicionWithWorks(slug) {
       }
     },
     artworks[]{
+      slug,
+      featured,
       image{
         asset->{
           _id,
@@ -72,34 +76,59 @@ export default async function ExposicionPage({ params }) {
 
     const artistNames = exposicion.artists?.map(a => a.name).filter(Boolean) || []
 
-    // Debug portfolio data
-    console.log('Portfolio Spanish:', exposicion.portfolioSpanish)
-    console.log('Portfolio English:', exposicion.portfolioEnglish)
-
-    // Build slides from artworks
-    const slides = (exposicion.artworks || [])
-        .filter(aw => aw?.image?.asset?.url)
-        .map((aw, idx) => ({
-            id: `${exposicion._id}-${idx}`,
-            url: aw.image.asset.url,
-            ar: aw.image.asset.metadata?.dimensions?.aspectRatio || 1,
-            artworkInfo: aw.artworkInfo || []
-        }))
+    // Get the featured image for the hero, fallback to first image
+    const artworks = (exposicion.artworks || []).filter((a) => a?.image?.asset?.url)
+    let heroImage = artworks.find(a => a.featured) || artworks[0]
 
     return (
         <>
             <NewsletterModal />
             <ScrollIndicator />
             <main>
-            <ExposicionViewer
-                exposicionTitle={exposicion.title}
-                year={exposicion.year}
-                artists={artistNames}
-                portfolioSpanish={exposicion.portfolioSpanish}
-                portfolioEnglish={exposicion.portfolioEnglish}
-                slides={slides}
-                description={exposicion.description}
-            />
+            {/* Top: static hero image */}
+            {heroImage && (
+                <section className={styles.hero}>
+                    <div className={styles.heroImage}>
+                        <img
+                            src={heroImage.image.asset.url}
+                            alt={exposicion.title || 'Exposición'}
+                            className={styles.heroImg}
+                        />
+                    </div>
+                </section>
+            )}
+
+            {/* Below the fold: exposicion info section */}
+            <section className={styles.info}>
+                <div className={styles.infoRow}>
+                    <h1 className={styles.artists}>
+                        {artistNames.length > 0 ? artistNames.join(', ') : exposicion.title}
+                    </h1>
+                    <PortfolioLink
+                        spanish={exposicion.portfolioSpanish}
+                        english={exposicion.portfolioEnglish}
+                        label="Portafolio"
+                        className={styles.portfolio}
+                    />
+                </div>
+                {exposicion.description ? (
+                    <div className={styles.description}>
+                        <PortableText value={exposicion.description} />
+                    </div>
+                ) : null}
+            </section>
+
+            {/* 5-up portrait cards; infinite carousel on desktop if more than 5 */}
+            {artworks.length > 0 && (
+                <section className={styles.cardsSection}>
+                    <h2 className={styles.mobileHeader}>Obras Seleccionadas</h2>
+                    <ExposicionCarousel 
+                        artworks={artworks} 
+                        exposicionSlug={slug}
+                        exposicionTitle={exposicion.title}
+                    />
+                </section>
+            )}
         </main>
         </>
     )

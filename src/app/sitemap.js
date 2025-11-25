@@ -1,7 +1,28 @@
-export default function sitemap() {
+import { client } from '@/sanity/lib/client'
+
+export default async function sitemap() {
   const baseUrl = 'https://muevegaleria.com';
 
-  return [
+  // Fetch all artists
+  const artists = await client.fetch(`*[_type == "artist" && defined(slug.current)]{
+    slug,
+    _updatedAt
+  }`)
+
+  // Fetch all exposiciones
+  const exposiciones = await client.fetch(`*[_type == "exposicion" && defined(slug.current)]{
+    slug,
+    _updatedAt
+  }`)
+
+  // Fetch all mueve-estar projects
+  const mueveEstar = await client.fetch(`*[_type == "mueveEstar" && defined(slug.current)]{
+    slug,
+    _updatedAt
+  }`)
+
+  // Static pages
+  const staticPages = [
     {
       url: baseUrl,
       lastModified: new Date(),
@@ -11,8 +32,32 @@ export default function sitemap() {
     {
       url: `${baseUrl}/artistas`,
       lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/exposiciones`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly',
+      priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/mueve-estar`,
+      lastModified: new Date(),
       changeFrequency: 'monthly',
       priority: 0.8,
+    },
+    {
+      url: `${baseUrl}/ferias`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/publicaciones`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly',
+      priority: 0.7,
     },
     {
       url: `${baseUrl}/nosotros`,
@@ -20,11 +65,31 @@ export default function sitemap() {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
-    {
-      url: `${baseUrl}/studio`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.3,
-    },
   ];
+
+  // Dynamic artist pages
+  const artistPages = artists.map((artist) => ({
+    url: `${baseUrl}/artistas/${artist.slug.current}`,
+    lastModified: new Date(artist._updatedAt),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }))
+
+  // Dynamic exposicion pages
+  const exposicionPages = exposiciones.map((expo) => ({
+    url: `${baseUrl}/exposiciones/${expo.slug.current}`,
+    lastModified: new Date(expo._updatedAt),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }))
+
+  // Dynamic mueve-estar pages
+  const mueveEstarPages = mueveEstar.map((project) => ({
+    url: `${baseUrl}/mueve-estar/${project.slug.current}`,
+    lastModified: new Date(project._updatedAt),
+    changeFrequency: 'monthly',
+    priority: 0.7,
+  }))
+
+  return [...staticPages, ...artistPages, ...exposicionPages, ...mueveEstarPages];
 }

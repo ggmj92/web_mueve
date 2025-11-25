@@ -8,6 +8,69 @@ import ExposicionCarousel from './ExposicionCarousel'
 
 export const revalidate = 0
 
+// Generate metadata for SEO
+export async function generateMetadata({ params }) {
+    const { slug } = await params
+    const exposicion = await getExposicionWithWorks(slug)
+    
+    if (!exposicion) {
+        return {
+            title: 'Exposición no encontrada',
+        }
+    }
+
+    // Get featured image for OG
+    const artworks = (exposicion.artworks || []).filter((a) => a?.image?.asset?.url)
+    let ogImage = '/logos/mueve_logo.png' // fallback
+    
+    const featuredArtwork = artworks.find(a => a.featured)
+    if (featuredArtwork?.image?.asset?.url) {
+        ogImage = featuredArtwork.image.asset.url
+    } else if (artworks[0]?.image?.asset?.url) {
+        ogImage = artworks[0].image.asset.url
+    }
+
+    // Extract plain text from description
+    const descText = exposicion.description?.map(block => 
+        block.children?.map(child => child.text).join(' ')
+    ).join(' ').slice(0, 160) || `${exposicion.title} - Exposición en Mueve Galería`
+
+    // Get artist names
+    const artistNames = exposicion.artists?.map(a => a.name).filter(Boolean).join(', ') || ''
+    const titleWithArtists = artistNames ? `${exposicion.title} - ${artistNames}` : exposicion.title
+
+    return {
+        title: titleWithArtists,
+        description: descText,
+        keywords: [exposicion.title, ...exposicion.artists?.map(a => a.name).filter(Boolean) || [], 'exposición', 'arte contemporáneo', 'Mueve', 'Mueve Galería'],
+        openGraph: {
+            title: `${titleWithArtists} | Mueve Galería`,
+            description: descText,
+            url: `https://muevegaleria.com/exposiciones/${slug}`,
+            siteName: 'Mueve Galería',
+            images: [
+                {
+                    url: ogImage,
+                    width: 1200,
+                    height: 630,
+                    alt: `${exposicion.title} - Mueve Galería`,
+                },
+            ],
+            locale: 'es_ES',
+            type: 'article',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${titleWithArtists} | Mueve Galería`,
+            description: descText,
+            images: [ogImage],
+        },
+        alternates: {
+            canonical: `/exposiciones/${slug}`,
+        },
+    }
+}
+
 async function getExposicionWithWorks(slug) {
     const query = `*[_type == "exposicion" && slug.current == $slug][0]{
     _id,

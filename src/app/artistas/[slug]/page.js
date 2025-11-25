@@ -8,6 +8,72 @@ import ArtworkCarousel from './ArtworkCarousel'
 
 export const revalidate = 0 // dev-friendly
 
+// Generate metadata for SEO
+export async function generateMetadata({ params }) {
+    const { slug } = await params
+    const artist = await getArtistWithWorks(slug)
+    
+    if (!artist) {
+        return {
+            title: 'Artista no encontrado',
+        }
+    }
+
+    // Get featured artwork image for OG image
+    const artworks = (artist.artworks || []).filter((a) => a?.image?.asset?.url)
+    let ogImage = '/logos/mueve_logo.png' // fallback
+    
+    for (const artwork of artworks) {
+        if (artwork.featured && artwork.image?.asset?.url) {
+            ogImage = artwork.image.asset.url
+            break
+        } else if (artwork.featuredPreview && artwork.image?.asset?.url) {
+            ogImage = artwork.image.asset.url
+            break
+        }
+    }
+    
+    if (!ogImage && artworks[0]?.image?.asset?.url) {
+        ogImage = artworks[0].image.asset.url
+    }
+
+    // Extract plain text from bio for description
+    const bioText = artist.bio?.map(block => 
+        block.children?.map(child => child.text).join(' ')
+    ).join(' ').slice(0, 160) || `Obras y portfolio de ${artist.name} en Mueve Galería`
+
+    return {
+        title: artist.name,
+        description: bioText,
+        keywords: [artist.name, 'artista', 'arte contemporáneo', 'Mueve', 'Mueve Galería', 'obras', 'portfolio'],
+        openGraph: {
+            title: `${artist.name} | Mueve Galería`,
+            description: bioText,
+            url: `https://muevegaleria.com/artistas/${slug}`,
+            siteName: 'Mueve Galería',
+            images: [
+                {
+                    url: ogImage,
+                    width: 1200,
+                    height: 630,
+                    alt: `${artist.name} - Mueve Galería`,
+                },
+            ],
+            locale: 'es_ES',
+            type: 'profile',
+        },
+        twitter: {
+            card: 'summary_large_image',
+            title: `${artist.name} | Mueve Galería`,
+            description: bioText,
+            images: [ogImage],
+        },
+        alternates: {
+            canonical: `/artistas/${slug}`,
+        },
+    }
+}
+
 async function getArtistWithWorks(slug) {
     const query = `*[_type == "artist" && slug.current == $slug][0]{
     _id,

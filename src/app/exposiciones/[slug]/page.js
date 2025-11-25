@@ -125,7 +125,6 @@ export default async function ExposicionPage({ params }) {
                     <ExposicionCarousel 
                         artworks={artworks} 
                         exposicionSlug={slug}
-                        exposicionTitle={exposicion.title}
                     />
                 </section>
             )}

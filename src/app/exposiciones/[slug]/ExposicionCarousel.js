@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { urlFor } from '@/sanity/lib/image'
 import styles from './exposicion.module.css'
 
-export default function ExposicionCarousel({ artworks, exposicionSlug, exposicionTitle }) {
+export default function ExposicionCarousel({ artworks, exposicionSlug }) {
     const carouselRef = useRef(null)
     const [isDesktop, setIsDesktop] = useState(false)
     const [leftHover, setLeftHover] = useState(false)

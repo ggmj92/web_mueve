@@ -3,7 +3,7 @@ export const structure = (S) =>
   S.list()
     .title('Contenido')
     .items([
-      // Homepage section
+      // 1. Homepage section
       S.listItem()
         .title('Homepage')
         .icon(() => '🏠')
@@ -17,49 +17,7 @@ export const structure = (S) =>
             )
         ),
       
-      // Announcement Banner section
-      S.listItem()
-        .title('Banner de Anuncios')
-        .icon(() => '📢')
-        .child(
-          S.documentTypeList('announcementBanner')
-            .title('Banner de Anuncios')
-            .child((bannerId) =>
-              S.document()
-                .documentId(bannerId)
-                .schemaType('announcementBanner')
-            )
-        ),
-      
-      // About section
-      S.listItem()
-        .title('Nosotros')
-        .icon(() => '👥')
-        .child(
-          S.documentTypeList('nosotros')
-            .title('Nosotros')
-            .child((nosotrosId) =>
-              S.document()
-                .documentId(nosotrosId)
-                .schemaType('nosotros')
-            )
-        ),
-      
-      // Mueve Estar section
-      S.listItem()
-        .title('Mueve Estar')
-        .icon(() => '🎨')
-        .child(
-          S.documentTypeList('mueveEstar')
-            .title('Mueve Estar')
-            .child((mueveEstarId) =>
-              S.document()
-                .documentId(mueveEstarId)
-                .schemaType('mueveEstar')
-            )
-        ),
-      
-      // Artists section (artworks are now inline within each artist)
+      // 2. Artists section (artworks are now inline within each artist)
       S.listItem()
         .title('Artistas')
         .icon(() => '👨‍🎨')
@@ -73,21 +31,7 @@ export const structure = (S) =>
             )
         ),
       
-      // Ferias section
-      S.listItem()
-        .title('Ferias')
-        .icon(() => '🎪')
-        .child(
-          S.documentTypeList('feria')
-            .title('Ferias')
-            .child((feriaId) =>
-              S.document()
-                .documentId(feriaId)
-                .schemaType('feria')
-            )
-        ),
-      
-      // Exposiciones section
+      // 3. Exposiciones section
       S.listItem()
         .title('Exposiciones')
         .icon(() => '🖼️')
@@ -101,7 +45,21 @@ export const structure = (S) =>
             )
         ),
       
-      // Publicaciones section
+      // 4. Ferias section
+      S.listItem()
+        .title('Ferias')
+        .icon(() => '🎪')
+        .child(
+          S.documentTypeList('feria')
+            .title('Ferias')
+            .child((feriaId) =>
+              S.document()
+                .documentId(feriaId)
+                .schemaType('feria')
+            )
+        ),
+      
+      // 5. Publicaciones section
       S.listItem()
         .title('Publicaciones')
         .icon(() => '📚')
@@ -112,6 +70,48 @@ export const structure = (S) =>
               S.document()
                 .documentId(publicacionId)
                 .schemaType('publicacion')
+            )
+        ),
+      
+      // 6. Mueve Estar section
+      S.listItem()
+        .title('mueve (estar  )')
+        .icon(() => '🎨')
+        .child(
+          S.documentTypeList('mueveEstar')
+            .title('mueve (estar  )')
+            .child((mueveEstarId) =>
+              S.document()
+                .documentId(mueveEstarId)
+                .schemaType('mueveEstar')
+            )
+        ),
+      
+      // 7. About section
+      S.listItem()
+        .title('Nosotros')
+        .icon(() => '👥')
+        .child(
+          S.documentTypeList('nosotros')
+            .title('Nosotros')
+            .child((nosotrosId) =>
+              S.document()
+                .documentId(nosotrosId)
+                .schemaType('nosotros')
+            )
+        ),
+      
+      // 8. Announcement Banner section
+      S.listItem()
+        .title('Banner de Anuncios')
+        .icon(() => '📢')
+        .child(
+          S.documentTypeList('announcementBanner')
+            .title('Banner de Anuncios')
+            .child((bannerId) =>
+              S.document()
+                .documentId(bannerId)
+                .schemaType('announcementBanner')
             )
         )
     ])

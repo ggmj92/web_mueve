@@ -9,6 +9,8 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
     const [isDesktop, setIsDesktop] = useState(false)
     const [leftHover, setLeftHover] = useState(false)
     const [rightHover, setRightHover] = useState(false)
+    const [atStart, setAtStart] = useState(true)
+    const [atEnd, setAtEnd] = useState(false)
 
     useEffect(() => {
         const checkDesktop = () => {
@@ -20,79 +22,31 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
         return () => window.removeEventListener('resize', checkDesktop)
     }, [])
 
+    // Check scroll position to show/hide end indicators
     useEffect(() => {
         if (!isDesktop || !carouselRef.current || artworks.length <= 5) return
 
         const carousel = carouselRef.current
-        let animationId = null
-        let isUserScrolling = false
-        let userScrollTimeout = null
-        const scrollSpeed = 0.5
 
-        const getSetWidth = () => {
-            const cards = carousel.querySelectorAll(`.${styles.cardWrapper}`)
-            if (cards.length === 0) return 0
-            
-            const cardsPerSet = Math.floor(cards.length / 3)
-            if (cardsPerSet === 0) return 0
-            
-            const firstCard = cards[0]
-            const lastCardOfFirstSet = cards[cardsPerSet - 1]
-            if (!firstCard || !lastCardOfFirstSet) return 0
-            
-            const firstRect = firstCard.getBoundingClientRect()
-            const lastRect = lastCardOfFirstSet.getBoundingClientRect()
-            return lastRect.right - firstRect.left
-        }
-
-        const init = () => {
-            const setWidth = getSetWidth()
-            if (setWidth > 0) {
-                carousel.scrollLeft = setWidth
-            }
-        }
-        setTimeout(init, 50)
-
-        const checkWrap = () => {
-            const setWidth = getSetWidth()
-            if (setWidth === 0) return
-
+        const checkScrollPosition = () => {
             const scrollLeft = carousel.scrollLeft
-            const middleSetStart = setWidth
-            const middleSetEnd = setWidth * 2
+            const scrollWidth = carousel.scrollWidth
+            const clientWidth = carousel.clientWidth
 
-            if (scrollLeft >= middleSetEnd) {
-                const offset = scrollLeft - middleSetEnd
-                carousel.scrollLeft = middleSetStart + offset
-            }
-            else if (scrollLeft < middleSetStart) {
-                const offset = middleSetStart - scrollLeft
-                carousel.scrollLeft = middleSetEnd - offset
-            }
+            // At start if scrolled less than 10px from left
+            setAtStart(scrollLeft < 10)
+            // At end if scrolled within 10px of the end
+            setAtEnd(scrollLeft + clientWidth >= scrollWidth - 10)
         }
 
-        const scroll = () => {
-            if (!isUserScrolling) {
-                carousel.scrollLeft += scrollSpeed
-                checkWrap()
-            }
-            animationId = requestAnimationFrame(scroll)
-        }
+        // Check on mount
+        checkScrollPosition()
 
-        const handleScroll = () => {
-            isUserScrolling = true
-            checkWrap()
-            clearTimeout(userScrollTimeout)
-            userScrollTimeout = setTimeout(() => { isUserScrolling = false }, 2000)
-        }
-
-        carousel.addEventListener('scroll', handleScroll, { passive: true })
-        setTimeout(() => { animationId = requestAnimationFrame(scroll) }, 100)
+        // Check on scroll
+        carousel.addEventListener('scroll', checkScrollPosition, { passive: true })
 
         return () => {
-            if (animationId) cancelAnimationFrame(animationId)
-            if (userScrollTimeout) clearTimeout(userScrollTimeout)
-            carousel.removeEventListener('scroll', handleScroll)
+            carousel.removeEventListener('scroll', checkScrollPosition)
         }
     }, [artworks.length, isDesktop])
 
@@ -108,11 +62,10 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
         carouselRef.current.scrollBy({ left: scrollAmount, behavior: 'smooth' })
     }
 
-    const displayArtworks = isDesktop && artworks.length > 5
-        ? [...artworks, ...artworks, ...artworks]
-        : artworks
+    // No tripling - just show artworks once
+    const displayArtworks = artworks
 
-    const showNavigation = isDesktop && artworks.length > 1
+    const showNavigation = isDesktop && artworks.length > 5
 
     return (
         <div className={styles.carouselContainer}>
@@ -124,13 +77,8 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
                 const url = aw?.image?.asset?.url
                 if (!url) return null
 
-                // Calculate the original index (accounting for tripled artworks in carousel mode)
-                const originalIndex = isDesktop && artworks.length > 5 
-                    ? index % artworks.length 
-                    : index
-
                 // Use slug if available, otherwise generate fallback: {exposicionSlug}-imagen{number}
-                const imageSlug = aw.slug?.current || `${exposicionSlug}-imagen${originalIndex + 1}`
+                const imageSlug = aw.slug?.current || `${exposicionSlug}-imagen${index + 1}`
 
                 // Desktop: cropped vertical image respecting hotspot
                 const desktopImageUrl = urlFor(aw.image)
@@ -203,10 +151,11 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
             {showNavigation && (
                 <>
                     <button
-                        className={`${styles.artworkNavColumn} ${styles.artworkNavLeft} ${leftHover ? styles.artworkNavHover : ''}`}
+                        className={`${styles.artworkNavColumn} ${styles.artworkNavLeft} ${leftHover ? styles.artworkNavHover : ''} ${atStart ? styles.artworkNavDisabled : ''}`}
                         onClick={handleScrollLeft}
                         onMouseEnter={() => setLeftHover(true)}
                         onMouseLeave={() => setLeftHover(false)}
+                        disabled={atStart}
                         aria-label="Scroll left"
                     >
                         <svg 
@@ -220,10 +169,11 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
                         </svg>
                     </button>
                     <button
-                        className={`${styles.artworkNavColumn} ${styles.artworkNavRight} ${rightHover ? styles.artworkNavHover : ''}`}
+                        className={`${styles.artworkNavColumn} ${styles.artworkNavRight} ${rightHover ? styles.artworkNavHover : ''} ${atEnd ? styles.artworkNavDisabled : ''}`}
                         onClick={handleScrollRight}
                         onMouseEnter={() => setRightHover(true)}
                         onMouseLeave={() => setRightHover(false)}
+                        disabled={atEnd}
                         aria-label="Scroll right"
                     >
                         <svg 

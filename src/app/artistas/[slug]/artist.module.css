@@ -376,3 +376,21 @@
 .artworkNavRight:hover .artworkNavArrow {
     transform: scale(1) translateX(4px);
 }
+
+.artworkNavDisabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+}
+
+.artworkNavDisabled:hover {
+    background-color: transparent;
+}
+
+.artworkNavDisabled .artworkNavArrow {
+    opacity: 0.2;
+}
+
+.artworkNavDisabled:hover .artworkNavArrow {
+    opacity: 0.2;
+    transform: scale(0.9);
+}

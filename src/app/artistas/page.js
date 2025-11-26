@@ -120,6 +120,7 @@ export default function ArtistsPage() {
                             .width(1000)
                             .height(1600)
                             .fit('crop')
+                            .crop('focalpoint')
                             .quality(90)
                             .auto('format')
                             .url()}

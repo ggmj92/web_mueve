@@ -83,6 +83,7 @@ export default function ArtworkCarousel({ artworks, artistSlug }) {
                     .width(600)
                     .height(800)
                     .fit('crop')
+                    .crop('focalpoint')
                     .quality(90)
                     .auto('format')
                     .url()

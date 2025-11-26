@@ -82,6 +82,9 @@ export default function ArtistsPage() {
                     <img
                         src={urlFor(getPreviewArtwork(hoveredArtist).image)
                             .width(2000)
+                            .height(3200)
+                            .fit('crop')
+                            .crop('focalpoint')
                             .quality(100)
                             .auto('format')
                             .url()}

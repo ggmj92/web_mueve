@@ -85,6 +85,7 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
                     .width(600)
                     .height(800)
                     .fit('crop')
+                    .crop('focalpoint')
                     .quality(90)
                     .auto('format')
                     .url()

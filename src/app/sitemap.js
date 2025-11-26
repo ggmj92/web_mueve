@@ -15,12 +15,6 @@ export default async function sitemap() {
     _updatedAt
   }`)
 
-  // Fetch all mueve-estar projects
-  const mueveEstar = await client.fetch(`*[_type == "mueveEstar" && defined(slug.current)]{
-    slug,
-    _updatedAt
-  }`)
-
   // Static pages
   const staticPages = [
     {
@@ -83,13 +77,5 @@ export default async function sitemap() {
     priority: 0.8,
   }))
 
-  // Dynamic mueve-estar pages
-  const mueveEstarPages = mueveEstar.map((project) => ({
-    url: `${baseUrl}/mueve-estar/${project.slug.current}`,
-    lastModified: new Date(project._updatedAt),
-    changeFrequency: 'monthly',
-    priority: 0.7,
-  }))
-
-  return [...staticPages, ...artistPages, ...exposicionPages, ...mueveEstarPages];
+  return [...staticPages, ...artistPages, ...exposicionPages];
 }

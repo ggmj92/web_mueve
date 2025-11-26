@@ -16,7 +16,15 @@ export default function ArtworkViewer({
     const slide = slides[i]
     const artBoxRef = useRef(null)
 
-    const go = (d) => setI((prev) => (prev + d + len) % len)
+    const go = (d) => {
+        const newIndex = i + d
+        if (newIndex >= 0 && newIndex < len) {
+            setI(newIndex)
+        }
+    }
+
+    const isFirst = i === 0
+    const isLast = i === len - 1
 
     // Update URL when index changes (optional, shallow)
     useEffect(() => {
@@ -65,21 +73,25 @@ export default function ArtworkViewer({
                 {meta.dims && <div className={styles.row}>{meta.dims}</div>}
             </aside>
 
-            {/* Fixed side arrows */}
-            <button
-                className={`${styles.arrow} ${styles.left}`}
-                onClick={() => go(-1)}
-                aria-label="Prev"
-            >
-                ◀
-            </button>
-            <button
-                className={`${styles.arrow} ${styles.right}`}
-                onClick={() => go(1)}
-                aria-label="Next"
-            >
-                ▶
-            </button>
+            {/* Fixed side arrows - hide at boundaries */}
+            {!isFirst && (
+                <button
+                    className={`${styles.arrow} ${styles.left}`}
+                    onClick={() => go(-1)}
+                    aria-label="Prev"
+                >
+                    ◀
+                </button>
+            )}
+            {!isLast && (
+                <button
+                    className={`${styles.arrow} ${styles.right}`}
+                    onClick={() => go(1)}
+                    aria-label="Next"
+                >
+                    ▶
+                </button>
+            )}
 
             {/* Long text (revealed on scroll) */}
             {meta.description && (

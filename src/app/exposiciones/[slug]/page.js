@@ -93,6 +93,22 @@ async function getExposicionWithWorks(slug) {
       },
       externalLink
     },
+    prensaSpanish{
+      file{
+        asset->{
+          url
+        }
+      },
+      externalLink
+    },
+    prensaEnglish{
+      file{
+        asset->{
+          url
+        }
+      },
+      externalLink
+    },
     artists[]{
       _type == 'reference' => @->{
         name
@@ -167,12 +183,20 @@ export default async function ExposicionPage({ params }) {
                     <h1 className={styles.artists}>
                         {artistNames.length > 0 ? artistNames.join(', ') : exposicion.title}
                     </h1>
-                    <PortfolioLink
-                        spanish={exposicion.portfolioSpanish}
-                        english={exposicion.portfolioEnglish}
-                        label="Portafolio"
-                        className={styles.portfolio}
-                    />
+                    <div className={styles.linksColumn}>
+                        <PortfolioLink
+                            spanish={exposicion.portfolioSpanish}
+                            english={exposicion.portfolioEnglish}
+                            label="Portafolio"
+                            className={styles.portfolio}
+                        />
+                        <PortfolioLink
+                            spanish={exposicion.prensaSpanish}
+                            english={exposicion.prensaEnglish}
+                            label="Prensa"
+                            className={styles.portfolio}
+                        />
+                    </div>
                 </div>
                 {exposicion.description ? (
                     <div className={styles.description}>
@@ -184,7 +208,6 @@ export default async function ExposicionPage({ params }) {
             {/* 5-up portrait cards; infinite carousel on desktop if more than 5 */}
             {artworks.length > 0 && (
                 <section className={styles.cardsSection}>
-                    <h2 className={styles.mobileHeader}>Obras Seleccionadas</h2>
                     <ExposicionCarousel 
                         artworks={artworks} 
                         exposicionSlug={slug}

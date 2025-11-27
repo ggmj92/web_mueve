@@ -3,6 +3,7 @@ import Image from "next/image";
 import styles from "./about.module.css";
 import StructuredData from '@/components/StructuredData';
 import NewsletterModal from '@/components/NewsletterModal';
+import PortfolioLink from '@/components/PortfolioLink';
 
 export const metadata = {
   title: "Nosotros - Sobre Mueve Galería",
@@ -30,7 +31,26 @@ export const metadata = {
 
 export default async function NosotrosPage() {
   const data = await sanityFetch({
-    query: `*[_type == "nosotros"][0]{ spanish, english }`,
+    query: `*[_type == "nosotros"][0]{ 
+      spanish, 
+      english,
+      prensaSpanish{
+        file{
+          asset->{
+            url
+          }
+        },
+        externalLink
+      },
+      prensaEnglish{
+        file{
+          asset->{
+            url
+          }
+        },
+        externalLink
+      }
+    }`,
     revalidate: 0, // Always revalidate for live updates
   });
 
@@ -49,6 +69,13 @@ export default async function NosotrosPage() {
           <p className={`${styles.copy} ${styles.en}`}>
             {data?.data?.english || "Content coming soon"}
           </p>
+
+          <PortfolioLink
+            spanish={data?.data?.prensaSpanish}
+            english={data?.data?.prensaEnglish}
+            label="Prensa"
+            className={styles.prensa}
+          />
         </div>
 
         {/* MINI-LOGO COLUMN */}

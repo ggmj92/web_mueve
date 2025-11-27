@@ -37,6 +37,31 @@
     display: flex;
 }
 
+.prensa {
+    margin-top: 3rem;
+    font-size: 1.8rem;
+    font-weight: 100;
+    text-decoration: underline;
+    color: inherit;
+    display: inline-block;
+    transition: font-style 0.2s ease;
+    cursor: pointer;
+}
+
+.prensa:hover {
+    font-style: italic;
+}
+
+.prensa :global(.portfolio-lang-link) {
+    text-decoration: underline;
+    color: inherit;
+    transition: font-style 0.2s ease;
+}
+
+.prensa :global(.portfolio-lang-link):hover {
+    font-style: italic;
+}
+
 @media (max-width: 1800px) {
     .textCol {
         margin-left: 7.8rem;

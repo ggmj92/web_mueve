@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: black;
   animation: pulse 1.5s ease-in-out 2; /* Pulse twice */
 }
 

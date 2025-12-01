@@ -16,7 +16,26 @@ export default {
                             name: 'image',
                             title: 'Image',
                             type: 'image',
-                            options: { hotspot: true }
+                            description: 'Imagen del hero. Usa el círculo (hotspot) para centrar la parte importante. Desktop: 2:1 (panorámico), Mobile: 9:16 (vertical).',
+                            options: { 
+                                hotspot: true,
+                                metadata: ['blurhash', 'lqip', 'palette'],
+                                accept: 'image/*',
+                                crop: {
+                                    aspectRatios: [
+                                        { title: 'Desktop (2:1 panorámico)', value: 2 / 1, default: true },
+                                        { title: 'Mobile (9:16 vertical)', value: 9 / 16, default: false }
+                                    ]
+                                }
+                            },
+                            fields: [
+                                {
+                                    name: 'alt',
+                                    type: 'string',
+                                    title: 'Texto alternativo',
+                                    description: 'Importante para accesibilidad y SEO'
+                                }
+                            ]
                         },
                         { name: 'caption', title: 'Caption / Credit', type: 'string' },
                         {

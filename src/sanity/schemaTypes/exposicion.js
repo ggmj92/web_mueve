@@ -239,8 +239,25 @@ export default {
       name: 'previewImage',
       title: 'Imagen de Vista Previa',
       type: 'image',
-      description: 'Imagen que aparece al hacer hover sobre el título de la exposición en la lista',
-      options: { hotspot: true },
+      description: 'Imagen que aparece al hacer hover sobre el título de la exposición en la lista. Usa el círculo (hotspot) para centrar la parte importante. Se mostrará como cuadrado (1:1).',
+      options: { 
+        hotspot: true,
+        metadata: ['blurhash', 'lqip', 'palette'],
+        accept: 'image/*',
+        crop: {
+          aspectRatios: [
+            { title: 'Hover Preview (como se ve en el sitio)', value: 1 / 1, default: true }  // 800x800 square
+          ]
+        }
+      },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Texto alternativo',
+          description: 'Importante para accesibilidad y SEO'
+        }
+      ],
       validation: (Rule) => Rule.required()
     },
     {

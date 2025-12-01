@@ -26,4 +26,14 @@ export default defineConfig({
     // https://www.sanity.io/docs/the-vision-plugin
     visionTool({ defaultApiVersion: apiVersion }),
   ],
+
+  // Configure image hotspot aspect ratios to match actual display containers
+  form: {
+    image: {
+      assetSources: (previousAssetSources) => {
+        return previousAssetSources
+      },
+      directUploads: true
+    }
+  }
 })

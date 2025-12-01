@@ -4,6 +4,26 @@ export default {
     type: 'document',
     fields: [
         {
+            name: 'images',
+            title: 'Carrusel de Imágenes',
+            type: 'array',
+            of: [
+                {
+                    type: 'image',
+                    options: { hotspot: true },
+                    fields: [
+                        {
+                            name: 'alt',
+                            title: 'Texto Alternativo',
+                            type: 'string',
+                            description: 'Descripción de la imagen para accesibilidad'
+                        }
+                    ]
+                }
+            ],
+            description: 'Imágenes para el carrusel en la parte superior de la página (opcional)'
+        },
+        {
             name: 'description',
             title: 'Descripción',
             type: 'array',

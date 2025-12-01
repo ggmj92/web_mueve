@@ -36,10 +36,25 @@ export default {
       name: 'caratula',
       title: 'Carátula',
       type: 'image',
-      description: 'Imagen de portada/preview',
+      description: 'Imagen de portada/preview que aparece al hacer hover. Usa el círculo (hotspot) para centrar la parte importante. Se mostrará como cuadrado (1:1).',
       options: {
-        hotspot: true
+        hotspot: true,
+        metadata: ['blurhash', 'lqip', 'palette'],
+        accept: 'image/*',
+        crop: {
+          aspectRatios: [
+            { title: 'Hover Preview (como se ve en el sitio)', value: 1 / 1, default: true }  // 800x800 square
+          ]
+        }
       },
+      fields: [
+        {
+          name: 'alt',
+          type: 'string',
+          title: 'Texto alternativo',
+          description: 'Importante para accesibilidad y SEO'
+        }
+      ],
       validation: Rule => Rule.required()
     },
     {

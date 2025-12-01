@@ -142,10 +142,9 @@ export default function PublicacionesPage() {
                 <div className={styles.preview}>
                     <img
                         src={urlFor(hoveredPublicacion.caratula)
-                            .width(1000)
-                            .height(1600)
-                            .fit('crop')
-                            .crop('focalpoint')
+                            .width(800)
+                            .height(800)
+                            .fit('min')
                             .quality(90)
                             .auto('format')
                             .url()}

@@ -159,7 +159,29 @@ export default {
               name: 'image',
               title: 'Imagen Principal',
               type: 'image',
-              options: { hotspot: true },
+              description: 'Usa el círculo (hotspot) para centrar la parte importante. Los aspectos abajo muestran cómo se verá en el sitio: 1:1 (hover preview), 3:4 (carousel desktop).',
+              options: { 
+                hotspot: true,
+                metadata: ['blurhash', 'lqip', 'palette'],
+                accept: 'image/*',
+                // Custom aspect ratios matching actual display containers
+                sources: [],
+                // These ratios will appear at the bottom of the hotspot editor
+                crop: {
+                  aspectRatios: [
+                    { title: 'Hover Preview', value: 1 / 1, default: false },      // 800x800 square
+                    { title: 'Carousel Desktop', value: 3 / 4, default: true },    // 600x800 portrait
+                  ]
+                }
+              },
+              fields: [
+                {
+                  name: 'alt',
+                  type: 'string',
+                  title: 'Texto alternativo',
+                  description: 'Importante para accesibilidad y SEO'
+                }
+              ],
               validation: (Rule) => Rule.required()
             },
             {

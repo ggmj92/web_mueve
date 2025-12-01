@@ -118,10 +118,9 @@ export default function ExposicionesPage() {
                 <div className={styles.preview}>
                     <img
                         src={urlFor(hoveredExpo.previewImage)
-                            .width(1000)
-                            .height(1600)
-                            .fit('crop')
-                            .crop('focalpoint')
+                            .width(800)
+                            .height(800)
+                            .fit('min')
                             .quality(90)
                             .auto('format')
                             .url()}

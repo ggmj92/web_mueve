@@ -3,37 +3,55 @@ export default function StructuredData({ type = 'Organization' }) {
         "@context": "https://schema.org",
         "@type": "ArtGallery",
         "name": "Mueve Galería",
-        "description": "Mueve es una galería de arte contemporáneo que presenta exposiciones innovadoras y artistas emergentes.",
+        "alternateName": "Mueve",
+        "description": "Galería de arte contemporáneo en Lima, Perú. Representamos artistas emergentes y establecidos, organizamos exposiciones innovadoras y participamos en ferias internacionales de arte.",
         "url": "https://muevegaleria.com",
-        "logo": "https://muevegaleria.com/logos/mueve_logo.png",
+        "logo": {
+            "@type": "ImageObject",
+            "url": "https://muevegaleria.com/logos/mueve_logo.png",
+            "width": 1200,
+            "height": 630
+        },
         "image": "https://muevegaleria.com/logos/mueve_logo.png",
         "sameAs": [
-            // Add your social media URLs here
-            "https://www.instagram.com/mueve.galeria",
+            "https://www.instagram.com/mueve.galeria"
         ],
         "address": {
             "@type": "PostalAddress",
-            // Add your gallery address here
-            "streetAddress": "General Borgoño 770",
-            "addressLocality": "Lima",
+            "streetAddress": "Jr. General Borgoño 770",
+            "addressLocality": "Miraflores",
             "addressRegion": "Lima",
             "postalCode": "15074",
-            "addressCountry": "Perú"
+            "addressCountry": "PE"
+        },
+        "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "-12.120000",
+            "longitude": "-77.030000"
         },
         "contactPoint": {
             "@type": "ContactPoint",
-            // Add your contact information here
-            "telephone": "+51 987 654 321",
             "contactType": "customer service",
-            "email": "info@muevegaleria.com"
+            "email": "info@muevegaleria.com",
+            "availableLanguage": ["Spanish", "English"]
         },
-        "openingHours": [
-            // Add your opening hours here
-            "Lun-Sa 11:00-17:00",
+        "openingHoursSpecification": [
+            {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                "opens": "11:00",
+                "closes": "17:00"
+            }
         ],
-        "priceRange": "$$$", // Adjust based on your pricing
-        "currenciesAccepted": "PEN, USD", // Adjust based on your accepted currencies
-        "paymentAccepted": "Cash, Credit Card", // Adjust based on your payment methods
+        "priceRange": "$$$",
+        "currenciesAccepted": "PEN, USD",
+        "paymentAccepted": ["Cash", "Credit Card", "Bank Transfer"],
+        "areaServed": {
+            "@type": "City",
+            "name": "Lima"
+        },
+        "knowsAbout": ["Contemporary Art", "Art Exhibitions", "Emerging Artists", "Latin American Art"],
+        "slogan": "Arte Contemporáneo"
     };
 
     const websiteSchema = {

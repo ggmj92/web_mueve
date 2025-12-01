@@ -13,7 +13,15 @@ async function getMueveEstarData() {
         const query = `*[_type == "mueveEstar"][0]{
             images[]{
                 asset->{
-                    url
+                    url,
+                    _id,
+                    metadata {
+                        dimensions {
+                            width,
+                            height,
+                            aspectRatio
+                        }
+                    }
                 },
                 alt,
                 hotspot,
@@ -21,18 +29,57 @@ async function getMueveEstarData() {
             },
             description,
             artists[]{
-                name
+                name,
+                _id
             }
         }`
+        
         const data = await client.fetch(query)
-        // Ensure images is always an array, even if field doesn't exist yet
-        if (data && !data.images) {
-            data.images = []
+        
+        // Validate and sanitize data
+        if (!data) {
+            console.warn('No mueve estar data found in Sanity')
+            return { images: [], description: null, artists: [] }
         }
+        
+        // Ensure images is always an array with valid assets
+        if (!data.images || !Array.isArray(data.images)) {
+            data.images = []
+        } else {
+            // Filter out invalid images
+            data.images = data.images.filter(img => 
+                img?.asset?.url && 
+                typeof img.asset.url === 'string' &&
+                img.asset.url.startsWith('http')
+            )
+        }
+        
+        // Ensure artists is always an array
+        if (!data.artists || !Array.isArray(data.artists)) {
+            data.artists = []
+        } else {
+            // Filter out invalid artists
+            data.artists = data.artists.filter(artist => 
+                artist?.name && 
+                typeof artist.name === 'string'
+            )
+        }
+        
         return data
     } catch (error) {
-        console.error('Error fetching mueve estar data:', error)
-        return { images: [], description: null, artists: [] }
+        console.error('Error fetching mueve estar data:', {
+            message: error.message,
+            stack: error.stack,
+            name: error.name
+        })
+        
+        // Return safe fallback data
+        return { 
+            images: [], 
+            description: null, 
+            artists: [],
+            error: true 
+        }
     }
 }
 

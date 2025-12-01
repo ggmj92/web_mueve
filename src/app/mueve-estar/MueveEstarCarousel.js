@@ -7,20 +7,38 @@ export default function MueveEstarCarousel({ images }) {
     const scrollContainerRef = useRef(null)
     const [showLeftArrow, setShowLeftArrow] = useState(false)
     const [showRightArrow, setShowRightArrow] = useState(false)
+    const [imageErrors, setImageErrors] = useState({})
     const timeoutRef = useRef(null)
 
     const scroll = (direction) => {
-        const container = scrollContainerRef.current
-        if (!container) return
-        
-        const slideWidth = container.querySelector(`.${styles.carouselSlide}`)?.offsetWidth || 0
-        const gap = 32 // 2rem gap
-        const scrollAmount = slideWidth + gap
-        
-        container.scrollBy({
-            left: direction === 'left' ? -scrollAmount : scrollAmount,
-            behavior: 'smooth'
-        })
+        try {
+            const container = scrollContainerRef.current
+            if (!container) {
+                console.warn('Scroll container ref not available')
+                return
+            }
+            
+            const slideWidth = container.querySelector(`.${styles.carouselSlide}`)?.offsetWidth || 0
+            if (slideWidth === 0) {
+                console.warn('Could not determine slide width')
+                return
+            }
+            
+            const gap = 32 // 2rem gap
+            const scrollAmount = slideWidth + gap
+            
+            container.scrollBy({
+                left: direction === 'left' ? -scrollAmount : scrollAmount,
+                behavior: 'smooth'
+            })
+        } catch (error) {
+            console.error('Error scrolling carousel:', error)
+        }
+    }
+    
+    const handleImageError = (index) => {
+        console.error(`Failed to load image at index ${index}`)
+        setImageErrors(prev => ({ ...prev, [index]: true }))
     }
 
     useEffect(() => {
@@ -86,15 +104,28 @@ export default function MueveEstarCarousel({ images }) {
                 </button>
             )}
             <div className={styles.carouselContainer} ref={scrollContainerRef}>
-                {images.map((img, index) => (
-                    <div key={index} className={styles.carouselSlide}>
-                        <img
-                            src={img.asset.url}
-                            alt={img.alt || `Mueve Estar imagen ${index + 1}`}
-                            className={styles.carouselImage}
-                        />
-                    </div>
-                ))}
+                {images.map((img, index) => {
+                    // Skip images that failed to load
+                    if (imageErrors[index]) return null
+                    
+                    // Validate image data
+                    if (!img?.asset?.url) {
+                        console.warn(`Invalid image data at index ${index}`)
+                        return null
+                    }
+                    
+                    return (
+                        <div key={img.asset._id || index} className={styles.carouselSlide}>
+                            <img
+                                src={img.asset.url}
+                                alt={img.alt || `Mueve Estar imagen ${index + 1}`}
+                                className={styles.carouselImage}
+                                onError={() => handleImageError(index)}
+                                loading="lazy"
+                            />
+                        </div>
+                    )
+                })}
             </div>
         </section>
     )

@@ -2,6 +2,7 @@ import "./globals.css";
 import localFont from "next/font/local";
 import HomepageClient from "@/components/HomepageClient";
 import { SanityLive } from "@/sanity/lib/live";
+import StructuredData from "@/components/StructuredData";
 
 const mueveFont = localFont({
   src: "/fonts/ABCOracleTripleVariable-Trial.ttf",
@@ -11,12 +12,45 @@ const mueveFont = localFont({
 
 export const metadata = {
   title: {
-    default: "Mueve Galería",
-    template: "%s | Mueve"
+    default: "Mueve Galería - Arte Contemporáneo en Lima, Perú",
+    template: "%s | Mueve Galería"
   },
+  description: "Mueve es una galería de arte contemporáneo en Lima, Perú. Representamos artistas emergentes y establecidos, organizamos exposiciones innovadoras y participamos en ferias internacionales de arte.",
+  keywords: [
+    "galería de arte Lima",
+    "arte contemporáneo Perú",
+    "galería arte contemporáneo",
+    "exposiciones arte Lima",
+    "artistas peruanos",
+    "artistas emergentes",
+    "galería Miraflores",
+    "arte contemporáneo latinoamericano",
+    "Mueve Galería",
+    "contemporary art gallery Peru",
+    "art exhibitions Lima",
+    "ferias de arte",
+    "coleccionismo arte",
+  ],
+  authors: [{ name: "Mueve Galería", url: "https://muevegaleria.com" }],
+  creator: "Mueve Galería",
+  publisher: "Mueve Galería",
+  category: "Art Gallery",
+  classification: "Art",
+  
+  metadataBase: new URL('https://muevegaleria.com'),
+  
+  alternates: {
+    canonical: '/',
+    languages: {
+      'es-PE': '/',
+      'es-ES': '/',
+      'en-US': '/en',
+    },
+  },
+  
   icons: {
     icon: [
-      { url: "/logos/favicon.ico" }, // legacy support
+      { url: "/logos/favicon.ico" },
       { url: "/logos/favicon-16x16.png", sizes: "16x16", type: "image/png" },
       { url: "/logos/favicon-32x32.png", sizes: "32x32", type: "image/png" },
     ],
@@ -25,67 +59,72 @@ export const metadata = {
       { rel: "icon", url: "/logos/icon-512.png", sizes: "512x512", type: "image/png" },
     ],
   },
-  description: "Mueve es una galería de arte contemporáneo que presenta exposiciones innovadoras y artistas emergentes. Descubre obras únicas y experiencias artísticas excepcionales.",
-  keywords: ["galería de arte", "arte contemporáneo", "exposiciones", "artistas emergentes", "arte", "galería", "Mueve"],
-  authors: [{ name: "Mueve Galería" }],
-  creator: "Mueve Galería",
-  publisher: "Mueve Galería",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
-  metadataBase: new URL('https://muevegaleria.com'),
-  alternates: {
-    canonical: '/',
-    languages: {
-      'es-ES': '/',
-      'en-US': '/en',
-    },
-  },
+  
+  manifest: '/manifest.json',
+  
   openGraph: {
-    title: "Mueve - Galería de Arte Contemporáneo",
-    description: "Mueve es una galería de arte contemporáneo que presenta exposiciones innovadoras y artistas emergentes.",
-    url: 'https://muevegaleria.com', // Replace with your actual domain
+    title: "Mueve Galería - Arte Contemporáneo en Lima, Perú",
+    description: "Galería de arte contemporáneo en Lima. Representamos artistas emergentes y establecidos, organizamos exposiciones y participamos en ferias internacionales.",
+    url: 'https://muevegaleria.com',
     siteName: 'Mueve Galería',
     images: [
       {
-        url: '/logos/mueve_logo.png',
+        url: 'https://muevegaleria.com/logos/mueve_logo.png',
         width: 1200,
         height: 630,
-        alt: 'Mueve Galería - Logo',
+        alt: 'Mueve Galería - Arte Contemporáneo',
+        type: 'image/png',
       },
     ],
-    locale: 'es_ES',
+    locale: 'es_PE',
     type: 'website',
+    countryName: 'Peru',
   },
-  instagram: {
+  
+  twitter: {
     card: 'summary_large_image',
-    title: "Mueve - Galería de Arte Contemporáneo",
-    description: "Mueve es una galería de arte contemporáneo que presenta exposiciones innovadoras y artistas emergentes.",
-    images: ['/logos/mueve_logo.png'],
-    creator: '@mueve.galeria', // Replace with your actual Instagram handle
+    title: "Mueve Galería - Arte Contemporáneo",
+    description: "Galería de arte contemporáneo en Lima, Perú. Exposiciones, artistas y ferias de arte.",
+    images: ['https://muevegaleria.com/logos/mueve_logo.png'],
+    creator: '@mueve.galeria',
+    site: '@mueve.galeria',
   },
+  
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
   },
-  // verification: {
-  //   google: 'your-google-verification-code', // Not needed - domain already verified
-  // },
+  
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  
+  other: {
+    'geo.region': 'PE-LIM',
+    'geo.placename': 'Lima',
+    'geo.position': '-12.120000;-77.030000',
+    'ICBM': '-12.120000, -77.030000',
+  },
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="es" className={mueveFont.variable}>
-      {/* pass the font class down */}
+      <head>
+        <StructuredData type="Organization" />
+        <StructuredData type="WebSite" />
+      </head>
       <HomepageClient fontClass={mueveFont.className}>
         {children}
         <SanityLive />

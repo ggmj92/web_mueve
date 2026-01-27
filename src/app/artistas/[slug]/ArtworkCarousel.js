@@ -111,7 +111,7 @@ export default function ArtworkCarousel({ artworks, artistSlug }) {
                             </picture>
                         </a>
                         <div className={styles.cardInfo}>
-                            <div className={styles.cardTitle}>
+                            <div className={`${styles.cardTitle} notranslate`}>
                                 {aw.title}
                                 {aw.year && (
                                     <span className={styles.cardYear}>

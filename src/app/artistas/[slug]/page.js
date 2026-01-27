@@ -190,7 +190,7 @@ export default async function ArtistPage({ params }) {
             {/* Below the fold: artist info section (left aligned to page edge) */}
             <section className={styles.info}>
                 <div className={styles.infoRow}>
-                    <h1 className={styles.name}>{artist.name}</h1>
+                    <h1 className={`${styles.name} notranslate`}>{artist.name}</h1>
                     <PortfolioLink
                         spanish={artist.portfolioSpanish}
                         english={artist.portfolioEnglish}

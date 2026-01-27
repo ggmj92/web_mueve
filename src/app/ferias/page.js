@@ -56,7 +56,7 @@ export default function FeriasPage() {
                                 {ferias.map((f) => (
                                     <li key={f.slug ?? f._id} className={styles.listItem}>
                                         <div className={styles.itemLink}>
-                                            <span className={styles.itemName}>{f.title}</span>
+                                            <span className={`${styles.itemName} notranslate`}>{f.title}</span>
                                             <span className={styles.itemYear}>{f.year}</span>
                                             <span className={styles.itemDate}>{f.dateRange}</span>
                                         </div>

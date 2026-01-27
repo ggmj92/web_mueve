@@ -87,7 +87,7 @@ export default async function ExposicionImagePage({ params }) {
             }} className="mobile-message">
                 <p>La vista de imágenes individuales no está disponible en dispositivos móviles.</p>
                 <a href={`/exposiciones/${slug}`} style={{ textDecoration: 'underline' }}>
-                    Volver a {exposicion.title}
+                    Volver a <span className="notranslate">{exposicion.title}</span>
                 </a>
             </div>
         </main>

@@ -100,6 +100,7 @@ export default function ArtistsPage() {
                                     href={`/artistas/${a.slug}`}
                                     onMouseEnter={() => setHoveredArtist(a)}
                                     onMouseLeave={() => setHoveredArtist(null)}
+                                    className="notranslate"
                                 >
                                     {a.name}
                                 </a>

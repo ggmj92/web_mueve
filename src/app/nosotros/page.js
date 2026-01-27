@@ -4,6 +4,7 @@ import styles from "./about.module.css";
 import StructuredData from '@/components/StructuredData';
 import NewsletterModal from '@/components/NewsletterModal';
 import PortfolioLink from '@/components/PortfolioLink';
+import BilingualContent from '@/components/BilingualContent';
 
 export const metadata = {
   title: "Nosotros - Sobre Mueve Galería",
@@ -62,13 +63,10 @@ export default async function NosotrosPage() {
 
         {/* TEXT COLUMN */}
         <div className={styles.textCol}>
-          <p className={styles.copy}>
-            {data?.data?.spanish || "Texto próximamente"}
-          </p>
-
-          <p className={`${styles.copy} ${styles.en}`}>
-            {data?.data?.english || "Content coming soon"}
-          </p>
+          <BilingualContent
+            spanish={<p className={styles.copy}>{data?.data?.spanish || "Texto próximamente"}</p>}
+            english={<p className={`${styles.copy} notranslate`}>{data?.data?.english || "Content coming soon"}</p>}
+          />
 
           <PortfolioLink
             spanish={data?.data?.prensaSpanish}

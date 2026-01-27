@@ -75,7 +75,7 @@ export default function ExposicionesPage() {
                                                 onMouseLeave={() => setHoveredExpo(null)}
                                                 className={styles.itemLink}
                                             >
-                                                <span className={styles.itemName}>{e.title}</span>
+                                                <span className={`${styles.itemName} notranslate`}>{e.title}</span>
                                                 <span className={styles.itemYear}>{e.year}</span>
                                             </a>
                                         </li>
@@ -96,7 +96,7 @@ export default function ExposicionesPage() {
                                                 onMouseLeave={() => setHoveredExpo(null)}
                                                 className={styles.itemLink}
                                             >
-                                                <span className={styles.itemName}>{e.title}</span>
+                                                <span className={`${styles.itemName} notranslate`}>{e.title}</span>
                                                 <span className={styles.itemYear}>{e.year}</span>
                                             </a>
                                         </li>

@@ -28,12 +28,23 @@
     filter: var(--header-logo-filter, none);
 }
 
+.logoLink {
+    position: relative;
+    display: block;
+    height: 100%;
+}
+
 .logoWrap a {
     display: block;
     height: 100%;
     cursor: pointer !important;
 }
 
+.rightSection {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
 
 .nav {
     display: flex;

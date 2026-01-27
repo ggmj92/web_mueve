@@ -62,8 +62,8 @@ export default function ArtworkViewer({
 
             {/* Info - fixed on desktop, below artwork on mobile */}
             <aside className={styles.info}>
-                <div className={styles.artist}>{artistName}</div>
-                <div className={styles.workTitle}>
+                <div className={`${styles.artist} notranslate`}>{artistName}</div>
+                <div className={`${styles.workTitle} notranslate`}>
                     {meta.title}
                     {meta.year ? (
                         <span className={styles.year}>, {meta.year}</span>

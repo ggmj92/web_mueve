@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./Navbar";
+import LanguageToggle from "./LanguageToggle";
 import styles from "./Header.module.css";
 
 export default function Header() {
@@ -18,16 +19,21 @@ export default function Header() {
     return (
         <header className={styles.header}>
             <div className={styles.logoWrap}>
-                <Link href="/" onClick={handleLogoClick}>
+                <Link href="/" onClick={handleLogoClick} className={styles.logoLink}>
                     <Image
                         src="/logos/mueve_navbar_logo.png"
                         alt="Mueve Logo"
                         fill
+                        sizes="(max-width: 600px) 40vw, 220px"
+                        priority
                         className={styles.logo}
                     />
                 </Link>
             </div>
-            <Navbar />
+            <div className={styles.rightSection}>
+                <LanguageToggle />
+                <Navbar />
+            </div>
         </header>
     );
 }

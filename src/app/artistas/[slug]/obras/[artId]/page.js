@@ -100,7 +100,7 @@ export default async function ArtworkPage({ params }) {
             }} className="mobile-message">
                 <p>La vista de obras individuales no está disponible en dispositivos móviles.</p>
                 <a href={`/artistas/${slug}`} style={{ textDecoration: 'underline' }}>
-                    Volver a {artist.name}
+                    Volver a <span className="notranslate">{artist.name}</span>
                 </a>
             </div>
         </main>

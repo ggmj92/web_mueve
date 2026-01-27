@@ -56,9 +56,9 @@ export default function ExposicionImageViewer({
                     slide.artworkInfo.map((info, infoIndex) => (
                         <div key={infoIndex} className={styles.artworkInfoBlock}>
                             {info.artistName && (
-                                <div className={styles.artist}>{info.artistName}</div>
+                                <div className={`${styles.artist} notranslate`}>{info.artistName}</div>
                             )}
-                            <div className={styles.workTitle}>
+                            <div className={`${styles.workTitle} notranslate`}>
                                 {info.title}
                                 {info.year && (
                                     <span className={styles.year}>, {info.year}</span>
@@ -70,8 +70,8 @@ export default function ExposicionImageViewer({
                     ))
                 ) : (
                     <div className={styles.artworkInfoBlock}>
-                        <div className={styles.artist}>{artistNames.join(', ')}</div>
-                        <div className={styles.workTitle}>{exposicionTitle}</div>
+                        <div className={`${styles.artist} notranslate`}>{artistNames.join(', ')}</div>
+                        <div className={`${styles.workTitle} notranslate`}>{exposicionTitle}</div>
                     </div>
                 )}
             </aside>

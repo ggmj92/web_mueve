@@ -75,6 +75,29 @@ body.banner-hidden:not(.home):not(.studio) {
   font-family: var(--font-mueve), sans-serif;
 }
 
+/* Hide Google Translate banner and UI elements */
+.goog-te-banner-frame,
+.goog-te-banner-frame.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}
+
+.goog-te-gadget {
+  display: none !important;
+}
+
+#google_translate_element {
+  display: none !important;
+}
+
+/* Prevent Google Translate from adding extra spacing */
+.skiptranslate iframe {
+  display: none !important;
+}
+
 .container {
   max-width: var(--max-width, 1200px);
   margin-inline: auto;

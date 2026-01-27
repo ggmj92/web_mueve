@@ -8,6 +8,7 @@ const mueveFont = localFont({
   src: "/fonts/ABCOracleTripleVariable-Trial.ttf",
   variable: "--font-mueve",
   style: "normal",
+  preload: false,
 });
 
 export const metadata = {

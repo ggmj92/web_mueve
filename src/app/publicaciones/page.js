@@ -98,7 +98,7 @@ export default function PublicacionesPage() {
                                                 onMouseLeave={() => setHoveredPublicacion(null)}
                                                 className={styles.itemLink}
                                             >
-                                                <span className={styles.itemName}>{p.title}</span>
+                                                <span className={`${styles.itemName} notranslate`}>{p.title}</span>
                                                 <span className={styles.itemYear}>{p.year}</span>
                                             </a>
                                         </li>
@@ -120,7 +120,7 @@ export default function PublicacionesPage() {
                                                 onMouseLeave={() => setHoveredPublicacion(null)}
                                                 className={styles.itemLink}
                                             >
-                                                <span className={styles.itemName}>{p.title}</span>
+                                                <span className={`${styles.itemName} notranslate`}>{p.title}</span>
                                                 <span className={styles.itemYear}>{p.year}</span>
                                             </a>
                                         </li>

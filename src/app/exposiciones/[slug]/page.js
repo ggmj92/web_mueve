@@ -180,7 +180,7 @@ export default async function ExposicionPage({ params }) {
             {/* Below the fold: exposicion info section */}
             <section className={styles.info}>
                 <div className={styles.infoRow}>
-                    <h1 className={styles.artists}>
+                    <h1 className={`${styles.artists} notranslate`}>
                         {artistNames.length > 0 ? artistNames.join(', ') : exposicion.title}
                     </h1>
                     <div className={styles.linksColumn}>

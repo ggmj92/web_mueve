@@ -119,11 +119,11 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
                             {aw.artworkInfo?.map((info, infoIdx) => (
                                 <div key={infoIdx} className={styles.cardInfoBlock}>
                                     {info.artistName && (
-                                        <div className={styles.cardArtist}>
+                                        <div className={`${styles.cardArtist} notranslate`}>
                                             {info.artistName}
                                         </div>
                                     )}
-                                    <div className={styles.cardTitle}>
+                                    <div className={`${styles.cardTitle} notranslate`}>
                                         {info.title}
                                         {info.year && (
                                             <span className={styles.cardYear}>

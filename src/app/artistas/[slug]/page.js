@@ -1,4 +1,5 @@
 import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
 import ScrollIndicator from '@/components/ScrollIndicator'
@@ -179,7 +180,11 @@ export default async function ArtistPage({ params }) {
                 <section className={styles.hero}>
                     <div className={styles.heroImage}>
                         <img
-                            src={heroArtwork.image.asset.url}
+                            src={urlFor(heroArtwork.image)
+                                .width(2400)
+                                .quality(90)
+                                .auto('format')
+                                .url()}
                             alt={heroArtwork.title || 'Artwork'}
                             className={styles.heroImg}
                         />

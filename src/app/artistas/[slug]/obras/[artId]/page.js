@@ -1,4 +1,5 @@
 import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 import ArtworkViewer from '@/components/ArtworkViewer'
 import NewsletterModal from '@/components/NewsletterModal'
 
@@ -44,6 +45,7 @@ export default async function ArtworkPage({ params }) {
         )
 
     // Expand artworks with their detail images into separate slides
+    // Use urlFor() so the Sanity CDN applies any crop the user set in Studio.
     const slides = (artist.artworks || [])
         .filter((a) => a?.image?.asset?.url)
         .flatMap((a) => {
@@ -51,7 +53,7 @@ export default async function ArtworkPage({ params }) {
             const mainSlide = {
                 id: baseSlug,
                 slug: baseSlug,
-                url: a.image.asset.url,
+                url: urlFor(a.image).quality(90).auto('format').url(),
                 ar: a.image.asset.metadata?.dimensions?.aspectRatio || 1,
                 title: a.title || '',
                 year: a.year || '',
@@ -59,14 +61,14 @@ export default async function ArtworkPage({ params }) {
                 dims: a.dimensions || '',
                 description: a.description || '',
             }
-            
+
             // Add detail images as separate slides
             const detailSlides = (a.detailImages || [])
                 .filter(d => d?.image?.asset?.url)
                 .map((d, idx) => ({
                     id: `${baseSlug}-detalle-${idx + 1}`,
                     slug: `${baseSlug}-detalle-${idx + 1}`,
-                    url: d.image.asset.url,
+                    url: urlFor(d.image).quality(90).auto('format').url(),
                     ar: d.image.asset.metadata?.dimensions?.aspectRatio || 1,
                     title: `${a.title || ''} (Detalle ${idx + 1})`,
                     year: a.year || '',
@@ -74,7 +76,7 @@ export default async function ArtworkPage({ params }) {
                     dims: a.dimensions || '',
                     description: a.description || '',
                 }))
-            
+
             return [mainSlide, ...detailSlides]
         })
 

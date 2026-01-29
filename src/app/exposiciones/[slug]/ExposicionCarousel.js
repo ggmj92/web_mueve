@@ -80,18 +80,17 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
                 // Use slug if available, otherwise generate fallback: {exposicionSlug}-imagen{number}
                 const imageSlug = aw.slug?.current || `${exposicionSlug}-imagen${index + 1}`
 
-                // Desktop: cropped vertical image respecting hotspot
+                // Desktop: cropped vertical card — library auto-applies crop rect + hotspot
                 const desktopImageUrl = urlFor(aw.image)
                     .width(600)
                     .height(800)
                     .fit('crop')
-                    .crop('focalpoint')
                     .quality(90)
                     .auto('format')
                     .url()
 
-                // Mobile: use raw asset URL to bypass hotspot/crop entirely
-                const mobileImageUrl = urlFor(aw.image.asset)
+                // Mobile: full image with crop applied (no forced aspect ratio)
+                const mobileImageUrl = urlFor(aw.image)
                     .width(1200)
                     .quality(90)
                     .auto('format')

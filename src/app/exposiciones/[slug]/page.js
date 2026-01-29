@@ -1,4 +1,5 @@
 import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
 import ScrollIndicator from '@/components/ScrollIndicator'
@@ -169,7 +170,11 @@ export default async function ExposicionPage({ params }) {
                 <section className={styles.hero}>
                     <div className={styles.heroImage}>
                         <img
-                            src={heroImage.image.asset.url}
+                            src={urlFor(heroImage.image)
+                                .width(2400)
+                                .quality(90)
+                                .auto('format')
+                                .url()}
                             alt={exposicion.title || 'Exposición'}
                             className={styles.heroImg}
                         />

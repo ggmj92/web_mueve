@@ -1,4 +1,5 @@
 import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 import ExposicionImageViewer from '@/components/ExposicionImageViewer'
 import NewsletterModal from '@/components/NewsletterModal'
 
@@ -49,7 +50,8 @@ export default async function ExposicionImagePage({ params }) {
 
     const artistNames = exposicion.artists?.map(a => a.name).filter(Boolean) || []
 
-    // Build slides from artworks with fallback slugs
+    // Build slides from artworks with fallback slugs.
+    // Use urlFor() so the Sanity CDN applies any crop the user set in Studio.
     const slides = (exposicion.artworks || [])
         .filter((a) => a?.image?.asset?.url)
         .map((a, idx) => {
@@ -58,7 +60,7 @@ export default async function ExposicionImagePage({ params }) {
             return {
                 id: slideSlug,
                 slug: slideSlug,
-                url: a.image.asset.url,
+                url: urlFor(a.image).quality(90).auto('format').url(),
                 ar: a.image.asset.metadata?.dimensions?.aspectRatio || 1,
                 artworkInfo: a.artworkInfo || []
             }

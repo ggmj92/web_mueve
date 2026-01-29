@@ -78,18 +78,17 @@ export default function ArtworkCarousel({ artworks, artistSlug }) {
                 const url = aw?.image?.asset?.url
                 if (!url || !aw.slug?.current) return null
 
-                // Desktop: cropped vertical image respecting hotspot
+                // Desktop: cropped vertical card — library auto-applies crop rect + hotspot
                 const desktopImageUrl = urlFor(aw.image)
                     .width(600)
                     .height(800)
                     .fit('crop')
-                    .crop('focalpoint')
                     .quality(90)
                     .auto('format')
                     .url()
 
-                // Mobile: use raw asset URL to bypass hotspot/crop entirely
-                const mobileImageUrl = urlFor(aw.image.asset)
+                // Mobile: full image with crop applied (no forced aspect ratio)
+                const mobileImageUrl = urlFor(aw.image)
                     .width(1200)
                     .quality(90)
                     .auto('format')

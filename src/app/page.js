@@ -22,51 +22,33 @@ async function getHomepageSlides() {
 
   let slides = (data?.data?.slides || [])
     .map((s) => {
-      // Extract hotspot for focal point positioning
-      const hotspot = s?.image?.hotspot || { x: 0.5, y: 0.5 }
-      
-      // Debug logging
-      console.log('Slide data:', {
-        crop: s?.image?.crop,
-        hotspot: hotspot,
-        assetUrl: s?.image?.asset?.url
-      })
-      
+      if (!s?.image?.asset?.url) return null
+
+      // Pass the full image object so @sanity/image-url can read
+      // the embedded crop rectangle + hotspot automatically.
       return {
-        // Desktop: full image, no cropping
-        desktopUrl: s?.image?.asset?.url
-          ? urlFor({
-              asset: s.image.asset
-            })
+        // Desktop: landscape crop — library applies crop rect & hotspot
+        desktopUrl: urlFor(s.image)
               .width(2400)
               .height(1200)
               .fit('crop')
               .quality(85)
               .auto('format')
-              .url()
-          : null,
-        // Mobile: Use portrait aspect ratio with hotspot-aware cropping
-        // rect() uses the crop rectangle, then we crop to viewport size centered on hotspot
-        mobileUrl: s?.image?.asset?.url
-          ? urlFor(s.image)
+              .url(),
+        // Mobile: portrait crop — same library auto-applies crop & hotspot
+        mobileUrl: urlFor(s.image)
               .width(1080)
               .height(1920)
               .fit('crop')
-              .crop('focalpoint')
-              .focalPoint(hotspot.x, hotspot.y)
               .quality(85)
               .auto('format')
-              .url()
-          : null,
-        // Pass hotspot coordinates (0-1 range) for CSS background-position
-        hotspot: {
-          x: hotspot.x,
-          y: hotspot.y
-        },
+              .url(),
+        // Pass hotspot for CSS object-position (secondary crop by browser)
+        hotspot: s.image.hotspot || null,
         durationMs: s?.durationMs || 5000,
       }
     })
-    .filter((s) => !!s.desktopUrl)
+    .filter(Boolean)
 
   if (slides.length === 0) {
     slides = [

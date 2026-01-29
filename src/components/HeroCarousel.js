@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { hotspotToObjectPosition } from '@/sanity/lib/image'
 import styles from '@/app/homepage.module.css'
 
 export default function HeroCarousel({ slides }) {
@@ -167,20 +168,22 @@ export default function HeroCarousel({ slides }) {
                 className={`${styles.heroLayer} ${front === 0 ? styles.visible : ''}`}
                 aria-hidden={front !== 0}
             >
-                <img 
+                <img
                     src={isMobile ? layers[0].mobileUrl : layers[0].url}
                     alt=""
                     className={styles.heroImage}
+                    style={{ objectPosition: hotspotToObjectPosition(layers[0].hotspot) }}
                 />
             </div>
             <div
                 className={`${styles.heroLayer} ${front === 1 ? styles.visible : ''}`}
                 aria-hidden={front !== 1}
             >
-                <img 
+                <img
                     src={isMobile ? layers[1].mobileUrl : layers[1].url}
                     alt=""
                     className={styles.heroImage}
+                    style={{ objectPosition: hotspotToObjectPosition(layers[1].hotspot) }}
                 />
             </div>
 

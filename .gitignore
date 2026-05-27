@@ -42,3 +42,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# files
+CLAUDE.md
+MUEVE_PROJECT_PLAN.md
+AUDIT_FINDINGS.md

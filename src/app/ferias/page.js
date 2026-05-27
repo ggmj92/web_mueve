@@ -7,7 +7,7 @@ import styles from './ferias.module.css'
 
 async function getFerias() {
     try {
-        const query = `*[_type == "feria" && defined(slug.current)] | order(order asc, year desc){
+        const query = `*[_type == "feria" && defined(slug.current)] | order(year desc, order asc){
         _id,
         title,
         "slug": slug.current,

@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { urlFor, cropToRect } from '@/sanity/lib/image'
 import styles from './artist.module.css'
 
-export default function ArtworkCarousel({ artworks, artistSlug }) {
+export default function ArtworkCarousel({ artworks, artistSlug, basePath = '/artistas' }) {
     const carouselRef = useRef(null)
     const [isDesktop, setIsDesktop] = useState(false)
     const [leftHover, setLeftHover] = useState(false)
@@ -102,7 +102,7 @@ export default function ArtworkCarousel({ artworks, artistSlug }) {
                 return (
                     <div key={`${aw.slug?.current}-${index}`} className={styles.cardWrapper}>
                         <a
-                            href={`/artistas/${artistSlug}/obras/${aw.slug.current}`}
+                            href={`${basePath}/${artistSlug}/obras/${aw.slug.current}`}
                             className={styles.card}
                         >
                             <picture>

@@ -15,6 +15,12 @@ export default async function sitemap() {
     _updatedAt
   }`)
 
+  // Fetch all guest artists
+  const guestArtists = await client.fetch(`*[_type == "guestArtist" && defined(slug.current)]{
+    slug,
+    _updatedAt
+  }`)
+
   // Static pages
   const staticPages = [
     {
@@ -77,5 +83,13 @@ export default async function sitemap() {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...artistPages, ...exposicionPages];
+  // Dynamic guest artist pages
+  const guestArtistPages = guestArtists.map((ga) => ({
+    url: `${baseUrl}/mueve-estar/${ga.slug.current}`,
+    lastModified: new Date(ga._updatedAt),
+    changeFrequency: 'monthly',
+    priority: 0.8,
+  }))
+
+  return [...staticPages, ...artistPages, ...exposicionPages, ...guestArtistPages];
 }

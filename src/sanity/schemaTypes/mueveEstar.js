@@ -32,27 +32,10 @@ export default {
         },
         {
             name: 'artists',
-            title: 'Lista de Artistas',
+            title: 'Artistas Invitados',
             type: 'array',
-            of: [
-                {
-                    type: 'object',
-                    fields: [
-                        {
-                            name: 'name',
-                            title: 'Nombre del Artista',
-                            type: 'string',
-                            validation: Rule => Rule.required()
-                        }
-                    ],
-                    preview: {
-                        select: {
-                            title: 'name'
-                        }
-                    }
-                }
-            ],
-            description: 'Lista de nombres de artistas (se mostrarán en orden alfabético)'
+            of: [{ type: 'reference', to: [{ type: 'guestArtist' }] }],
+            description: 'Referencias a los artistas invitados de Mueve Estar'
         }
     ],
     preview: {

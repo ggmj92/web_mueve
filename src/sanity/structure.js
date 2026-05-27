@@ -87,7 +87,21 @@ export const structure = (S) =>
             )
         ),
       
-      // 7. About section
+      // 7. Guest Artists section
+      S.listItem()
+        .title('Artistas Invitados')
+        .icon(() => '🎭')
+        .child(
+          S.documentTypeList('guestArtist')
+            .title('Artistas Invitados')
+            .child((guestArtistId) =>
+              S.document()
+                .documentId(guestArtistId)
+                .schemaType('guestArtist')
+            )
+        ),
+
+      // 8. About section
       S.listItem()
         .title('Nosotros')
         .icon(() => '👥')

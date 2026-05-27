@@ -51,6 +51,25 @@ const nextConfig = {
             key: 'Permissions-Policy',
             value: 'camera=(), microphone=(), geolocation=()'
           },
+          {
+            // Google Translate requires unsafe-inline for its injected scripts and styles.
+            // Next.js hydration also uses inline scripts. A nonce-based strict CSP would
+            // require significant infrastructure changes; this policy provides meaningful
+            // restrictions on data exfiltration and framing without breaking functionality.
+            key: 'Content-Security-Policy',
+            value: [
+              "default-src 'self'",
+              "script-src 'self' 'unsafe-inline' 'unsafe-eval' translate.google.com translate.googleapis.com",
+              "style-src 'self' 'unsafe-inline' translate.googleapis.com",
+              "img-src 'self' data: blob: cdn.sanity.io translate.googleapis.com translate.google.com www.gstatic.com",
+              "font-src 'self'",
+              "connect-src 'self' *.sanity.io vitals.vercel-insights.com translate.googleapis.com translate.google.com",
+              "frame-src translate.google.com",
+              "frame-ancestors 'self'",
+              "base-uri 'self'",
+              "form-action 'self'",
+            ].join('; '),
+          },
         ],
       },
       {

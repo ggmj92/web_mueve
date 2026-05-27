@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { hotspotToObjectPosition } from '@/sanity/lib/image'
 import styles from '@/app/homepage.module.css'
-import { hotspotToObjectPosition } from '@/sanity/lib/image'
 
 export default function HeroCarousel({ slides }) {
     const [index, setIndex] = useState(0)

@@ -22,25 +22,22 @@ async function getHomepageSlides() {
 
   let slides = (data?.data?.slides || [])
     .map((s) => {
-      // Extract hotspot for focal point positioning
-      const hotspot = s?.image?.hotspot || { x: 0.5, y: 0.5 }
-      
+      if (!s?.image?.asset?.url) return null
       return {
-        desktopUrl: s?.image?.asset?.url
-          ? urlFor(s.image)
-              .width(2400)
-              .quality(85)
-              .auto('format')
-              .url(),
-        // Mobile: portrait crop — same library auto-applies crop & hotspot
+        desktopUrl: urlFor(s.image)
+          .width(2400)
+          .quality(85)
+          .auto('format')
+          .url(),
         mobileUrl: urlFor(s.image)
-              .width(1080)
-              .height(1920)
-              .fit('crop')
-              .quality(85)
-              .auto('format')
-              .url(),
-        // Pass hotspot for CSS object-position (secondary crop by browser)
+          .width(1080)
+          .height(1920)
+          .fit('crop')
+          .crop('focalpoint')
+          .focalPoint(s.image.hotspot?.x ?? 0.5, s.image.hotspot?.y ?? 0.5)
+          .quality(85)
+          .auto('format')
+          .url(),
         hotspot: s.image.hotspot || null,
         durationMs: s?.durationMs || 5000,
       }

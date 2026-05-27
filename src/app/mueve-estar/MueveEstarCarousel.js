@@ -3,7 +3,6 @@
 import { useRef, useState, useEffect } from 'react'
 import { urlFor, hotspotToObjectPosition } from '@/sanity/lib/image'
 import styles from './mueve-estar.module.css'
-import { urlFor, hotspotToObjectPosition } from '@/sanity/lib/image'
 
 export default function MueveEstarCarousel({ images }) {
     const scrollContainerRef = useRef(null)

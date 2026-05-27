@@ -7,6 +7,7 @@ import NewsletterModal from '@/components/NewsletterModal'
 import ScrollIndicator from '@/components/ScrollIndicator'
 import MueveEstarCarousel from './MueveEstarCarousel'
 import styles from './mueve-estar.module.css'
+import { urlFor, cropToRect } from '@/sanity/lib/image'
 
 async function getMueveEstarData() {
     try {
@@ -29,43 +30,66 @@ async function getMueveEstarData() {
                 crop
             },
             description,
-            artists[]{
+            artists[]->{
+                _id,
                 name,
-                _id
+                "slug": slug.current,
+                artworks[]{
+                    title,
+                    featuredPreview,
+                    image{
+                        asset->{
+                            "_ref": _id,
+                            _id,
+                            url,
+                            metadata{ dimensions{ width, height, aspectRatio } }
+                        },
+                        hotspot,
+                        crop
+                    },
+                    detailImages[]{
+                        featuredPreview,
+                        image{
+                            asset->{
+                                "_ref": _id,
+                                _id,
+                                url,
+                                metadata{ dimensions{ width, height, aspectRatio } }
+                            },
+                            hotspot,
+                            crop
+                        }
+                    }
+                }
             }
         }`
-        
+
         const data = await client.fetch(query)
-        
-        // Validate and sanitize data
+
         if (!data) {
             console.warn('No mueve estar data found in Sanity')
             return { images: [], description: null, artists: [] }
         }
-        
-        // Ensure images is always an array with valid assets
+
         if (!data.images || !Array.isArray(data.images)) {
             data.images = []
         } else {
-            // Filter out invalid images
-            data.images = data.images.filter(img => 
-                img?.asset?.url && 
+            data.images = data.images.filter(img =>
+                img?.asset?.url &&
                 typeof img.asset.url === 'string' &&
                 img.asset.url.startsWith('http')
             )
         }
-        
-        // Ensure artists is always an array
+
         if (!data.artists || !Array.isArray(data.artists)) {
             data.artists = []
         } else {
-            // Filter out invalid artists
-            data.artists = data.artists.filter(artist => 
-                artist?.name && 
+            data.artists = data.artists.filter(artist =>
+                artist?.name &&
                 typeof artist.name === 'string'
             )
         }
-        
+
         return data
     } catch (error) {
         console.error('Error fetching mueve estar data:', {
@@ -73,20 +97,32 @@ async function getMueveEstarData() {
             stack: error.stack,
             name: error.name
         })
-        
-        // Return safe fallback data
-        return { 
-            images: [], 
-            description: null, 
-            artists: [],
-            error: true 
+        return { images: [], description: null, artists: [], error: true }
+    }
+}
+
+function getPreviewArtwork(artist) {
+    if (!artist?.artworks?.length) return null
+
+    for (const artwork of artist.artworks) {
+        if (artwork.featuredPreview && artwork.image) {
+            return artwork
+        }
+        if (artwork.detailImages?.length) {
+            const featuredDetail = artwork.detailImages.find(d => d.featuredPreview)
+            if (featuredDetail?.image) {
+                return { ...artwork, image: featuredDetail.image }
+            }
         }
     }
+
+    return artist.artworks[0]
 }
 
 export default function MueveEstarPage() {
     const [data, setData] = useState(null)
     const [loading, setLoading] = useState(true)
+    const [hoveredArtist, setHoveredArtist] = useState(null)
 
     useEffect(() => {
         getMueveEstarData()
@@ -101,7 +137,6 @@ export default function MueveEstarPage() {
             })
     }, [])
 
-    // Sort artists alphabetically
     const sortedArtists = data?.artists
         ? [...data.artists].sort((a, b) => a.name.localeCompare(b.name, 'es'))
         : []
@@ -112,12 +147,10 @@ export default function MueveEstarPage() {
         <>
             <NewsletterModal />
             {hasImages && <ScrollIndicator />}
-            
+
             <main>
-                {/* Image carousel at the top */}
                 {hasImages && <MueveEstarCarousel images={data.images} />}
-                
-                {/* Description right below carousel */}
+
                 {!loading && data?.description && (
                     <section className={styles.descriptionSection}>
                         <div className={styles.textCol}>
@@ -128,19 +161,55 @@ export default function MueveEstarPage() {
                     </section>
                 )}
 
-                {/* Artist list - further down, requires scrolling */}
                 {!loading && sortedArtists.length > 0 && (
                     <section className={styles.artistSection}>
                         <div className={styles.listCol}>
                             <h2 className={styles.listHeader}>Artistas Invitados</h2>
                             <ul className={styles.list}>
-                                {sortedArtists.map((artist, index) => (
-                                    <li key={index} className={styles.listItem}>
-                                        <span className={`${styles.artistName} notranslate`}>{artist.name}</span>
+                                {sortedArtists.map((artist) => (
+                                    <li key={artist._id} className={styles.listItem}>
+                                        {artist.artworks?.length > 0 ? (
+                                            <a
+                                                href={`/mueve-estar/${artist.slug}`}
+                                                onMouseEnter={() => setHoveredArtist(artist)}
+                                                onMouseLeave={() => setHoveredArtist(null)}
+                                                className={`${styles.artistName} notranslate`}
+                                            >
+                                                {artist.name}
+                                            </a>
+                                        ) : (
+                                            <span className={`${styles.artistName} notranslate`}>{artist.name}</span>
+                                        )}
                                     </li>
                                 ))}
                             </ul>
                         </div>
+
+                        {(() => {
+                            const preview = hoveredArtist ? getPreviewArtwork(hoveredArtist) : null
+                            if (!preview) return null
+                            const hs = preview.image?.hotspot
+                            const rect = cropToRect(preview.image)
+                            const previewUrl = (rect
+                                ? urlFor(preview.image).rect(rect.x, rect.y, rect.width, rect.height)
+                                : urlFor(preview.image))
+                                .width(800)
+                                .height(800)
+                                .fit('crop')
+                                .focalPoint(hs?.x ?? 0.5, hs?.y ?? 0.5)
+                                .quality(90)
+                                .auto('format')
+                                .url()
+                            return (
+                                <div className={styles.preview}>
+                                    <img
+                                        src={previewUrl}
+                                        alt={preview.title || 'Artwork preview'}
+                                        className={styles.previewImage}
+                                    />
+                                </div>
+                            )
+                        })()}
                     </section>
                 )}
 

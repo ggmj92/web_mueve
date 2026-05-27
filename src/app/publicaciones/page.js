@@ -147,6 +147,7 @@ export default function PublicacionesPage() {
                             .height(800)
                             .fit('crop')
                             .crop('focalpoint')
+                            .focalPoint(hoveredPublicacion.caratula?.hotspot?.x ?? 0.5, hoveredPublicacion.caratula?.hotspot?.y ?? 0.5)
                             .quality(90)
                             .auto('format')
                             .url()}

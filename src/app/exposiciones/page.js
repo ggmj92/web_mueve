@@ -123,6 +123,7 @@ export default function ExposicionesPage() {
                             .height(800)
                             .fit('crop')
                             .crop('focalpoint')
+                            .focalPoint(hoveredExpo.previewImage?.hotspot?.x ?? 0.5, hoveredExpo.previewImage?.hotspot?.y ?? 0.5)
                             .quality(90)
                             .auto('format')
                             .url()}

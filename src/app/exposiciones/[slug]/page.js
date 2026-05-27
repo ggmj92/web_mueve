@@ -5,6 +5,7 @@ import ScrollIndicator from '@/components/ScrollIndicator'
 import PortfolioLink from '@/components/PortfolioLink'
 import styles from './exposicion.module.css'
 import ExposicionCarousel from './ExposicionCarousel'
+import { urlFor, hotspotToObjectPosition } from '@/sanity/lib/image'
 
 export const revalidate = 0
 
@@ -169,9 +170,10 @@ export default async function ExposicionPage({ params }) {
                 <section className={styles.hero}>
                     <div className={styles.heroImage}>
                         <img
-                            src={heroImage.image.asset.url}
+                            src={urlFor(heroImage.image).width(2400).quality(90).auto('format').url()}
                             alt={exposicion.title || 'Exposición'}
                             className={styles.heroImg}
+                            style={{ objectPosition: hotspotToObjectPosition(heroImage.image.hotspot) }}
                         />
                     </div>
                 </section>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { hotspotToObjectPosition } from '@/sanity/lib/image'
 import styles from '@/app/homepage.module.css'
 import { hotspotToObjectPosition } from '@/sanity/lib/image'
 

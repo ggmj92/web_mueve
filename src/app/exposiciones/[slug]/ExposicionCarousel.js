@@ -94,8 +94,8 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
                     .auto('format')
                     .url()
 
-                // Mobile: use raw asset URL to bypass hotspot/crop entirely
-                const mobileImageUrl = urlFor(aw.image.asset)
+                // Mobile: full image with crop applied (no forced aspect ratio)
+                const mobileImageUrl = urlFor(aw.image)
                     .width(1200)
                     .quality(90)
                     .auto('format')

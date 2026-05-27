@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
+import { urlFor, hotspotToObjectPosition } from '@/sanity/lib/image'
 import styles from './mueve-estar.module.css'
 import { urlFor, hotspotToObjectPosition } from '@/sanity/lib/image'
 
@@ -108,13 +109,13 @@ export default function MueveEstarCarousel({ images }) {
                 {images.map((img, index) => {
                     // Skip images that failed to load
                     if (imageErrors[index]) return null
-                    
+
                     // Validate image data
                     if (!img?.asset?.url) {
                         console.warn(`Invalid image data at index ${index}`)
                         return null
                     }
-                    
+
                     return (
                         <div key={img.asset._id || index} className={styles.carouselSlide}>
                             <img

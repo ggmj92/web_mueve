@@ -31,30 +31,21 @@ async function getHomepageSlides() {
               .width(2400)
               .quality(85)
               .auto('format')
-              .url()
-          : null,
-        // Mobile: Use portrait aspect ratio with hotspot-aware cropping
-        // rect() uses the crop rectangle, then we crop to viewport size centered on hotspot
-        mobileUrl: s?.image?.asset?.url
-          ? urlFor(s.image)
+              .url(),
+        // Mobile: portrait crop — same library auto-applies crop & hotspot
+        mobileUrl: urlFor(s.image)
               .width(1080)
               .height(1920)
               .fit('crop')
-              .crop('focalpoint')
-              .focalPoint(hotspot.x, hotspot.y)
               .quality(85)
               .auto('format')
-              .url()
-          : null,
-        // Pass hotspot coordinates (0-1 range) for CSS background-position
-        hotspot: {
-          x: hotspot.x,
-          y: hotspot.y
-        },
+              .url(),
+        // Pass hotspot for CSS object-position (secondary crop by browser)
+        hotspot: s.image.hotspot || null,
         durationMs: s?.durationMs || 5000,
       }
     })
-    .filter((s) => !!s.desktopUrl)
+    .filter(Boolean)
 
   if (slides.length === 0) {
     slides = [

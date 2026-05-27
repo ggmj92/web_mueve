@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { urlFor } from '@/sanity/lib/image'
+import { urlFor, cropToRect } from '@/sanity/lib/image'
 import styles from './exposicion.module.css'
 
 export default function ExposicionCarousel({ artworks, exposicionSlug }) {
@@ -80,13 +80,15 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
                 // Use slug if available, otherwise generate fallback: {exposicionSlug}-imagen{number}
                 const imageSlug = aw.slug?.current || `${exposicionSlug}-imagen${index + 1}`
 
-                // Desktop: cropped vertical image respecting hotspot
+                // Desktop: cropped vertical image respecting editor crop rect + hotspot
                 const hs = aw.image?.hotspot
-                const desktopImageUrl = urlFor(aw.image)
+                const rect = cropToRect(aw.image)
+                const desktopImageUrl = (rect
+                    ? urlFor(aw.image).rect(rect.x, rect.y, rect.width, rect.height)
+                    : urlFor(aw.image))
                     .width(600)
                     .height(800)
                     .fit('crop')
-                    .crop('focalpoint')
                     .focalPoint(hs?.x ?? 0.5, hs?.y ?? 0.5)
                     .quality(90)
                     .auto('format')

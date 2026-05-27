@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { urlFor } from '@/sanity/lib/image'
+import { urlFor, cropToRect } from '@/sanity/lib/image'
 import styles from './artist.module.css'
 
 export default function ArtworkCarousel({ artworks, artistSlug }) {
@@ -78,13 +78,15 @@ export default function ArtworkCarousel({ artworks, artistSlug }) {
                 const url = aw?.image?.asset?.url
                 if (!url || !aw.slug?.current) return null
 
-                // Desktop: cropped vertical image respecting hotspot
+                // Desktop: cropped vertical image respecting editor crop rect + hotspot
                 const hs = aw.image?.hotspot
-                const desktopImageUrl = urlFor(aw.image)
+                const rect = cropToRect(aw.image)
+                const desktopImageUrl = (rect
+                    ? urlFor(aw.image).rect(rect.x, rect.y, rect.width, rect.height)
+                    : urlFor(aw.image))
                     .width(600)
                     .height(800)
                     .fit('crop')
-                    .crop('focalpoint')
                     .focalPoint(hs?.x ?? 0.5, hs?.y ?? 0.5)
                     .quality(90)
                     .auto('format')

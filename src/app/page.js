@@ -25,22 +25,10 @@ async function getHomepageSlides() {
       // Extract hotspot for focal point positioning
       const hotspot = s?.image?.hotspot || { x: 0.5, y: 0.5 }
       
-      // Debug logging
-      console.log('Slide data:', {
-        crop: s?.image?.crop,
-        hotspot: hotspot,
-        assetUrl: s?.image?.asset?.url
-      })
-      
       return {
-        // Desktop: full image, no cropping
         desktopUrl: s?.image?.asset?.url
-          ? urlFor({
-              asset: s.image.asset
-            })
+          ? urlFor(s.image)
               .width(2400)
-              .height(1200)
-              .fit('crop')
               .quality(85)
               .auto('format')
               .url()

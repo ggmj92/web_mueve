@@ -116,22 +116,27 @@ export default function ArtistsPage() {
                 )}
             </div>
 
-            {hoveredArtist && getPreviewArtwork(hoveredArtist) && (
+            {(() => {
+                const preview = hoveredArtist ? getPreviewArtwork(hoveredArtist) : null
+                if (!preview) return null
+                const hs = preview.image?.hotspot
+                return (
                 <div className={styles.preview}>
                     <img
-                        src={urlFor(getPreviewArtwork(hoveredArtist).image)
+                        src={urlFor(preview.image)
                             .width(800)
                             .height(800)
                             .fit('crop')
                             .crop('focalpoint')
+                            .focalPoint(hs?.x ?? 0.5, hs?.y ?? 0.5)
                             .quality(90)
                             .auto('format')
                             .url()}
-                        alt={getPreviewArtwork(hoveredArtist).title || 'Artwork preview'}
+                        alt={preview.title || 'Artwork preview'}
                         className={styles.previewImage}
                     />
-                </div>
-            )}
+                </div>)
+            })()}
         </div>
         </>
     )

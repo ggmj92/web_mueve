@@ -26,30 +26,25 @@ export default function LanguageToggle() {
             );
         };
 
-        // Check initial language from cookie
-        const checkLanguage = () => {
-            const match = document.cookie.match(/googtrans=\/[^/]+\/([^;]+)/);
-            if (match && match[1]) {
-                setCurrentLang(match[1]);
-            }
-        };
-
-        checkLanguage();
-        const interval = setInterval(checkLanguage, 500);
+        const match = document.cookie.match(/googtrans=\/[^/]+\/([^;]+)/);
+        if (match && match[1]) {
+            setCurrentLang(match[1]);
+        }
 
         return () => {
-            clearInterval(interval);
-            document.head.removeChild(script);
+            window.googleTranslateElementInit = undefined;
         };
     }, []);
 
     const changeLanguage = (lang) => {
-        const langCode = lang === 'en' ? 'en' : 'es';
-        
-        // Set the cookie
-        document.cookie = `googtrans=/es/${langCode}; path=/`;
-        
-        // Reload to apply translation
+        if (lang === 'en') {
+            document.cookie = 'googtrans=/es/en; path=/';
+        } else {
+            const hostname = window.location.hostname;
+            document.cookie = 'googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+            document.cookie = `googtrans=; path=/; domain=${hostname}; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+            document.cookie = `googtrans=; path=/; domain=.${hostname}; expires=Thu, 01 Jan 1970 00:00:00 GMT`;
+        }
         window.location.reload();
     };
 

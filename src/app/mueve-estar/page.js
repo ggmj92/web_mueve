@@ -135,7 +135,7 @@ export default function MueveEstarPage() {
                             <ul className={styles.list}>
                                 {sortedArtists.map((artist, index) => (
                                     <li key={index} className={styles.listItem}>
-                                        <span className={styles.artistName}>{artist.name}</span>
+                                        <span className={`${styles.artistName} notranslate`}>{artist.name}</span>
                                     </li>
                                 ))}
                             </ul>

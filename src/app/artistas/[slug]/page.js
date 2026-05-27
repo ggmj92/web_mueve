@@ -107,6 +107,7 @@ async function getArtistWithWorks(slug) {
       featuredPreview,
       image{
         asset->{
+          "_ref": _id,
           _id,
           url,
           metadata{ dimensions{ width, height, aspectRatio } }

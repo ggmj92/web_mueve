@@ -13,8 +13,9 @@ async function getMueveEstarData() {
         const query = `*[_type == "mueveEstar"][0]{
             images[]{
                 asset->{
-                    url,
+                    "_ref": _id,
                     _id,
+                    url,
                     metadata {
                         dimensions {
                             width,

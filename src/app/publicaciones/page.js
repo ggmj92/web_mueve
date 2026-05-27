@@ -19,6 +19,7 @@ async function getPublicaciones() {
         },
         caratula{
           asset->{
+            "_ref": _id,
             _id,
             url,
             metadata{ dimensions{ width, height, aspectRatio } }

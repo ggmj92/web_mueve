@@ -10,7 +10,7 @@ async function getHomepageSlides() {
     query: `*[_type == "homepage"][0]{
     slides[]{ 
       image{ 
-        asset->{ url },
+        asset->{ "_ref": _id, _id, url },
         crop,
         hotspot
       }, 

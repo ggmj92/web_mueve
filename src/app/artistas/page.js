@@ -15,6 +15,7 @@ async function getArtists() {
           featuredPreview,
           image{
             asset->{
+              "_ref": _id,
               _id,
               url,
               metadata{ dimensions{ width, height, aspectRatio } }
@@ -63,7 +64,7 @@ export default function ArtistsPage() {
 
     const getPreviewArtwork = (artist) => {
         if (!artist?.artworks?.length) return null
-        
+
         // Check all artworks for featuredPreview (main image or detail images)
         for (const artwork of artist.artworks) {
             // Check if main image is marked as featuredPreview
@@ -78,10 +79,11 @@ export default function ArtistsPage() {
                 }
             }
         }
-        
+
         // Fallback to first artwork if no preview is marked
         return artist.artworks[0]
     }
+
 
     return (
         <>

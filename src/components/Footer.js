@@ -41,7 +41,7 @@ export default function Footer() {
                     <div className={styles.col}>
                         <a href="https://maps.app.goo.gl/g22oW8UUtikFqpVe7"
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className={styles.addressLink}>
                             <p>Gral Borgoño 770, Miraflores</p>
                         </a>
@@ -57,7 +57,7 @@ export default function Footer() {
                         <a
                             href="mailto:info@muevegaleria.com?subject=Consulta desde Mueve Web"
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className={styles.contactLine}
                         >
                             <p>info@muevegaleria.com</p>
@@ -85,14 +85,14 @@ export default function Footer() {
                     <div className={styles.mobileRow1}>
                         <a href="https://maps.app.goo.gl/g22oW8UUtikFqpVe7"
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className={styles.mobileAddress}>
                             <p>Gral Borgoño 770, Miraflores</p>
                         </a>
                         <a
                             href="mailto:info@muevegaleria.com?subject=Consulta desde Mueve Web"
                             target="_blank"
-                            rel="noreferrer"
+                            rel="noopener noreferrer"
                             className={styles.mobileEmail}
                         >
                             <p>info@muevegaleria.com</p>
@@ -123,7 +123,7 @@ export default function Footer() {
 {/* <a
                     href="https://wa.me/51987654321"
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     className={styles.contactLine}
                 >
                     <p>+51 987 654 321</p>

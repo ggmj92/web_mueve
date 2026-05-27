@@ -81,11 +81,13 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
                 const imageSlug = aw.slug?.current || `${exposicionSlug}-imagen${index + 1}`
 
                 // Desktop: cropped vertical image respecting hotspot
+                const hs = aw.image?.hotspot
                 const desktopImageUrl = urlFor(aw.image)
                     .width(600)
                     .height(800)
                     .fit('crop')
                     .crop('focalpoint')
+                    .focalPoint(hs?.x ?? 0.5, hs?.y ?? 0.5)
                     .quality(90)
                     .auto('format')
                     .url()

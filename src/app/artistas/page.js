@@ -1,7 +1,7 @@
 'use client'
 
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image'
+import { urlFor, cropToRect } from '@/sanity/lib/image'
 import { useState, useEffect } from 'react'
 import NewsletterModal from '@/components/NewsletterModal'
 import styles from './artists.module.css'
@@ -120,18 +120,21 @@ export default function ArtistsPage() {
                 const preview = hoveredArtist ? getPreviewArtwork(hoveredArtist) : null
                 if (!preview) return null
                 const hs = preview.image?.hotspot
+                const rect = cropToRect(preview.image)
+                const previewUrl = (rect
+                    ? urlFor(preview.image).rect(rect.x, rect.y, rect.width, rect.height)
+                    : urlFor(preview.image))
+                    .width(800)
+                    .height(800)
+                    .fit('crop')
+                    .focalPoint(hs?.x ?? 0.5, hs?.y ?? 0.5)
+                    .quality(90)
+                    .auto('format')
+                    .url()
                 return (
                 <div className={styles.preview}>
                     <img
-                        src={urlFor(preview.image)
-                            .width(800)
-                            .height(800)
-                            .fit('crop')
-                            .crop('focalpoint')
-                            .focalPoint(hs?.x ?? 0.5, hs?.y ?? 0.5)
-                            .quality(90)
-                            .auto('format')
-                            .url()}
+                        src={previewUrl}
                         alt={preview.title || 'Artwork preview'}
                         className={styles.previewImage}
                     />

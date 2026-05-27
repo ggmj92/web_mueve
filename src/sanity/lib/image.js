@@ -9,6 +9,19 @@ export const urlFor = (source) => {
   return builder.image(source)
 }
 
+export function cropToRect(image) {
+  const crop = image?.crop
+  const dims = image?.asset?.metadata?.dimensions
+  if (!crop || !dims) return null
+  const { width, height } = dims
+  return {
+    x: Math.round(crop.left * width),
+    y: Math.round(crop.top * height),
+    width: Math.round(width - (crop.left + crop.right) * width),
+    height: Math.round(height - (crop.top + crop.bottom) * height),
+  }
+}
+
 export function hotspotToObjectPosition(hotspot) {
   if (!hotspot || typeof hotspot.x !== 'number' || typeof hotspot.y !== 'number') {
     return 'center'

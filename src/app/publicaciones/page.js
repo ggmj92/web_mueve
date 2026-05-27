@@ -144,7 +144,8 @@ export default function PublicacionesPage() {
                         src={urlFor(hoveredPublicacion.caratula)
                             .width(800)
                             .height(800)
-                            .fit('min')
+                            .fit('crop')
+                            .crop('focalpoint')
                             .quality(90)
                             .auto('format')
                             .url()}

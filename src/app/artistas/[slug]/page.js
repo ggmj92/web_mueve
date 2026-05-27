@@ -5,6 +5,7 @@ import ScrollIndicator from '@/components/ScrollIndicator'
 import PortfolioLink from '@/components/PortfolioLink'
 import styles from './artist.module.css'
 import ArtworkCarousel from './ArtworkCarousel'
+import { urlFor, hotspotToObjectPosition } from '@/sanity/lib/image'
 
 export const revalidate = 0 // dev-friendly
 
@@ -179,9 +180,10 @@ export default async function ArtistPage({ params }) {
                 <section className={styles.hero}>
                     <div className={styles.heroImage}>
                         <img
-                            src={heroArtwork.image.asset.url}
+                            src={urlFor(heroArtwork.image).width(2400).quality(90).auto('format').url()}
                             alt={heroArtwork.title || 'Artwork'}
                             className={styles.heroImg}
+                            style={{ objectPosition: hotspotToObjectPosition(heroArtwork.image.hotspot) }}
                         />
                     </div>
                 </section>

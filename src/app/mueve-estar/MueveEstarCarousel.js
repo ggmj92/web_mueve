@@ -2,6 +2,7 @@
 
 import { useRef, useState, useEffect } from 'react'
 import styles from './mueve-estar.module.css'
+import { urlFor, hotspotToObjectPosition } from '@/sanity/lib/image'
 
 export default function MueveEstarCarousel({ images }) {
     const scrollContainerRef = useRef(null)
@@ -117,9 +118,10 @@ export default function MueveEstarCarousel({ images }) {
                     return (
                         <div key={img.asset._id || index} className={styles.carouselSlide}>
                             <img
-                                src={img.asset.url}
+                                src={urlFor(img).width(2400).quality(90).auto('format').url()}
                                 alt={img.alt || `Mueve Estar imagen ${index + 1}`}
                                 className={styles.carouselImage}
+                                style={{ objectPosition: hotspotToObjectPosition(img.hotspot) }}
                                 onError={() => handleImageError(index)}
                                 loading="lazy"
                             />

@@ -1,7 +1,7 @@
 'use client'
 
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image'
+import { urlFor, cropToRect } from '@/sanity/lib/image'
 import { useState, useEffect } from 'react'
 import NewsletterModal from '@/components/NewsletterModal'
 import styles from './publicaciones.module.css'
@@ -139,23 +139,29 @@ export default function PublicacionesPage() {
                 )}
             </div>
 
-            {hoveredPublicacion && hoveredPublicacion.caratula && (
+            {hoveredPublicacion && hoveredPublicacion.caratula && (() => {
+                const img = hoveredPublicacion.caratula
+                const hs = img?.hotspot
+                const rect = cropToRect(img)
+                const previewUrl = (rect
+                    ? urlFor(img).rect(rect.x, rect.y, rect.width, rect.height)
+                    : urlFor(img))
+                    .width(800)
+                    .height(800)
+                    .fit('crop')
+                    .focalPoint(hs?.x ?? 0.5, hs?.y ?? 0.5)
+                    .quality(90)
+                    .auto('format')
+                    .url()
+                return (
                 <div className={styles.preview}>
                     <img
-                        src={urlFor(hoveredPublicacion.caratula)
-                            .width(800)
-                            .height(800)
-                            .fit('crop')
-                            .crop('focalpoint')
-                            .focalPoint(hoveredPublicacion.caratula?.hotspot?.x ?? 0.5, hoveredPublicacion.caratula?.hotspot?.y ?? 0.5)
-                            .quality(90)
-                            .auto('format')
-                            .url()}
+                        src={previewUrl}
                         alt={hoveredPublicacion.title || 'Publicación preview'}
                         className={styles.previewImage}
                     />
-                </div>
-            )}
+                </div>)
+            })()}
         </div>
         </>
     )

@@ -1,7 +1,7 @@
 'use client'
 
 import { client } from '@/sanity/lib/client'
-import { urlFor } from '@/sanity/lib/image'
+import { urlFor, cropToRect } from '@/sanity/lib/image'
 import { useState, useEffect } from 'react'
 import NewsletterModal from '@/components/NewsletterModal'
 import styles from './exposiciones.module.css'
@@ -115,23 +115,29 @@ export default function ExposicionesPage() {
                 )}
             </div>
 
-            {hoveredExpo && hoveredExpo.previewImage && (
+            {hoveredExpo && hoveredExpo.previewImage && (() => {
+                const img = hoveredExpo.previewImage
+                const hs = img?.hotspot
+                const rect = cropToRect(img)
+                const previewUrl = (rect
+                    ? urlFor(img).rect(rect.x, rect.y, rect.width, rect.height)
+                    : urlFor(img))
+                    .width(800)
+                    .height(800)
+                    .fit('crop')
+                    .focalPoint(hs?.x ?? 0.5, hs?.y ?? 0.5)
+                    .quality(90)
+                    .auto('format')
+                    .url()
+                return (
                 <div className={styles.preview}>
                     <img
-                        src={urlFor(hoveredExpo.previewImage)
-                            .width(800)
-                            .height(800)
-                            .fit('crop')
-                            .crop('focalpoint')
-                            .focalPoint(hoveredExpo.previewImage?.hotspot?.x ?? 0.5, hoveredExpo.previewImage?.hotspot?.y ?? 0.5)
-                            .quality(90)
-                            .auto('format')
-                            .url()}
+                        src={previewUrl}
                         alt={hoveredExpo.title || 'Exposición preview'}
                         className={styles.previewImage}
                     />
-                </div>
-            )}
+                </div>)
+            })()}
         </div>
         </>
     )

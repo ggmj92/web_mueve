@@ -187,9 +187,6 @@ export default async function GuestArtistPage({ params }) {
                     heroArtwork.image.hotspot
                   ),
                 }}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
-                }}
                 loading="eager"
               />
             </div>

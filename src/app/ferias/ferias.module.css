@@ -39,7 +39,8 @@
 }
 
 .itemName {
-  flex: 1 1 0;
+  flex: 1;
+  min-width: 300px;
 }
 
 .itemYear {

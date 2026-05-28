@@ -1,18 +1,26 @@
 import { sanityFetch } from '@/sanity/lib/live'
-import Image from "next/image";
-import styles from "./about.module.css";
-import StructuredData from '@/components/StructuredData';
-import NewsletterModal from '@/components/NewsletterModal';
-import PortfolioLink from '@/components/PortfolioLink';
-import BilingualContent from '@/components/BilingualContent';
+import Image from 'next/image'
+import styles from './about.module.css'
+import StructuredData from '@/components/StructuredData'
+import NewsletterModal from '@/components/NewsletterModal'
+import PortfolioLink from '@/components/PortfolioLink'
+import BilingualContent from '@/components/BilingualContent'
 
 export const metadata = {
-  title: "Nosotros - Sobre Mueve Galería",
-  description: "Conoce la historia y misión de Mueve Galería. Descubre nuestro compromiso con el arte contemporáneo y los artistas emergentes.",
-  keywords: ["sobre nosotros", "historia galería", "misión Mueve", "arte contemporáneo", "galería arte"],
+  title: 'Nosotros - Sobre Mueve Galería',
+  description:
+    'Conoce la historia y misión de Mueve Galería. Descubre nuestro compromiso con el arte contemporáneo y los artistas emergentes.',
+  keywords: [
+    'sobre nosotros',
+    'historia galería',
+    'misión Mueve',
+    'arte contemporáneo',
+    'galería arte',
+  ],
   openGraph: {
-    title: "Nosotros - Sobre Mueve Galería",
-    description: "Conoce la historia y misión de Mueve Galería. Descubre nuestro compromiso con el arte contemporáneo y los artistas emergentes.",
+    title: 'Nosotros - Sobre Mueve Galería',
+    description:
+      'Conoce la historia y misión de Mueve Galería. Descubre nuestro compromiso con el arte contemporáneo y los artistas emergentes.',
     url: 'https://muevegaleria.com/nosotros',
     images: [
       {
@@ -24,11 +32,12 @@ export const metadata = {
     ],
   },
   instagram: {
-    title: "Nosotros - Sobre Mueve Galería",
-    description: "Conoce la historia y misión de Mueve Galería. Descubre nuestro compromiso con el arte contemporáneo y los artistas emergentes.",
+    title: 'Nosotros - Sobre Mueve Galería',
+    description:
+      'Conoce la historia y misión de Mueve Galería. Descubre nuestro compromiso con el arte contemporáneo y los artistas emergentes.',
     images: ['/logos/mueve_mini-logo.png'],
   },
-};
+}
 
 export default async function NosotrosPage() {
   const data = await sanityFetch({
@@ -53,19 +62,26 @@ export default async function NosotrosPage() {
       }
     }`,
     revalidate: 3600,
-  });
+  })
 
   return (
     <>
       <StructuredData type="BreadcrumbList" />
       <NewsletterModal />
       <div className={styles.about}>
-
         {/* TEXT COLUMN */}
         <div className={styles.textCol}>
           <BilingualContent
-            spanish={<p className={styles.copy}>{data?.data?.spanish || "Texto próximamente"}</p>}
-            english={<p className={`${styles.copy} notranslate`}>{data?.data?.english || "Content coming soon"}</p>}
+            spanish={
+              <p className={styles.copy}>
+                {data?.data?.spanish || 'Texto próximamente'}
+              </p>
+            }
+            english={
+              <p className={`${styles.copy} notranslate`}>
+                {data?.data?.english || 'Content coming soon'}
+              </p>
+            }
           />
 
           <PortfolioLink
@@ -88,8 +104,6 @@ export default async function NosotrosPage() {
           />
         </div>
       </div>
-
     </>
-  );
+  )
 }
-

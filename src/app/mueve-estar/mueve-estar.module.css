@@ -1,236 +1,238 @@
 /* Carousel section - matching artist hero */
 .carouselSection {
-    position: relative;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-top: var(--header-h, 100px);
-    margin-bottom: var(--footer-h, 70px);
-    padding-left: var(--layout-padding-inline, 2rem);
+  position: relative;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  margin-top: var(--header-h, 100px);
+  margin-bottom: var(--footer-h, 70px);
+  padding-left: var(--layout-padding-inline, 2rem);
 }
 
 .scrollArrow {
-    position: absolute;
-    top: 60%;
-    transform: translateY(-50%);
-    background: none;
-    border: none;
-    font-size: 2rem;
-    color: black;
-    cursor: pointer;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    z-index: 10;
-    padding: 1rem;
+  position: absolute;
+  top: 60%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: black;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+  padding: 1rem;
 }
 
 .scrollArrow:hover {
-    opacity: 0.7 !important;
+  opacity: 0.7 !important;
 }
 
 .scrollArrow.visible {
-    opacity: 1;
+  opacity: 1;
 }
 
 .scrollArrow.left {
-    left: calc(var(--layout-padding-inline, 2rem));
+  left: calc(var(--layout-padding-inline, 2rem));
 }
 
 .scrollArrow.right {
-    right: calc(var(--layout-padding-inline, 2rem));
+  right: calc(var(--layout-padding-inline, 2rem));
 }
 
 .carouselContainer {
-    display: flex;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    padding-left: 0;
-    padding-right: 0;
-    gap: 2rem;
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  padding-left: 0;
+  padding-right: 0;
+  gap: 2rem;
 }
 
 .carouselContainer::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .carouselSlide {
-    flex: 0 0 auto;
-    width: calc(100vw - (var(--layout-padding-inline, 2rem) * 2) - 2rem);
-    height: calc((100vw - (var(--layout-padding-inline, 2rem) * 2) - 2rem) / 2.35);
-    scroll-snap-align: start;
-    overflow: hidden;
+  flex: 0 0 auto;
+  width: calc(100vw - (var(--layout-padding-inline, 2rem) * 2) - 2rem);
+  height: calc(
+    (100vw - (var(--layout-padding-inline, 2rem) * 2) - 2rem) / 2.35
+  );
+  scroll-snap-align: start;
+  overflow: hidden;
 }
 
 .carouselSlide:last-child {
-    margin-right: var(--layout-padding-inline, 2rem);
+  margin-right: var(--layout-padding-inline, 2rem);
 }
 
 .carouselImage {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
 }
 
 /* Description section - right below carousel */
 .descriptionSection {
-    padding: 2rem 0;
+  padding: 2rem 0;
 }
 
 /* Artist list section - further down */
 .artistSection {
-    padding: 4rem 0 4rem;
-    min-height: 60vh;
+  padding: 4rem 0 4rem;
+  min-height: 60vh;
 }
 
 .mueveEstar {
-    display: flex;
-    flex-direction: column;
-    padding: calc(var(--header-h, 4.5rem) + 2rem) 0 4rem 0;
-    gap: 4rem;
+  display: flex;
+  flex-direction: column;
+  padding: calc(var(--header-h, 4.5rem) + 2rem) 0 4rem 0;
+  gap: 4rem;
 }
 
 /* Description text styling - matching nosotros */
 .textCol {
-    width: 100%;
+  width: 100%;
 }
 
 .copy {
-    white-space: pre-line;
-    line-height: 1;
-    width: 650px;
-    font-size: 14px;
-    font-weight: 200;
+  white-space: pre-line;
+  line-height: 1;
+  width: 650px;
+  font-size: 14px;
+  font-weight: 200;
 }
 
 .copy p {
-    margin: 0 0 1em 0;
-    line-height: 1.4;
+  margin: 0 0 1em 0;
+  line-height: 1.4;
 }
 
 .copy p:last-child {
-    margin-bottom: 1px;
+  margin-bottom: 1px;
 }
 
 /* Artist list styling - matching artistas */
 .listCol {
-    width: 50%;
-    padding-left: 0.2rem;
+  width: 50%;
+  padding-left: 0.2rem;
 }
 
 .listHeader {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 1.5rem 0;
-    color: #000;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0 0 1.5rem 0;
+  color: #000;
 }
 
 .list {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    text-align: left;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  text-align: left;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 10px;
 }
 
 .listItem {
-    display: flex;
+  display: flex;
 }
 
 .artistName {
-    font-size: 20px;
-    font-weight: 300;
-    color: #000;
-    text-decoration: none;
+  font-size: 20px;
+  font-weight: 300;
+  color: #000;
+  text-decoration: none;
 }
 
 a.artistName:hover {
-    font-style: italic;
+  font-style: italic;
 }
 
 .preview {
-    position: fixed;
-    top: calc(var(--header-height, 8rem) + 2rem);
-    right: 2rem;
-    width: 500px;
-    max-height: 800px;
-    height: calc(100vh - var(--footer-height, 100px) - 8rem);
-    background-color: #fff;
-    overflow: hidden;
-    box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  position: fixed;
+  top: calc(var(--header-height, 8rem) + 2rem);
+  right: 2rem;
+  width: 500px;
+  max-height: 800px;
+  height: calc(100vh - var(--footer-height, 100px) - 8rem);
+  background-color: #fff;
+  overflow: hidden;
+  box-shadow: -4px 0 12px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .previewImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 @media (max-width: 1800px) {
-    .textCol,
-    .listCol {
-        margin-left: 7.8rem;
-    }
+  .textCol,
+  .listCol {
+    margin-left: 7.8rem;
+  }
 }
 
 @media (max-width: 1000px) {
-    .copy {
-        width: 80%;
-    }
+  .copy {
+    width: 80%;
+  }
 
-    .textCol,
-    .listCol {
-        margin-left: 0;
-    }
+  .textCol,
+  .listCol {
+    margin-left: 0;
+  }
 
-    .listCol {
-        width: 80%;
-    }
+  .listCol {
+    width: 80%;
+  }
 }
 
 @media (max-width: 700px) {
-    .copy {
-        width: 100%;
-    }
+  .copy {
+    width: 100%;
+  }
 
-    .listCol {
-        width: 100%;
-    }
+  .listCol {
+    width: 100%;
+  }
 }
 
 @media (max-width: 768px) {
-    .carouselSlide {
-        height: calc((100vw - (var(--layout-padding-inline, 2rem) * 2)) / 2.35);
-    }
+  .carouselSlide {
+    height: calc((100vw - (var(--layout-padding-inline, 2rem) * 2)) / 2.35);
+  }
 }
 
 @media (max-width: 600px) {
-    .mueveEstar {
-        gap: 3rem;
-    }
+  .mueveEstar {
+    gap: 3rem;
+  }
 
-    .copy {
-        width: 100%;
-    }
+  .copy {
+    width: 100%;
+  }
 
-    .listCol {
-        width: 100%;
-    }
+  .listCol {
+    width: 100%;
+  }
 
-    .listHeader {
-        font-size: 1.2rem;
-        margin-bottom: 1rem;
-    }
+  .listHeader {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
 
-    .artistName {
-        font-size: 1.2rem;
-    }
+  .artistName {
+    font-size: 1.2rem;
+  }
 }

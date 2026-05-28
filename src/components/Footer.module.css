@@ -1,177 +1,178 @@
 .footer {
-    width: 100%;
-    background: white;
-    padding: var(--footer-padding-block, 1.25rem) var(--layout-padding-inline, 2rem);
-    box-sizing: border-box;
-    bottom: 3rem;
-    /* Account for banner height */
-    position: fixed;
-    z-index: 10;
-    color: var(--footer-text-color, #000);
+  width: 100%;
+  background: white;
+  padding: var(--footer-padding-block, 1.25rem)
+    var(--layout-padding-inline, 2rem);
+  box-sizing: border-box;
+  bottom: 3rem;
+  /* Account for banner height */
+  position: fixed;
+  z-index: 10;
+  color: var(--footer-text-color, #000);
 }
 
 .footerInner {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 60%;
-    margin-left: 0;
-    line-height: 1rem;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 60%;
+  margin-left: 0;
+  line-height: 1rem;
 }
 
 .footer p {
-    color: inherit;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 300;
-    transition: opacity 0.3s ease;
+  color: inherit;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 300;
+  transition: opacity 0.3s ease;
 }
 
 .footer a {
-    color: inherit;
-    cursor: pointer !important;
+  color: inherit;
+  cursor: pointer !important;
 }
 
 .footer a:hover {
-    font-style: italic;
+  font-style: italic;
 }
 
 :global(.home) .footer {
-    position: fixed;
-    background: var(--footer-background, transparent);
-    bottom: 3rem;
-    /* Account for banner height on homepage */
-    left: 0;
-    right: 0;
-    z-index: 10;
+  position: fixed;
+  background: var(--footer-background, transparent);
+  bottom: 3rem;
+  /* Account for banner height on homepage */
+  left: 0;
+  right: 0;
+  z-index: 10;
 }
 
 :global(.home) .footerInner {
-    width: 60%;
-    margin-left: 0;
+  width: 60%;
+  margin-left: 0;
 }
 
 /* When banner is closed, move footer to bottom */
 .footerNoBanner {
-    bottom: 0 !important;
+  bottom: 0 !important;
 }
 
 :global(.home) .footerNoBanner {
-    bottom: 0 !important;
+  bottom: 0 !important;
 }
 
 :global(.home) .footer a:hover {
-    opacity: 0.7;
+  opacity: 0.7;
 }
 
 .col {
-    flex: 1 1 33.33%;
-    box-sizing: border-box;
-    text-align: left;
+  flex: 1 1 33.33%;
+  box-sizing: border-box;
+  text-align: left;
 }
 
 .addressLink {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
-.addressLink:hover+.limaPeru {
-    font-style: italic;
+.addressLink:hover + .limaPeru {
+  font-style: italic;
 }
 
 .newsletter {
-    white-space: nowrap;
+  white-space: nowrap;
 }
 
 .mobileInstagram {
-    display: none;
+  display: none;
 }
 
 /* Mobile-specific rows - hidden by default */
 .mobileRow1,
 .mobileRow2 {
-    display: none;
+  display: none;
 }
 
 @media (max-width: 1400px) {
-    .footerInner {
-        width: 80%;
-    }
+  .footerInner {
+    width: 80%;
+  }
 
-    :global(.home) .footerInner {
-        width: 80%;
-    }
+  :global(.home) .footerInner {
+    width: 80%;
+  }
 }
 
 @media (max-width: 900px) {
-    .footerInner {
-        width: 100%;
-        flex-wrap: wrap;
-        justify-content: flex-end;
-    }
+  .footerInner {
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
 
-    :global(.home) .footerInner {
-        width: 100%;
-    }
+  :global(.home) .footerInner {
+    width: 100%;
+  }
 
-    .limaPeru {
-        display: none !important;
-    }
+  .limaPeru {
+    display: none !important;
+  }
 
-    .mobileInstagram {
-        display: block !important;
-    }
+  .mobileInstagram {
+    display: block !important;
+  }
 
-    .desktopInstagram {
-        display: none !important;
-    }
+  .desktopInstagram {
+    display: none !important;
+  }
 }
 
 @media (max-width: 600px) {
-    .footerInner {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        gap: 2px;
-    }
+  .footerInner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 2px;
+  }
 
-    :global(.home) .footerInner {
-        width: 100%;
-    }
+  :global(.home) .footerInner {
+    width: 100%;
+  }
 
-    .footer {
-        width: 100vw;
-        left: 0;
-        right: 0;
-        /* Ensure footer is fixed on mobile for all pages */
-    }
+  .footer {
+    width: 100vw;
+    left: 0;
+    right: 0;
+    /* Ensure footer is fixed on mobile for all pages */
+  }
 
-    .footer p {
-        font-size: 12px;
-        font-weight: 320;
-    }
+  .footer p {
+    font-size: 12px;
+    font-weight: 320;
+  }
 
-    /* Hide desktop columns on mobile */
-    .col {
-        display: none;
-    }
+  /* Hide desktop columns on mobile */
+  .col {
+    display: none;
+  }
 
-    /* Show mobile rows */
-    .mobileRow1,
-    .mobileRow2 {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-    }
+  /* Show mobile rows */
+  .mobileRow1,
+  .mobileRow2 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
 
-    .mobileAddress,
-    .mobileInstagram {
-        text-align: left;
-    }
+  .mobileAddress,
+  .mobileInstagram {
+    text-align: left;
+  }
 
-    .mobileEmail,
-    .mobileNewsletter {
-        text-align: right;
-    }
+  .mobileEmail,
+  .mobileNewsletter {
+    text-align: right;
+  }
 }

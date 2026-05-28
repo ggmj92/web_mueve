@@ -138,7 +138,7 @@
   display: block;
 }
 
-.content input[type="email"] {
+.content input[type='email'] {
   width: 100%;
   max-width: 300px;
   padding: 0.75rem 1rem;
@@ -149,7 +149,7 @@
   transition: border-color 0.2s ease;
 }
 
-.content input[type="email"]:focus {
+.content input[type='email']:focus {
   outline: none;
   border-color: #007bff;
 }
@@ -204,28 +204,28 @@
   .overlay {
     padding: 0.5rem;
   }
-  
+
   .modal {
     padding: 1.5rem;
     max-width: 350px;
   }
-  
+
   .title {
     font-size: 1.3rem;
   }
-  
+
   .titleEnglish {
     font-size: 1.1rem;
   }
-  
+
   .description {
     font-size: 0.9rem;
   }
-  
+
   .descriptionEnglish {
     font-size: 0.85rem;
   }
-  
+
   .closeButton {
     top: 0.75rem;
     right: 0.75rem;
@@ -235,12 +235,12 @@
     line-height: 1;
     text-align: center;
   }
-  
-  .content input[type="email"] {
+
+  .content input[type='email'] {
     padding: 0.7rem 0.9rem;
     font-size: 0.85rem;
   }
-  
+
   .content button {
     padding: 0.7rem 1.5rem;
     font-size: 0.85rem;
@@ -253,19 +253,19 @@
     padding: 1.25rem;
     max-width: 300px;
   }
-  
+
   .title {
     font-size: 1.2rem;
   }
-  
+
   .titleEnglish {
     font-size: 1rem;
   }
-  
+
   .description {
     font-size: 0.85rem;
   }
-  
+
   .descriptionEnglish {
     font-size: 0.8rem;
   }

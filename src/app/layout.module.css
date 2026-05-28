@@ -1,7 +1,7 @@
 .body {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
 /* ----------------------------- */
@@ -9,30 +9,30 @@
 /* ----------------------------- */
 
 .studio .main {
-    max-width: none;
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-    min-height: 100vh;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  min-height: 100vh;
 }
 
 /* Main content area */
 .main {
-    flex: 1;
-    max-width: var(--max-width, 1200px);
-    margin: 0 auto;
-    padding: var(--layout-padding-block, 2rem) var(--layout-padding-inline, 2rem);
-    width: 100%;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  max-width: var(--max-width, 1200px);
+  margin: 0 auto;
+  padding: var(--layout-padding-block, 2rem) var(--layout-padding-inline, 2rem);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 /* Reusable container utility */
 .container {
-    max-width: var(--max-width, 1400px);
-    margin: 0 auto;
-    padding: 0 var(--layout-padding-inline, 2rem);
-    width: 100%;
+  max-width: var(--max-width, 1400px);
+  margin: 0 auto;
+  padding: 0 var(--layout-padding-inline, 2rem);
+  width: 100%;
 }
 
 /* ----------------------------- */
@@ -40,23 +40,23 @@
 /* ----------------------------- */
 
 .home {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    overflow: hidden;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
 }
 
 .home .body {
-    height: 100vh;
+  height: 100vh;
 }
 
 .home .main {
-    flex: 1;
-    padding: 0;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  flex: 1;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 /* ----------------------------- */
@@ -64,35 +64,35 @@
 /* ----------------------------- */
 
 .inner .body {
-    /* white background only for inner pages */
-    background: #fff;
+  /* white background only for inner pages */
+  background: #fff;
 }
 
 .inner .header {
-    position: relative;
-    background: #fff;
-    color: black;
+  position: relative;
+  background: #fff;
+  color: black;
 }
 
 .inner .footer {
-    position: fixed;
-    background: #fff;
-    color: black;
+  position: fixed;
+  background: #fff;
+  color: black;
 }
 
 .inner .logo,
 .inner .menuButton,
 .inner .footerInner {
-    color: black;
+  color: black;
 }
 
 @media (max-width: 600px) {
-    .main {
-        padding: var(--layout-padding-block, 1.5rem) var(--layout-padding-inline, 1rem);
-    }
+  .main {
+    padding: var(--layout-padding-block, 1.5rem)
+      var(--layout-padding-inline, 1rem);
+  }
 
-    .container {
-        padding: 0 var(--layout-padding-inline, 1rem);
-    }
-
+  .container {
+    padding: 0 var(--layout-padding-inline, 1rem);
+  }
 }

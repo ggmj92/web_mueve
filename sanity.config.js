@@ -33,7 +33,7 @@ export default defineConfig({
       assetSources: (previousAssetSources) => {
         return previousAssetSources
       },
-      directUploads: true
-    }
-  }
+      directUploads: true,
+    },
+  },
 })

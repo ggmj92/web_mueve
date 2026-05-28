@@ -1,46 +1,46 @@
 .languageToggle {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 2rem;
-    font-weight: 200;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 2rem;
+  font-weight: 200;
 }
 
 .langButton {
-    background: none;
-    border: none;
-    color: inherit;
-    font-size: inherit;
-    font-weight: inherit;
-    font-family: inherit;
-    cursor: pointer;
-    padding: 0;
-    transition: opacity 0.2s ease;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0;
+  transition: opacity 0.2s ease;
 }
 
 .langButton:hover {
-    font-style: italic;
-    opacity: 0.7;
+  font-style: italic;
+  opacity: 0.7;
 }
 
 .langButton.active {
-    font-weight: 400;
+  font-weight: 400;
 }
 
 .separator {
-    font-size: inherit;
-    font-weight: 200;
-    opacity: 0.5;
+  font-size: inherit;
+  font-weight: 200;
+  opacity: 0.5;
 }
 
 @media (max-width: 1000px) {
-    .languageToggle {
-        font-size: 1.8rem;
-    }
+  .languageToggle {
+    font-size: 1.8rem;
+  }
 }
 
 @media (max-width: 600px) {
-    .languageToggle {
-        font-size: 1.4rem;
-    }
+  .languageToggle {
+    font-size: 1.4rem;
+  }
 }

@@ -1,128 +1,125 @@
 .about {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    padding: calc(var(--header-h, 4.5rem) + 2rem) 0 2rem 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: calc(var(--header-h, 4.5rem) + 2rem) 0 2rem 0;
 }
 
 .copy {
-    white-space: pre-line;
-    line-height: 1;
-    width: 650px;
-    font-size: 14px;
-    font-weight: 200;
+  white-space: pre-line;
+  line-height: 1;
+  width: 650px;
+  font-size: 14px;
+  font-weight: 200;
 }
 
-.copy+.copy {
-    margin-top: 6rem;
+.copy + .copy {
+  margin-top: 6rem;
 }
-
 
 .content {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 .miniLogo {
-    width: 100px;
-    height: 120px;
-    object-fit: contain;
-    margin-right: 2rem;
+  width: 100px;
+  height: 120px;
+  object-fit: contain;
+  margin-right: 2rem;
 }
 
 .logoCol {
-    display: flex;
+  display: flex;
 }
 
 .prensa {
-    margin-top: 3rem;
-    font-size: 1.8rem;
-    font-weight: 100;
-    text-decoration: underline;
-    color: inherit;
-    display: inline-block;
-    transition: font-style 0.2s ease;
-    cursor: pointer;
+  margin-top: 3rem;
+  font-size: 1.8rem;
+  font-weight: 100;
+  text-decoration: underline;
+  color: inherit;
+  display: inline-block;
+  transition: font-style 0.2s ease;
+  cursor: pointer;
 }
 
 .prensa:hover {
-    font-style: italic;
+  font-style: italic;
 }
 
 .prensa :global(.portfolio-lang-link) {
-    text-decoration: underline;
-    color: inherit;
-    transition: font-style 0.2s ease;
+  text-decoration: underline;
+  color: inherit;
+  transition: font-style 0.2s ease;
 }
 
 .prensa :global(.portfolio-lang-link):hover {
-    font-style: italic;
+  font-style: italic;
 }
 
 @media (max-width: 1800px) {
-    .textCol {
-        margin-left: 7.8rem;
-    }
+  .textCol {
+    margin-left: 7.8rem;
+  }
 }
 
 @media (max-width: 1000px) {
-    .about {
-        flex-direction: column;
+  .about {
+    flex-direction: column;
+  }
 
-    }
+  .copy {
+    width: 80%;
+  }
 
-    .copy {
-        width: 80%;
-    }
+  .textCol {
+    margin-left: 0;
+  }
 
-    .textCol {
-        margin-left: 0;
-    }
+  .logoCol {
+    justify-content: flex-end !important;
+  }
 
-    .logoCol {
-        justify-content: flex-end !important;
-    }
-    
-    .miniLogo {
-        width: 100px;
-        height: 120px;
-    }
+  .miniLogo {
+    width: 100px;
+    height: 120px;
+  }
 }
 
 @media (max-width: 700px) {
+  .copy {
+    width: 100%;
+  }
 
-    .copy {
-        width: 100%;
-    }
+  .textCol {
+    margin-left: 0;
+  }
 
-    .textCol {
-        margin-left: 0;
-    }
+  .logoCol {
+    justify-content: flex-end !important;
+  }
 
-    .logoCol {
-        justify-content: flex-end !important;
-    }
-    
-    .miniLogo {
-        width: 100px;
-        height: 120px;
-    }
+  .miniLogo {
+    width: 100px;
+    height: 120px;
+  }
 }
 
 @media (max-width: 600px) {
-    .copy {
-        width: 100%;
-    }
+  .copy {
+    width: 100%;
+  }
 
-    .logoCol {
-        justify-content: flex-end !important;
-    }
-    
-    .miniLogo {
-        width: 100px;
-        height: 120px;
-    }
+  .logoCol {
+    justify-content: flex-end !important;
+  }
+
+  .miniLogo {
+    width: 100px;
+    height: 120px;
+  }
 }

@@ -32,7 +32,12 @@ async function getArtistWithWorks(slug) {
       }
     }
   }`
-    return client.fetch(query, { slug })
+    try {
+        return await client.fetch(query, { slug })
+    } catch (err) {
+        console.error('Sanity fetch error:', err)
+        return null
+    }
 }
 
 export default async function ArtworkPage({ params }) {

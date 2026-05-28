@@ -43,3 +43,6 @@ next-env.d.ts
 CLAUDE.md
 MUEVE_PROJECT_PLAN.md
 AUDIT_FINDINGS.md
+
+# local dev data (ephemeral on Vercel, never commit)
+/data/

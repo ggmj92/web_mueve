@@ -51,7 +51,8 @@
 
 /* Pulsating arrow */
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
     opacity: 0.6;
   }
@@ -66,11 +67,11 @@
   .scrollIndicator {
     bottom: calc(3rem + 2.5rem + 1rem); /* footer + mobile banner + spacing */
   }
-  
+
   :global(.banner-hidden) .scrollIndicator {
     bottom: calc(3rem + 1rem); /* footer + spacing only */
   }
-  
+
   .arrow {
     transform: scale(0.9);
   }

@@ -6,8 +6,8 @@ import NewsletterModal from '@/components/NewsletterModal'
 import styles from './ferias.module.css'
 
 async function getFerias() {
-    try {
-        const query = `*[_type == "feria" && defined(slug.current)] | order(year desc, order asc){
+  try {
+    const query = `*[_type == "feria" && defined(slug.current)] | order(year desc, order asc){
         _id,
         title,
         "slug": slug.current,
@@ -16,62 +16,64 @@ async function getFerias() {
         isCurrent,
         order
       }`
-        return await client.fetch(query)
-    } catch (error) {
-        console.error('Error fetching ferias:', error)
-        return []
-    }
+    return await client.fetch(query)
+  } catch (error) {
+    console.error('Error fetching ferias:', error)
+    return []
+  }
 }
 
 export default function FeriasPage() {
-    const [ferias, setFerias] = useState([])
-    const [loading, setLoading] = useState(true)
+  const [ferias, setFerias] = useState([])
+  const [loading, setLoading] = useState(true)
 
-    useEffect(() => {
-        getFerias()
-            .then(ferias => {
-                setFerias(ferias)
-                setLoading(false)
-            })
-            .catch(error => {
-                console.error('Error al cargar ferias:', error)
-                setFerias([])
-                setLoading(false)
-            })
-    }, [])
+  useEffect(() => {
+    getFerias()
+      .then((ferias) => {
+        setFerias(ferias)
+        setLoading(false)
+      })
+      .catch((error) => {
+        console.error('Error al cargar ferias:', error)
+        setFerias([])
+        setLoading(false)
+      })
+  }, [])
 
-    return (
-        <>
-            <NewsletterModal />
-            <div className={`${styles.ferias} alignSecondCol`}>
-            <div className={styles.listCol}>
-                {loading ? (
-                    <div>
-                        <p>Cargando ferias...</p>
-                    </div>
-                ) : (
-                    <>
-                        {ferias.length > 0 ? (
-                            <ul className={styles.list}>
-                                {ferias.map((f) => (
-                                    <li key={f.slug ?? f._id} className={styles.listItem}>
-                                        <div className={styles.itemLink}>
-                                            <span className={`${styles.itemName} notranslate`}>{f.title}</span>
-                                            <span className={styles.itemYear}>{f.year}</span>
-                                            <span className={styles.itemDate}>{f.dateRange}</span>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        ) : (
-                            <div>
-                                <p>No se encontraron ferias.</p>
-                            </div>
-                        )}
-                    </>
-                )}
+  return (
+    <>
+      <NewsletterModal />
+      <div className={`${styles.ferias} alignSecondCol`}>
+        <div className={styles.listCol}>
+          {loading ? (
+            <div>
+              <p>Cargando ferias...</p>
             </div>
+          ) : (
+            <>
+              {ferias.length > 0 ? (
+                <ul className={styles.list}>
+                  {ferias.map((f) => (
+                    <li key={f.slug ?? f._id} className={styles.listItem}>
+                      <div className={styles.itemLink}>
+                        <span className={`${styles.itemName} notranslate`}>
+                          {f.title}
+                        </span>
+                        <span className={styles.itemYear}>{f.year}</span>
+                        <span className={styles.itemDate}>{f.dateRange}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div>
+                  <p>No se encontraron ferias.</p>
+                </div>
+              )}
+            </>
+          )}
         </div>
-        </>
-    )
+      </div>
+    </>
+  )
 }

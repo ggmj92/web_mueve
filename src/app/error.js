@@ -7,7 +7,7 @@ export default function Error({ error, reset }) {
   useEffect(() => {
     // Log error to error reporting service
     console.error('Application error:', error)
-    
+
     // You can integrate with error tracking services here
     // Example: Sentry.captureException(error)
   }, [error])
@@ -17,13 +17,11 @@ export default function Error({ error, reset }) {
       <div className={styles.errorContent}>
         <h1 className={styles.errorTitle}>Algo salió mal</h1>
         <p className={styles.errorMessage}>
-          Lo sentimos, ha ocurrido un error inesperado. Por favor, intenta nuevamente.
+          Lo sentimos, ha ocurrido un error inesperado. Por favor, intenta
+          nuevamente.
         </p>
         <div className={styles.errorActions}>
-          <button
-            onClick={() => reset()}
-            className={styles.retryButton}
-          >
+          <button onClick={() => reset()} className={styles.retryButton}>
             Intentar nuevamente
           </button>
           <a href="/" className={styles.homeButton}>

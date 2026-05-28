@@ -9,4 +9,14 @@ import feria from './feria'
 import mueveEstar from './mueveEstar'
 // artwork is now inline within artist schema
 
-export const schemaTypes = [homepage, about, artist, guestArtist, announcementBanner, publicacion, exposicion, feria, mueveEstar]
+export const schemaTypes = [
+  homepage,
+  about,
+  artist,
+  guestArtist,
+  announcementBanner,
+  publicacion,
+  exposicion,
+  feria,
+  mueveEstar,
+]

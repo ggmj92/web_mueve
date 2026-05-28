@@ -1,22 +1,25 @@
 import { client } from '@/sanity/lib/client'
 
 export default async function sitemap() {
-  const baseUrl = 'https://muevegaleria.com';
+  const baseUrl = 'https://muevegaleria.com'
 
   // Fetch all artists
-  const artists = await client.fetch(`*[_type == "artist" && defined(slug.current)]{
+  const artists =
+    await client.fetch(`*[_type == "artist" && defined(slug.current)]{
     slug,
     _updatedAt
   }`)
 
   // Fetch all exposiciones
-  const exposiciones = await client.fetch(`*[_type == "exposicion" && defined(slug.current)]{
+  const exposiciones =
+    await client.fetch(`*[_type == "exposicion" && defined(slug.current)]{
     slug,
     _updatedAt
   }`)
 
   // Fetch all guest artists
-  const guestArtists = await client.fetch(`*[_type == "guestArtist" && defined(slug.current)]{
+  const guestArtists =
+    await client.fetch(`*[_type == "guestArtist" && defined(slug.current)]{
     slug,
     _updatedAt
   }`)
@@ -65,7 +68,7 @@ export default async function sitemap() {
       changeFrequency: 'monthly',
       priority: 0.8,
     },
-  ];
+  ]
 
   // Dynamic artist pages
   const artistPages = artists.map((artist) => ({
@@ -91,5 +94,10 @@ export default async function sitemap() {
     priority: 0.8,
   }))
 
-  return [...staticPages, ...artistPages, ...exposicionPages, ...guestArtistPages];
+  return [
+    ...staticPages,
+    ...artistPages,
+    ...exposicionPages,
+    ...guestArtistPages,
+  ]
 }

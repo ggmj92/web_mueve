@@ -11,12 +11,10 @@ export const structure = (S) =>
           S.documentTypeList('homepage')
             .title('Homepage')
             .child((homepageId) =>
-              S.document()
-                .documentId(homepageId)
-                .schemaType('homepage')
+              S.document().documentId(homepageId).schemaType('homepage')
             )
         ),
-      
+
       // 2. Artists section (artworks are now inline within each artist)
       S.listItem()
         .title('Artistas')
@@ -25,12 +23,10 @@ export const structure = (S) =>
           S.documentTypeList('artist')
             .title('Artistas')
             .child((artistId) =>
-              S.document()
-                .documentId(artistId)
-                .schemaType('artist')
+              S.document().documentId(artistId).schemaType('artist')
             )
         ),
-      
+
       // 3. Exposiciones section
       S.listItem()
         .title('Exposiciones')
@@ -39,12 +35,10 @@ export const structure = (S) =>
           S.documentTypeList('exposicion')
             .title('Exposiciones')
             .child((exposicionId) =>
-              S.document()
-                .documentId(exposicionId)
-                .schemaType('exposicion')
+              S.document().documentId(exposicionId).schemaType('exposicion')
             )
         ),
-      
+
       // 4. Ferias section
       S.listItem()
         .title('Ferias')
@@ -53,12 +47,10 @@ export const structure = (S) =>
           S.documentTypeList('feria')
             .title('Ferias')
             .child((feriaId) =>
-              S.document()
-                .documentId(feriaId)
-                .schemaType('feria')
+              S.document().documentId(feriaId).schemaType('feria')
             )
         ),
-      
+
       // 5. Publicaciones section
       S.listItem()
         .title('Publicaciones')
@@ -67,12 +59,10 @@ export const structure = (S) =>
           S.documentTypeList('publicacion')
             .title('Publicaciones')
             .child((publicacionId) =>
-              S.document()
-                .documentId(publicacionId)
-                .schemaType('publicacion')
+              S.document().documentId(publicacionId).schemaType('publicacion')
             )
         ),
-      
+
       // 6. Mueve Estar section
       S.listItem()
         .title('mueve (estar  )')
@@ -81,12 +71,10 @@ export const structure = (S) =>
           S.documentTypeList('mueveEstar')
             .title('mueve (estar  )')
             .child((mueveEstarId) =>
-              S.document()
-                .documentId(mueveEstarId)
-                .schemaType('mueveEstar')
+              S.document().documentId(mueveEstarId).schemaType('mueveEstar')
             )
         ),
-      
+
       // 7. Guest Artists section
       S.listItem()
         .title('Artistas Invitados')
@@ -95,9 +83,7 @@ export const structure = (S) =>
           S.documentTypeList('guestArtist')
             .title('Artistas Invitados')
             .child((guestArtistId) =>
-              S.document()
-                .documentId(guestArtistId)
-                .schemaType('guestArtist')
+              S.document().documentId(guestArtistId).schemaType('guestArtist')
             )
         ),
 
@@ -109,12 +95,10 @@ export const structure = (S) =>
           S.documentTypeList('nosotros')
             .title('Nosotros')
             .child((nosotrosId) =>
-              S.document()
-                .documentId(nosotrosId)
-                .schemaType('nosotros')
+              S.document().documentId(nosotrosId).schemaType('nosotros')
             )
         ),
-      
+
       // 8. Announcement Banner section
       S.listItem()
         .title('Banner de Anuncios')
@@ -123,9 +107,7 @@ export const structure = (S) =>
           S.documentTypeList('announcementBanner')
             .title('Banner de Anuncios')
             .child((bannerId) =>
-              S.document()
-                .documentId(bannerId)
-                .schemaType('announcementBanner')
+              S.document().documentId(bannerId).schemaType('announcementBanner')
             )
-        )
+        ),
     ])

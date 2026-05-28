@@ -4,7 +4,7 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ['@sanity/client', '@sanity/image-url'],
   },
-  
+
   // Image optimization settings
   images: {
     remotePatterns: [{ protocol: 'https', hostname: 'cdn.sanity.io' }],
@@ -13,10 +13,10 @@ const nextConfig = {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
-  
+
   // Compression
   compress: true,
-  
+
   // Headers for better SEO and security
   async headers() {
     return [
@@ -25,11 +25,11 @@ const nextConfig = {
         headers: [
           {
             key: 'X-DNS-Prefetch-Control',
-            value: 'on'
+            value: 'on',
           },
           {
             key: 'Strict-Transport-Security',
-            value: 'max-age=63072000; includeSubDomains; preload'
+            value: 'max-age=63072000; includeSubDomains; preload',
           },
           {
             key: 'X-Frame-Options',
@@ -41,7 +41,7 @@ const nextConfig = {
           },
           {
             key: 'X-XSS-Protection',
-            value: '1; mode=block'
+            value: '1; mode=block',
           },
           {
             key: 'Referrer-Policy',
@@ -49,7 +49,7 @@ const nextConfig = {
           },
           {
             key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()'
+            value: 'camera=(), microphone=(), geolocation=()',
           },
           {
             // Google Translate requires unsafe-inline for its injected scripts and styles.
@@ -64,7 +64,7 @@ const nextConfig = {
               "img-src 'self' data: blob: cdn.sanity.io translate.googleapis.com translate.google.com www.gstatic.com",
               "font-src 'self'",
               "connect-src 'self' *.sanity.io vitals.vercel-insights.com translate.googleapis.com translate.google.com",
-              "frame-src translate.google.com",
+              'frame-src translate.google.com',
               "frame-ancestors 'self'",
               "base-uri 'self'",
               "form-action 'self'",
@@ -81,7 +81,8 @@ const nextConfig = {
           },
           {
             key: 'Cache-Control',
-            value: 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=43200',
+            value:
+              'public, max-age=86400, s-maxage=86400, stale-while-revalidate=43200',
           },
         ],
       },
@@ -94,7 +95,8 @@ const nextConfig = {
           },
           {
             key: 'Cache-Control',
-            value: 'public, max-age=86400, s-maxage=86400, stale-while-revalidate=43200',
+            value:
+              'public, max-age=86400, s-maxage=86400, stale-while-revalidate=43200',
           },
         ],
       },
@@ -116,8 +118,8 @@ const nextConfig = {
           },
         ],
       },
-    ];
+    ]
   },
-};
+}
 
-export default nextConfig;
+export default nextConfig

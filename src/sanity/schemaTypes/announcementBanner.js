@@ -8,7 +8,7 @@ export default {
       title: 'Announcement Message',
       type: 'string',
       description: 'The message to display in the scrolling banner',
-      validation: (Rule) => Rule.required().max(200)
+      validation: (Rule) => Rule.required().max(200),
     },
     {
       name: 'link',
@@ -24,11 +24,11 @@ export default {
             list: [
               { title: 'Internal Page', value: 'internal' },
               { title: 'External URL', value: 'external' },
-              { title: 'No Link', value: 'none' }
+              { title: 'No Link', value: 'none' },
             ],
-            layout: 'radio'
+            layout: 'radio',
           },
-          initialValue: 'none'
+          initialValue: 'none',
         },
         {
           name: 'internalLink',
@@ -39,10 +39,10 @@ export default {
             list: [
               { title: 'Home', value: '/' },
               { title: 'Artists', value: '/artistas' },
-              { title: 'About', value: '/about' }
-            ]
+              { title: 'About', value: '/about' },
+            ],
           },
-          hidden: ({ parent }) => parent?.linkType !== 'internal'
+          hidden: ({ parent }) => parent?.linkType !== 'internal',
         },
         {
           name: 'artistLink',
@@ -50,7 +50,7 @@ export default {
           type: 'reference',
           to: [{ type: 'artist' }],
           description: 'Or link to a specific artist page',
-          hidden: ({ parent }) => parent?.linkType !== 'internal'
+          hidden: ({ parent }) => parent?.linkType !== 'internal',
         },
         {
           name: 'externalUrl',
@@ -59,30 +59,30 @@ export default {
           description: 'Full URL including https://',
           validation: (Rule) =>
             Rule.uri({
-              scheme: ['http', 'https', 'mailto', 'tel']
+              scheme: ['http', 'https', 'mailto', 'tel'],
             }),
-          hidden: ({ parent }) => parent?.linkType !== 'external'
-        }
-      ]
+          hidden: ({ parent }) => parent?.linkType !== 'external',
+        },
+      ],
     },
     {
       name: 'isActive',
       title: 'Active',
       type: 'boolean',
       description: 'Turn the announcement banner on or off',
-      initialValue: true
-    }
+      initialValue: true,
+    },
   ],
   preview: {
     select: {
       title: 'message',
-      isActive: 'isActive'
+      isActive: 'isActive',
     },
     prepare({ title, isActive }) {
       return {
         title: title || 'No message',
-        subtitle: isActive ? '✓ Active' : '✗ Inactive'
+        subtitle: isActive ? '✓ Active' : '✗ Inactive',
       }
-    }
-  }
+    },
+  },
 }

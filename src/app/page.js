@@ -54,7 +54,7 @@ async function getHomepageSlides() {
       {
         url: '/logos/mueve_mini-logo.png',
         durationMs: 5000,
-        position: 'center'
+        position: 'center',
       },
     ]
   }

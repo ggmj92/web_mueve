@@ -112,7 +112,7 @@ img {
 
 /* Ensure all interactive elements show pointer cursor */
 button,
-[role="button"],
+[role='button'],
 [onclick] {
   cursor: pointer !important;
 }
@@ -120,7 +120,7 @@ button,
 /* Force pointer cursor on all clickable elements */
 a,
 button,
-[role="button"],
+[role='button'],
 [onclick],
 .card,
 .portfolio,
@@ -187,12 +187,14 @@ body.inner {
     --header-padding-block: 0.75rem;
     --footer-padding-block: 5px;
   }
-  
+
   /* Adjust for mobile banner height (2.5rem instead of 3rem) */
   body:not(.home):not(.studio) {
-    padding-bottom: calc(3rem + 2.5rem); /* footer height + mobile banner height */
+    padding-bottom: calc(
+      3rem + 2.5rem
+    ); /* footer height + mobile banner height */
   }
-  
+
   body.banner-hidden:not(.home):not(.studio) {
     padding-bottom: 3rem; /* only footer height */
   }

@@ -23,7 +23,11 @@ export function cropToRect(image) {
 }
 
 export function hotspotToObjectPosition(hotspot) {
-  if (!hotspot || typeof hotspot.x !== 'number' || typeof hotspot.y !== 'number') {
+  if (
+    !hotspot ||
+    typeof hotspot.x !== 'number' ||
+    typeof hotspot.y !== 'number'
+  ) {
     return 'center'
   }
   return `${(hotspot.x * 100).toFixed(2)}% ${(hotspot.y * 100).toFixed(2)}%`

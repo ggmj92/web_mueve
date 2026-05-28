@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import ArtworkViewer from '@/components/ArtworkViewer'
@@ -37,12 +38,7 @@ async function getArtistWithWorks(slug) {
 export default async function ArtworkPage({ params }) {
     const { slug, artId } = await params
     const artist = await getArtistWithWorks(slug)
-    if (!artist)
-        return (
-            <main style={{ padding: 'calc(var(--header-h) + 2rem) var(--edge)' }}>
-                Not found
-            </main>
-        )
+    if (!artist) notFound()
 
     // Expand artworks with their detail images into separate slides
     // Use urlFor() so the Sanity CDN applies any crop the user set in Studio.

@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
@@ -147,13 +148,7 @@ export default async function ExposicionPage({ params }) {
     const { slug } = await params
     const exposicion = await getExposicionWithWorks(slug)
 
-    if (!exposicion) {
-        return (
-            <main className={styles.container}>
-                <p>Exposición not found</p>
-            </main>
-        )
-    }
+    if (!exposicion) notFound()
 
     const artistNames = exposicion.artists?.map(a => a.name).filter(Boolean) || []
 

@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
@@ -122,13 +123,7 @@ export default async function GuestArtistPage({ params }) {
     const { slug } = await params
     const artist = await getGuestArtistWithWorks(slug)
 
-    if (!artist) {
-        return (
-            <main className={styles.container}>
-                <p>Artist not found</p>
-            </main>
-        )
-    }
+    if (!artist) notFound()
 
     const artworks = (artist.artworks || []).filter((a) => a?.image?.asset?.url)
 

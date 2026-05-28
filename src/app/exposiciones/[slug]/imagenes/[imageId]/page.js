@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import ExposicionImageViewer from '@/components/ExposicionImageViewer'
@@ -41,12 +42,7 @@ export default async function ExposicionImagePage({ params }) {
     const { slug, imageId } = await params
     const exposicion = await getExposicionWithImages(slug)
     
-    if (!exposicion)
-        return (
-            <main style={{ padding: 'calc(var(--header-h) + 2rem) var(--edge)' }}>
-                Not found
-            </main>
-        )
+    if (!exposicion) notFound()
 
     const artistNames = exposicion.artists?.map(a => a.name).filter(Boolean) || []
 

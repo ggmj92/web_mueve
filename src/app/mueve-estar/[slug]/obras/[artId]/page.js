@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import ArtworkViewer from '@/components/ArtworkViewer'
 import NewsletterModal from '@/components/NewsletterModal'
@@ -35,12 +36,7 @@ async function getGuestArtistWithWorks(slug) {
 export default async function GuestArtworkPage({ params }) {
     const { slug, artId } = await params
     const artist = await getGuestArtistWithWorks(slug)
-    if (!artist)
-        return (
-            <main style={{ padding: 'calc(var(--header-h) + 2rem) var(--edge)' }}>
-                Not found
-            </main>
-        )
+    if (!artist) notFound()
 
     const slides = (artist.artworks || [])
         .filter((a) => a?.image?.asset?.url)

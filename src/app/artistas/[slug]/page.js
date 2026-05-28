@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
@@ -137,13 +138,7 @@ export default async function ArtistPage({ params }) {
     const { slug } = await params
     const artist = await getArtistWithWorks(slug)
 
-    if (!artist) {
-        return (
-            <main className={styles.container}>
-                <p>Artist not found</p>
-            </main>
-        )
-    }
+    if (!artist) notFound()
 
     // Get the featured artwork for the static hero image, fallback to first artwork
     const artworks = (artist.artworks || []).filter((a) => a?.image?.asset?.url)

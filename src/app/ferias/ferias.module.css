@@ -30,8 +30,7 @@
 
 .itemLink {
   display: flex;
-  justify-content: space-between;
-  align-items: baseline;
+  align-items: flex-start;
   width: 100%;
   font-size: 20px;
   color: #000;
@@ -40,16 +39,18 @@
 }
 
 .itemName {
-  flex: 1;
+  flex: 1 1 0;
 }
 
 .itemYear {
-  flex-shrink: 0;
+  flex: 0 0 5rem;
+  text-align: right;
   white-space: nowrap;
 }
 
 .itemDate {
-  flex-shrink: 0;
+  flex: 0 0 13rem;
+  text-align: right;
   white-space: nowrap;
   font-style: italic;
   opacity: 0.8;

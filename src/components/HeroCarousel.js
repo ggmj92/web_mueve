@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { hotspotToObjectPosition } from '@/sanity/lib/image'
 import styles from '@/app/homepage.module.css'
 
@@ -87,11 +87,11 @@ export default function HeroCarousel({ slides }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const goToSlide = (targetIndex) => {
+    const goToSlide = useCallback((targetIndex) => {
         if (!slides?.length || targetIndex === index) return
-        
+
         clearTimeout(timerRef.current)
-        const back = 1 - front // hidden layer
+        const back = 1 - front
 
         setLayers((prev) => {
             const copy = [...prev]
@@ -106,7 +106,7 @@ export default function HeroCarousel({ slides }) {
 
         setFront(back)
         setIndex(targetIndex)
-    }
+    }, [slides, index, front])
 
     const goNext = () => {
         const nextIndex = (index + 1) % slides.length

@@ -111,6 +111,7 @@ export default function ArtworkCarousel({ artworks, artistSlug, basePath = '/art
                                     src={desktopImageUrl}
                                     alt={aw.title || 'Artwork'}
                                     className={styles.cardImage}
+                                    onError={(e) => { e.currentTarget.style.display = 'none' }}
                                 />
                             </picture>
                         </a>

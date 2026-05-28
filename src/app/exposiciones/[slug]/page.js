@@ -170,6 +170,7 @@ export default async function ExposicionPage({ params }) {
                             alt={exposicion.title || 'Exposición'}
                             className={styles.heroImg}
                             style={{ objectPosition: hotspotToObjectPosition(heroImage.image.hotspot) }}
+                            onError={(e) => { e.currentTarget.style.display = 'none' }}
                         />
                     </div>
                 </section>

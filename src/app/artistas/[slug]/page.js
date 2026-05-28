@@ -180,6 +180,7 @@ export default async function ArtistPage({ params }) {
                             alt={heroArtwork.title || 'Artwork'}
                             className={styles.heroImg}
                             style={{ objectPosition: hotspotToObjectPosition(heroArtwork.image.hotspot) }}
+                            onError={(e) => { e.currentTarget.style.display = 'none' }}
                         />
                     </div>
                 </section>

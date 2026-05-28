@@ -52,7 +52,7 @@ export default async function NosotrosPage() {
         externalLink
       }
     }`,
-    revalidate: 0, // Always revalidate for live updates
+    revalidate: 3600,
   });
 
   return (

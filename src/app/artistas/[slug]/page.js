@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
@@ -130,20 +131,19 @@ async function getArtistWithWorks(slug) {
       }
     }
   }`
-    return client.fetch(query, { slug })
+    try {
+        return await client.fetch(query, { slug })
+    } catch (err) {
+        console.error('Sanity fetch error:', err)
+        return null
+    }
 }
 
 export default async function ArtistPage({ params }) {
     const { slug } = await params
     const artist = await getArtistWithWorks(slug)
 
-    if (!artist) {
-        return (
-            <main className={styles.container}>
-                <p>Artist not found</p>
-            </main>
-        )
-    }
+    if (!artist) notFound()
 
     // Get the featured artwork for the static hero image, fallback to first artwork
     const artworks = (artist.artworks || []).filter((a) => a?.image?.asset?.url)
@@ -185,6 +185,7 @@ export default async function ArtistPage({ params }) {
                             alt={heroArtwork.title || 'Artwork'}
                             className={styles.heroImg}
                             style={{ objectPosition: hotspotToObjectPosition(heroArtwork.image.hotspot) }}
+                            onError={(e) => { e.currentTarget.style.display = 'none' }}
                         />
                     </div>
                 </section>

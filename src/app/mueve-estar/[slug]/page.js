@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
@@ -115,20 +116,19 @@ async function getGuestArtistWithWorks(slug) {
       }
     }
   }`
-    return client.fetch(query, { slug })
+    try {
+        return await client.fetch(query, { slug })
+    } catch (err) {
+        console.error('Sanity fetch error:', err)
+        return null
+    }
 }
 
 export default async function GuestArtistPage({ params }) {
     const { slug } = await params
     const artist = await getGuestArtistWithWorks(slug)
 
-    if (!artist) {
-        return (
-            <main className={styles.container}>
-                <p>Artist not found</p>
-            </main>
-        )
-    }
+    if (!artist) notFound()
 
     const artworks = (artist.artworks || []).filter((a) => a?.image?.asset?.url)
 
@@ -164,6 +164,7 @@ export default async function GuestArtistPage({ params }) {
                             alt={heroArtwork.title || 'Artwork'}
                             className={styles.heroImg}
                             style={{ objectPosition: hotspotToObjectPosition(heroArtwork.image.hotspot) }}
+                            onError={(e) => { e.currentTarget.style.display = 'none' }}
                         />
                     </div>
                 </section>

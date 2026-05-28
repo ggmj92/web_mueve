@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
 import { urlFor } from '@/sanity/lib/image'
 import ExposicionImageViewer from '@/components/ExposicionImageViewer'
@@ -34,19 +35,19 @@ async function getExposicionWithImages(slug) {
       }
     }
   }`
-    return client.fetch(query, { slug })
+    try {
+        return await client.fetch(query, { slug })
+    } catch (err) {
+        console.error('Sanity fetch error:', err)
+        return null
+    }
 }
 
 export default async function ExposicionImagePage({ params }) {
     const { slug, imageId } = await params
     const exposicion = await getExposicionWithImages(slug)
     
-    if (!exposicion)
-        return (
-            <main style={{ padding: 'calc(var(--header-h) + 2rem) var(--edge)' }}>
-                Not found
-            </main>
-        )
+    if (!exposicion) notFound()
 
     const artistNames = exposicion.artists?.map(a => a.name).filter(Boolean) || []
 

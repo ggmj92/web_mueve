@@ -123,7 +123,7 @@ export default function MueveEstarCarousel({ images }) {
                                 className={styles.carouselImage}
                                 style={{ objectPosition: hotspotToObjectPosition(img.hotspot) }}
                                 onError={() => handleImageError(index)}
-                                loading="lazy"
+                                loading="eager"
                             />
                         </div>
                     )

@@ -174,6 +174,7 @@ export default function HeroCarousel({ slides }) {
                     className={styles.heroImage}
                     style={{ objectPosition: hotspotToObjectPosition(layers[0].hotspot) }}
                     onError={(e) => { e.currentTarget.style.display = 'none' }}
+                    loading="eager"
                 />
             </div>
             <div
@@ -186,6 +187,7 @@ export default function HeroCarousel({ slides }) {
                     className={styles.heroImage}
                     style={{ objectPosition: hotspotToObjectPosition(layers[1].hotspot) }}
                     onError={(e) => { e.currentTarget.style.display = 'none' }}
+                    loading="eager"
                 />
             </div>
 

@@ -117,6 +117,7 @@ export default function ExposicionCarousel({ artworks, exposicionSlug }) {
                                     alt={firstInfo?.title || 'Exposición image'}
                                     className={styles.cardImage}
                                     onError={(e) => { e.currentTarget.style.display = 'none' }}
+                                    loading="lazy"
                                 />
                             </picture>
                         </a>

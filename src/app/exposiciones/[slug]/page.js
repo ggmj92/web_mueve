@@ -203,9 +203,6 @@ export default async function ExposicionPage({ params }) {
                     heroImage.image.hotspot
                   ),
                 }}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
-                }}
                 loading="eager"
               />
             </div>

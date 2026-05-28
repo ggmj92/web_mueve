@@ -203,9 +203,6 @@ export default async function ArtistPage({ params }) {
                     heroArtwork.image.hotspot
                   ),
                 }}
-                onError={(e) => {
-                  e.currentTarget.style.display = 'none'
-                }}
                 loading="eager"
               />
             </div>

@@ -54,6 +54,14 @@ export default {
               initialValue: 5000,
               validation: (Rule) => Rule.min(500),
             },
+            {
+              name: 'dateAdded',
+              title: 'Fecha de Adición',
+              type: 'datetime',
+              description:
+                'Se usa para ordenar los slides (más reciente primero). Se establece automáticamente al crear el slide; los slides existentes se completan mediante un script de migración.',
+              initialValue: () => new Date().toISOString(),
+            },
           ],
           preview: {
             select: {

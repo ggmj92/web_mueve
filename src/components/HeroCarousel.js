@@ -9,6 +9,10 @@ export default function HeroCarousel({ slides }) {
   const [front, setFront] = useState(0)
   const [isMobile, setIsMobile] = useState(false)
   const timerRef = useRef(null)
+  // Bumped on every navigation (manual or auto) so an autoplay tick that was
+  // already in flight when a nav click fires can detect it's stale and no-op
+  // instead of overriding the click's target slide.
+  const navTokenRef = useRef(0)
   const [leftHover, setLeftHover] = useState(false)
   const [rightHover, setRightHover] = useState(false)
 
@@ -91,6 +95,7 @@ export default function HeroCarousel({ slides }) {
     (targetIndex) => {
       if (!slides?.length || targetIndex === index) return
 
+      navTokenRef.current += 1
       clearTimeout(timerRef.current)
       const back = 1 - front
 
@@ -126,10 +131,15 @@ export default function HeroCarousel({ slides }) {
     if (!slides?.length) return
 
     const nextIndex = (index + 1) % slides.length
+    const scheduledToken = navTokenRef.current
 
     const startTimer = () => {
       clearTimeout(timerRef.current)
       timerRef.current = setTimeout(() => {
+        // A manual (or other) navigation may have already bumped the token
+        // between this timer being scheduled and firing — if so, this tick
+        // is stale and must not override whatever the user navigated to.
+        if (navTokenRef.current !== scheduledToken) return
         goToSlide(nextIndex)
       }, durations[index])
     }

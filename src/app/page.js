@@ -8,12 +8,12 @@ import styles from './homepage.module.css'
 async function getHomepageSlides() {
   const data = await sanityFetch({
     query: `*[_type == "homepage"][0]{
-    slides[]{ 
-      image{ 
+    "slides": slides[] | order(dateAdded desc){
+      image{
         asset->{ "_ref": _id, _id, url },
         crop,
         hotspot
-      }, 
+      },
       durationMs
     }
   }`,

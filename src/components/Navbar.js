@@ -121,13 +121,6 @@ export default function Navbar() {
             >
               Nosotros
             </Link>
-            <Link
-              href="/mueve-estar"
-              className={`${styles.navLink} notranslate`}
-              onClick={closeMenu}
-            >
-              mueve (estar )
-            </Link>
           </div>
         </nav>
       </div>

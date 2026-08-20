@@ -17,6 +17,22 @@ const nextConfig = {
   // Compression
   compress: true,
 
+  // Redirects for retired routes
+  async redirects() {
+    return [
+      {
+        source: '/mueve-estar',
+        destination: '/artistas',
+        permanent: true,
+      },
+      {
+        source: '/mueve-estar/:slug',
+        destination: '/artistas/invitados/:slug',
+        permanent: true,
+      },
+    ]
+  },
+
   // Headers for better SEO and security
   async headers() {
     return [

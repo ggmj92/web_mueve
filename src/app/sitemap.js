@@ -45,12 +45,6 @@ export default async function sitemap() {
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/mueve-estar`,
-      lastModified: new Date(),
-      changeFrequency: 'monthly',
-      priority: 0.8,
-    },
-    {
       url: `${baseUrl}/ferias`,
       lastModified: new Date(),
       changeFrequency: 'monthly',
@@ -88,7 +82,7 @@ export default async function sitemap() {
 
   // Dynamic guest artist pages
   const guestArtistPages = guestArtists.map((ga) => ({
-    url: `${baseUrl}/mueve-estar/${ga.slug.current}`,
+    url: `${baseUrl}/artistas/invitados/${ga.slug.current}`,
     lastModified: new Date(ga._updatedAt),
     changeFrequency: 'monthly',
     priority: 0.8,

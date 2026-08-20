@@ -40,6 +40,21 @@ export default {
       initialValue: false,
     },
     {
+      name: 'status',
+      title: 'Estado',
+      type: 'string',
+      description:
+        'Estado de la feria para agrupar la lista en /ferias. Este campo es manual: no se calcula automáticamente a partir de "Es Actual" ni del rango de fechas — debe actualizarse a mano.',
+      options: {
+        list: [
+          { title: 'Futura', value: 'Futura' },
+          { title: 'Presente', value: 'Presente' },
+          { title: 'Pasada', value: 'Pasada' },
+        ],
+        layout: 'radio',
+      },
+    },
+    {
       name: 'order',
       title: 'Orden de Visualización',
       type: 'number',
@@ -53,12 +68,13 @@ export default {
       title: 'title',
       year: 'year',
       dateRange: 'dateRange',
+      status: 'status',
     },
     prepare(selection) {
-      const { title, year, dateRange } = selection
+      const { title, year, dateRange, status } = selection
       return {
         title: title,
-        subtitle: `${year} - ${dateRange}`,
+        subtitle: `${year} - ${dateRange}${status ? ` · ${status}` : ' · sin estado'}`,
       }
     },
   },

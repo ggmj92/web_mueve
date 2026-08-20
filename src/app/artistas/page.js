@@ -44,20 +44,61 @@ async function getArtists() {
   }
 }
 
+async function getGuestArtists() {
+  try {
+    const query = `*[_type == "guestArtist" && defined(slug.current)] | order(name asc){
+        _id, name, "slug": slug.current,
+        artworks[]{
+          title,
+          featuredPreview,
+          image{
+            asset->{
+              "_ref": _id,
+              _id,
+              url,
+              metadata{ dimensions{ width, height, aspectRatio } }
+            },
+            hotspot,
+            crop
+          },
+          detailImages[]{
+            featuredPreview,
+            image{
+              asset->{
+                _id,
+                url,
+                metadata{ dimensions{ width, height, aspectRatio } }
+              },
+              hotspot,
+              crop
+            }
+          }
+        }
+      }`
+    return await client.fetch(query)
+  } catch (error) {
+    console.error('Error fetching guest artists:', error)
+    return []
+  }
+}
+
 export default function ArtistsPage() {
   const [artists, setArtists] = useState([])
+  const [guestArtists, setGuestArtists] = useState([])
   const [loading, setLoading] = useState(true)
   const [hoveredArtist, setHoveredArtist] = useState(null)
 
   useEffect(() => {
-    getArtists()
-      .then((artists) => {
+    Promise.all([getArtists(), getGuestArtists()])
+      .then(([artists, guestArtists]) => {
         setArtists(artists)
+        setGuestArtists(guestArtists)
         setLoading(false)
       })
       .catch((error) => {
         console.error('Error al cargar artistas:', error)
         setArtists([])
+        setGuestArtists([])
         setLoading(false)
       })
   }, [])
@@ -95,25 +136,48 @@ export default function ArtistsPage() {
             <div>
               <p>Cargando artistas...</p>
             </div>
-          ) : artists.length > 0 ? (
-            <ul className={styles.list}>
-              {artists.map((a) => (
-                <li key={a.slug ?? a._id}>
-                  <a
-                    href={`/artistas/${a.slug}`}
-                    onMouseEnter={() => setHoveredArtist(a)}
-                    onMouseLeave={() => setHoveredArtist(null)}
-                    className="notranslate"
-                  >
-                    {a.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
           ) : (
-            <div>
-              <p>No se encontraron artistas.</p>
-            </div>
+            <>
+              <h2 className={styles.listHeader}>Artistas Representados</h2>
+              {artists.length > 0 ? (
+                <ul className={styles.list}>
+                  {artists.map((a) => (
+                    <li key={a.slug ?? a._id}>
+                      <a
+                        href={`/artistas/${a.slug}`}
+                        onMouseEnter={() => setHoveredArtist(a)}
+                        onMouseLeave={() => setHoveredArtist(null)}
+                        className="notranslate"
+                      >
+                        {a.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No se encontraron artistas.</p>
+              )}
+
+              {guestArtists.length > 0 && (
+                <>
+                  <h2 className={styles.listHeader}>Artistas Invitados</h2>
+                  <ul className={styles.list}>
+                    {guestArtists.map((a) => (
+                      <li key={a.slug ?? a._id}>
+                        <a
+                          href={`/artistas/invitados/${a.slug}`}
+                          onMouseEnter={() => setHoveredArtist(a)}
+                          onMouseLeave={() => setHoveredArtist(null)}
+                          className="notranslate"
+                        >
+                          {a.name}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </>
+              )}
+            </>
           )}
         </div>
 

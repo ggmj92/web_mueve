@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { client } from '@/sanity/lib/client'
+import { urlFor } from '@/sanity/lib/image'
 import ArtworkViewer from '@/components/ArtworkViewer'
 import NewsletterModal from '@/components/NewsletterModal'
 
@@ -43,6 +44,8 @@ export default async function GuestArtworkPage({ params }) {
   const artist = await getGuestArtistWithWorks(slug)
   if (!artist) notFound()
 
+  // Expand artworks with their detail images into separate slides
+  // Use urlFor() so the Sanity CDN applies any crop the user set in Studio.
   const slides = (artist.artworks || [])
     .filter((a) => a?.image?.asset?.url)
     .flatMap((a) => {
@@ -50,7 +53,7 @@ export default async function GuestArtworkPage({ params }) {
       const mainSlide = {
         id: baseSlug,
         slug: baseSlug,
-        url: a.image.asset.url,
+        url: urlFor(a.image).quality(90).auto('format').url(),
         ar: a.image.asset.metadata?.dimensions?.aspectRatio || 1,
         title: a.title || '',
         year: a.year || '',
@@ -59,12 +62,13 @@ export default async function GuestArtworkPage({ params }) {
         description: a.description || '',
       }
 
+      // Add detail images as separate slides
       const detailSlides = (a.detailImages || [])
         .filter((d) => d?.image?.asset?.url)
         .map((d, idx) => ({
           id: `${baseSlug}-detalle-${idx + 1}`,
           slug: `${baseSlug}-detalle-${idx + 1}`,
-          url: d.image.asset.url,
+          url: urlFor(d.image).quality(90).auto('format').url(),
           ar: d.image.asset.metadata?.dimensions?.aspectRatio || 1,
           title: `${a.title || ''} (Detalle ${idx + 1})`,
           year: a.year || '',
@@ -89,7 +93,7 @@ export default async function GuestArtworkPage({ params }) {
           artistName={artist.name}
           slides={slides}
           initialIndex={index}
-          baseHref={`/mueve-estar/${slug}/obras/`}
+          baseHref={`/artistas/invitados/${slug}/obras/`}
         />
         <div
           style={{
@@ -104,7 +108,7 @@ export default async function GuestArtworkPage({ params }) {
             móviles.
           </p>
           <a
-            href={`/mueve-estar/${slug}`}
+            href={`/artistas/invitados/${slug}`}
             style={{ textDecoration: 'underline' }}
           >
             Volver a <span className="notranslate">{artist.name}</span>

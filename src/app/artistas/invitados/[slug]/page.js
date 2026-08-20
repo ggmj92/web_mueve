@@ -4,22 +4,26 @@ import { PortableText } from '@portabletext/react'
 import NewsletterModal from '@/components/NewsletterModal'
 import ScrollIndicator from '@/components/ScrollIndicator'
 import PortfolioLink from '@/components/PortfolioLink'
-import styles from '../../artistas/[slug]/artist.module.css'
-import ArtworkCarousel from '../../artistas/[slug]/ArtworkCarousel'
+import styles from '../../[slug]/artist.module.css'
+import ArtworkCarousel from '../../[slug]/ArtworkCarousel'
 import { urlFor, hotspotToObjectPosition } from '@/sanity/lib/image'
 
-export const revalidate = 0
+export const revalidate = 0 // dev-friendly
 
+// Generate metadata for SEO
 export async function generateMetadata({ params }) {
   const { slug } = await params
   const artist = await getGuestArtistWithWorks(slug)
 
   if (!artist) {
-    return { title: 'Artista no encontrado' }
+    return {
+      title: 'Artista no encontrado',
+    }
   }
 
+  // Get featured artwork image for OG image
   const artworks = (artist.artworks || []).filter((a) => a?.image?.asset?.url)
-  let ogImage = '/logos/mueve_logo.png'
+  let ogImage = '/logos/mueve_logo.png' // fallback
 
   for (const artwork of artworks) {
     if (artwork.featured && artwork.image?.asset?.url) {
@@ -35,11 +39,12 @@ export async function generateMetadata({ params }) {
     ogImage = artworks[0].image.asset.url
   }
 
+  // Extract plain text from bio for description
   const bioText =
     artist.bio
       ?.map((block) => block.children?.map((child) => child.text).join(' '))
       .join(' ')
-      .slice(0, 160) || `Obras y portfolio de ${artist.name} en Mueve Estar`
+      .slice(0, 160) || `Obras y portfolio de ${artist.name} en Mueve Galería`
 
   return {
     title: artist.name,
@@ -47,21 +52,23 @@ export async function generateMetadata({ params }) {
     keywords: [
       artist.name,
       'artista invitado',
-      'mueve estar',
       'arte contemporáneo',
+      'Mueve',
       'Mueve Galería',
+      'obras',
+      'portfolio',
     ],
     openGraph: {
-      title: `${artist.name} | Mueve Estar`,
+      title: `${artist.name} | Mueve Galería`,
       description: bioText,
-      url: `https://muevegaleria.com/mueve-estar/${slug}`,
+      url: `https://muevegaleria.com/artistas/invitados/${slug}`,
       siteName: 'Mueve Galería',
       images: [
         {
           url: ogImage,
           width: 1200,
           height: 630,
-          alt: `${artist.name} - Mueve Estar`,
+          alt: `${artist.name} - Mueve Galería`,
         },
       ],
       locale: 'es_ES',
@@ -69,12 +76,12 @@ export async function generateMetadata({ params }) {
     },
     twitter: {
       card: 'summary_large_image',
-      title: `${artist.name} | Mueve Estar`,
+      title: `${artist.name} | Mueve Galería`,
       description: bioText,
       images: [ogImage],
     },
     alternates: {
-      canonical: `/mueve-estar/${slug}`,
+      canonical: `/artistas/invitados/${slug}`,
     },
   }
 }
@@ -86,13 +93,17 @@ async function getGuestArtistWithWorks(slug) {
     bio,
     portfolioSpanish{
       file{
-        asset->{ url }
+        asset->{
+          url
+        }
       },
       externalLink
     },
     portfolioEnglish{
       file{
-        asset->{ url }
+        asset->{
+          url
+        }
       },
       externalLink
     },
@@ -120,7 +131,6 @@ async function getGuestArtistWithWorks(slug) {
         featuredPreview,
         image{
           asset->{
-            "_ref": _id,
             _id,
             url,
             metadata{ dimensions{ width, height, aspectRatio } }
@@ -145,14 +155,18 @@ export default async function GuestArtistPage({ params }) {
 
   if (!artist) notFound()
 
+  // Get the featured artwork for the static hero image, fallback to first artwork
   const artworks = (artist.artworks || []).filter((a) => a?.image?.asset?.url)
 
+  // Check for featured main image or featured detail image
   let heroArtwork = null
   for (const artwork of artworks) {
+    // Check if main image is featured
     if (artwork.featured && artwork.image) {
       heroArtwork = artwork
       break
     }
+    // Check if any detail image is featured
     if (artwork.detailImages?.length) {
       const featuredDetail = artwork.detailImages.find((d) => d.featured)
       if (featuredDetail?.image) {
@@ -162,6 +176,7 @@ export default async function GuestArtistPage({ params }) {
     }
   }
 
+  // Fallback to first artwork if no featured image
   if (!heroArtwork) {
     heroArtwork = artworks[0]
   }
@@ -171,6 +186,7 @@ export default async function GuestArtistPage({ params }) {
       <NewsletterModal />
       <ScrollIndicator />
       <main>
+        {/* Top: static hero image */}
         {heroArtwork && (
           <section className={styles.hero}>
             <div className={styles.heroImage}>
@@ -193,6 +209,7 @@ export default async function GuestArtistPage({ params }) {
           </section>
         )}
 
+        {/* Below the fold: artist info section (left aligned to page edge) */}
         <section className={styles.info}>
           <div className={styles.infoRow}>
             <h1 className={`${styles.name} notranslate`}>{artist.name}</h1>
@@ -210,13 +227,14 @@ export default async function GuestArtistPage({ params }) {
           ) : null}
         </section>
 
+        {/* 5-up portrait cards; infinite carousel on desktop if more than 5 */}
         {artist.artworks?.length > 0 && (
           <section className={styles.cardsSection}>
             <h2 className={styles.mobileHeader}>Obras Seleccionadas</h2>
             <ArtworkCarousel
               artworks={artist.artworks}
               artistSlug={slug}
-              basePath="/mueve-estar"
+              basePath="/artistas/invitados"
             />
           </section>
         )}

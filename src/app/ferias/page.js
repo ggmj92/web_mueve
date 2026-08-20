@@ -1,5 +1,6 @@
 'use client'
 
+import Link from 'next/link'
 import { client } from '@/sanity/lib/client'
 import { Fragment, useState, useEffect } from 'react'
 import NewsletterModal from '@/components/NewsletterModal'
@@ -16,7 +17,8 @@ async function getFerias() {
         dateRange,
         isCurrent,
         status,
-        order
+        order,
+        "hasDescription": defined(description) && count(description) > 0
       }`
     return await client.fetch(query)
   } catch (error) {
@@ -106,17 +108,38 @@ export default function FeriasPage() {
               <Fragment key={group.header}>
                 <h2 className={styles.listHeader}>{group.header}</h2>
                 <ul className={styles.list}>
-                  {group.items.map((f) => (
-                    <li key={f.slug ?? f._id} className={styles.listItem}>
-                      <div className={styles.itemLink}>
-                        <span className={`${styles.itemName} notranslate`}>
-                          {f.title}
-                        </span>
-                        <span className={styles.itemYear}>{f.year}</span>
-                        <span className={styles.itemDate}>{f.dateRange}</span>
-                      </div>
-                    </li>
-                  ))}
+                  {group.items.map((f) =>
+                    f.hasDescription ? (
+                      <li key={f.slug ?? f._id} className={styles.listItem}>
+                        <Link
+                          href={`/ferias/${f.slug}`}
+                          className={styles.itemLink}
+                        >
+                          <span className={`${styles.itemName} notranslate`}>
+                            {f.title}
+                          </span>
+                          <span className={styles.itemYear}>{f.year}</span>
+                          <span className={styles.itemDate}>
+                            {f.dateRange}
+                          </span>
+                        </Link>
+                      </li>
+                    ) : (
+                      <li key={f.slug ?? f._id} className={styles.listItem}>
+                        <div
+                          className={`${styles.itemLink} ${styles.itemLinkDisabled}`}
+                        >
+                          <span className={`${styles.itemName} notranslate`}>
+                            {f.title}
+                          </span>
+                          <span className={styles.itemYear}>{f.year}</span>
+                          <span className={styles.itemDate}>
+                            {f.dateRange}
+                          </span>
+                        </div>
+                      </li>
+                    )
+                  )}
                 </ul>
               </Fragment>
             ))

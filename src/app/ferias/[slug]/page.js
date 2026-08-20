@@ -206,7 +206,9 @@ export default async function FeriaPage({ params }) {
         )}
 
         {/* Below the fold: feria info section (left aligned to page edge) */}
-        <section className={styles.info}>
+        <section
+          className={`${styles.info} ${!heroImage ? styles.infoNoHero : ''}`}
+        >
           <div className={styles.infoRow}>
             <h1 className={`${styles.name} notranslate`}>{feria.title}</h1>
             <PortfolioLink

@@ -32,6 +32,14 @@
   color: black;
 }
 
+/* When there's no hero image (e.g. a feria with no images yet), .info is
+   the first element on the page and needs its own clearance under the
+   fixed header — normally provided by .hero's margin-top. */
+.infoNoHero {
+  margin-top: var(--header-h, 100px);
+  padding-top: 2rem;
+}
+
 .infoRow {
   display: flex;
   align-items: baseline;
